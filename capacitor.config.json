@@ -1,6 +1,6 @@
 {
   "appId": "com.clickcloud.pricingapp",
   "appName": "Click Cloud Studio",
-  "webDir": ".",
+  "webDir": "www",
   "bundledWebRuntime": false
 }
