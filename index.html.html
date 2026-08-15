@@ -2,7 +2,7 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Click Cloud Photography - Pricing App (₹)</title>
     <!-- QR Code, html2canvas & jsPDF Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -50,7 +50,7 @@
             --accent-text: #fbbf24;
         }
 
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; background: var(--bg); color: var(--text); padding: 12px; transition: all 0.3s ease; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; background: var(--bg); color: var(--text); padding: 12px; transition: all 0.3s ease; -webkit-tap-highlight-color: transparent; }
         .app-container { max-width: 600px; margin: 0 auto; background: var(--card); border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); overflow: hidden; border: 1px solid var(--border); }
         
         .app-header { background: var(--header-bg); color: var(--header-text); padding: 16px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px; }
@@ -133,31 +133,70 @@
         .btn-qh-delete { background: #ef4444; color: white; border: none; padding: 6px 10px; border-radius: 6px; font-size: 0.8rem; cursor: pointer; }
         .status-select { padding: 4px 8px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; border: 1px solid var(--border); cursor: pointer; }
 
-        .hidden { display: none; }
+        .hidden { display: none !important; }
 
-        /* OFF-SCREEN PDF RENDER STYLES */
-        #pdf-container-root {
-            position: absolute;
-            left: -9999px;
-            top: 0;
-            width: 210mm;
-            background: #ffffff;
+        /* IN-APP PREVIEW MODAL (FOR MOBILE & WEB) */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.85);
+            display: flex;
+            flex-direction: column;
+            z-index: 99999;
+            backdrop-filter: blur(4px);
+        }
+        .modal-header-bar {
+            background: #1e293b;
+            color: #fff;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #334155;
+        }
+        .modal-header-bar h3 { margin: 0; font-size: 1rem; }
+        .modal-close-btn { background: #ef4444; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; }
+        .modal-body {
+            flex: 1;
+            overflow: auto;
+            padding: 12px;
+            display: flex;
+            justify-content: center;
+            -webkit-overflow-scrolling: touch;
+        }
+        .modal-footer-bar {
+            background: #0f172a;
+            padding: 12px 16px;
+            display: flex;
+            gap: 10px;
+        }
+        .modal-footer-bar button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
         }
 
+        /* PDF LAYOUT CONTAINER */
         .pdf-render-box {
-            background: #fdfdfd;
-            width: 210mm;
-            min-height: 297mm;
+            background: #ffffff;
+            width: 794px; /* Exact A4 aspect at 96 DPI */
+            min-height: 1123px;
             box-sizing: border-box;
             position: relative;
             font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0 auto;
+            color: #333333;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
 
         .pdf-header-wave-box {
             background: #2b2d30;
             color: #ffffff;
-            padding: 26px 22mm 45px 22mm;
+            padding: 26px 30px 45px 30px;
             position: relative;
         }
         .pdf-header-wave-box::after {
@@ -167,7 +206,7 @@
             left: 0;
             right: 0;
             height: 30px;
-            background: #fdfdfd;
+            background: #ffffff;
             border-top-left-radius: 50% 20px;
             border-top-right-radius: 50% 20px;
         }
@@ -183,8 +222,8 @@
             gap: 12px;
         }
         .pdf-logo-icon {
-            width: 42px;
-            height: 42px;
+            width: 44px;
+            height: 44px;
             background: #f3af3d;
             border-radius: 8px;
             display: flex;
@@ -197,7 +236,7 @@
             width: 100%; height: 100%; object-fit: contain;
         }
         .pdf-company-title {
-            font-size: 17pt;
+            font-size: 18pt;
             font-weight: 800;
             letter-spacing: 1px;
             margin: 0;
@@ -207,13 +246,13 @@
         .pdf-contact-header {
             text-align: right;
             max-width: 55%;
-            font-size: 8.5pt;
+            font-size: 9pt;
             color: #e2e8f0;
             line-height: 1.45;
         }
         .pdf-contact-header strong {
             color: #f3af3d;
-            font-size: 9.5pt;
+            font-size: 10pt;
             letter-spacing: 0.5px;
             text-transform: uppercase;
             display: block;
@@ -221,7 +260,7 @@
         }
 
         .pdf-body-area {
-            padding: 20px 22mm 25mm 22mm;
+            padding: 20px 30px 30px 30px;
         }
         
         .pdf-top-title-row {
@@ -244,13 +283,13 @@
             border-left: 5px solid #f3af3d;
             padding: 12px 18px;
             border-radius: 6px;
-            font-size: 9.5pt;
+            font-size: 10pt;
             color: #222222;
             margin-bottom: 20px;
         }
         .pdf-client-card-full h4 {
             margin: 0 0 8px 0;
-            font-size: 9.5pt;
+            font-size: 10pt;
             color: #b8860b;
             text-transform: uppercase;
             letter-spacing: 1.5px;
@@ -279,7 +318,7 @@
         }
         .pdf-wave-table th {
             padding: 10px 14px;
-            font-size: 9pt;
+            font-size: 9.5pt;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -296,7 +335,7 @@
         }
         .pdf-wave-table td {
             padding: 12px 14px;
-            font-size: 9.5pt;
+            font-size: 10pt;
             color: #333333;
         }
         .pdf-row-even {
@@ -311,8 +350,8 @@
         }
         .pdf-terms-left {
             width: 50%;
-            font-size: 8.5pt;
-            color: #666666;
+            font-size: 9pt;
+            color: #555555;
             line-height: 1.5;
         }
         .pdf-terms-left strong {
@@ -342,11 +381,11 @@
         }
         .pdf-summary-table {
             width: 100%;
-            font-size: 9.5pt;
+            font-size: 10pt;
             border-collapse: collapse;
         }
         .pdf-summary-table td {
-            padding: 5px 10px;
+            padding: 6px 10px;
         }
         .pdf-gold-total-bar {
             background: #f3af3d !important;
@@ -365,12 +404,12 @@
             right: 0;
             background: #f3af3d !important;
             color: #2b2d30 !important;
-            padding: 14px 22mm;
+            padding: 14px 30px;
             display: grid;
             grid-template-columns: 1fr auto 1fr;
             align-items: center;
             box-sizing: border-box;
-            font-size: 8.5pt;
+            font-size: 9pt;
             font-weight: bold;
             border-top: 1px solid #d4a02c;
         }
@@ -396,7 +435,6 @@
 
     <!-- CALCULATOR TAB -->
     <div id="tab-calc" class="tab-content">
-        <!-- CUSTOMER & EVENT DETAILS INPUTS -->
         <div class="client-info-box">
             <h4>📋 Client & Event Details</h4>
             <div class="input-grid">
@@ -433,7 +471,7 @@
         <!-- 2x2 ACTION BUTTON GRID -->
         <div class="btn-action-grid">
             <button class="btn-download-pdf" id="btn-dl-text" onclick="downloadPdfDirectly()">📥 Download PDF</button>
-            <button class="btn-print" id="btn-pr-text" onclick="previewPdfInNewTab()">👁️ Preview PDF</button>
+            <button class="btn-print" id="btn-pr-text" onclick="openPreviewModal()">👁️ Preview PDF</button>
             <button class="btn-whatsapp" onclick="sendWhatsAppSummary()">💬 Send WhatsApp</button>
             <button class="btn-save-qh" onclick="saveQuotationToHistory(true)">💾 Save to History</button>
         </div>
@@ -453,14 +491,12 @@
 
     <!-- ADVANCE TAB -->
     <div id="tab-advance" class="tab-content hidden">
-        <!-- UPI PAYMENT QR CARD -->
         <div style="background: var(--sub-card); border: 1px solid var(--sub-border); padding: 12px; border-radius: 8px; margin-bottom: 16px;">
             <label style="font-weight: bold; font-size: 0.85rem; color: var(--accent-text);">💳 UPI Payment QR Code Setup (For PDF):</label>
             <input type="text" id="upi-id-input" class="edit-input" placeholder="e.g. 98270XXXXX@ybl or gpay/paytm UPI ID" oninput="handleUpiInput(this.value)">
             <div style="font-size: 0.75rem; color: #64748b; margin-top: 4px;">Enter UPI ID to generate auto Advance-Payment QR Code on PDF.</div>
         </div>
 
-        <!-- LOGO MANAGEMENT CARD -->
         <div style="background: var(--sub-card); border: 1px solid var(--sub-border); padding: 12px; border-radius: 8px; margin-bottom: 16px;">
             <label style="font-weight: bold; font-size: 0.85rem; color: var(--accent-text);">🖼️ Studio Logo Import (Auto-Connect to PDF & App):</label>
             <div style="display: flex; gap: 10px; align-items: center; margin-top: 8px;">
@@ -499,7 +535,6 @@
         <p style="font-size: 0.8rem; color: #16a34a; font-weight: bold;">✓ All changes are automatically saved in local memory.</p>
         <div id="advance-edit-list"></div>
 
-        <!-- ADD NEW SERVICE ITEM BOX -->
         <div style="background: var(--bg); border: 1px dashed var(--border); padding: 12px; border-radius: 8px; margin-top: 16px;">
             <h4 style="margin: 0 0 8px 0; font-size: 0.9rem;">➕ Add New Custom Service Item</h4>
             <div style="display: flex; gap: 8px; margin-bottom: 8px;">
@@ -515,17 +550,24 @@
         <br><br>
         <button class="btn-reset" onclick="resetToDefaults()">🔄 Reset App to Default</button>
     </div>
+</div>
 
-    <!-- PDF TEMPLATE (RENDERED OFF-SCREEN FOR CANVAS GENERATION) -->
-    <div id="pdf-container-root">
-        <div class="pdf-render-box">
+<!-- IN-APP QUOTATION PREVIEW & EXPORT MODAL -->
+<div id="pdf-preview-modal" class="modal-overlay hidden">
+    <div class="modal-header-bar">
+        <h3>📄 Quotation Preview</h3>
+        <button class="modal-close-btn" onclick="closePreviewModal()">✖ Close</button>
+    </div>
+    <div class="modal-body" id="modal-body-scroll">
+        <!-- Render Box Live -->
+        <div class="pdf-render-box" id="modal-pdf-content">
             <div class="pdf-header-wave-box">
                 <div class="pdf-header-top-flex">
                     <div class="pdf-logo-area">
                         <div class="pdf-logo-icon" id="pdf-logo-icon-box">📸</div>
                         <div>
                             <h1 class="pdf-company-title" id="pdf-logo-company">CLICK CLOUD</h1>
-                            <div style="font-size: 7.5pt; color: #f3af3d; letter-spacing: 2px;">PHOTOGRAPHY & FILMS</div>
+                            <div style="font-size: 8pt; color: #f3af3d; letter-spacing: 2px;">PHOTOGRAPHY & FILMS</div>
                         </div>
                     </div>
                     <div class="pdf-contact-header">
@@ -572,9 +614,7 @@
                             <th class="pdf-th-dark" width="45%" style="text-align: right;">BOOKING DATES</th>
                         </tr>
                     </thead>
-                    <tbody id="pdf-wave-tbody">
-                        <!-- Dynamic selected items -->
-                    </tbody>
+                    <tbody id="pdf-wave-tbody"></tbody>
                 </table>
 
                 <div class="pdf-totals-flex">
@@ -588,9 +628,9 @@
                         <div class="pdf-qr-section" id="pdf-qr-container" style="display: none;">
                             <div class="pdf-qr-box" id="pdf-qrcode-div"></div>
                             <div>
-                                <strong style="color: #b8860b; font-size: 8pt;">SCAN TO PAY 50% ADVANCE:</strong><br>
-                                <span id="pdf-upi-id-label" style="font-size: 7.5pt; color: #333; font-weight: bold;"></span><br>
-                                <span style="font-size: 7pt; color: #666;">Scan via GPay / PhonePe / Paytm</span>
+                                <strong style="color: #b8860b; font-size: 8.5pt;">SCAN TO PAY 50% ADVANCE:</strong><br>
+                                <span id="pdf-upi-id-label" style="font-size: 8pt; color: #333; font-weight: bold;"></span><br>
+                                <span style="font-size: 7.5pt; color: #666;">Scan via GPay / PhonePe / Paytm</span>
                             </div>
                         </div>
                     </div>
@@ -606,7 +646,7 @@
                                 <td style="text-align: right;" id="pdf-grand-val">₹0</td>
                             </tr>
                             <tr>
-                                <td colspan="2" style="font-size: 8pt; color: #333333; text-align: right; padding-top: 6px;">
+                                <td colspan="2" style="font-size: 8.5pt; color: #333333; text-align: right; padding-top: 6px;">
                                     <strong>50% Advance Booking Lock:</strong> <span id="pdf-advance-val" style="color: #1d4ed8; font-weight: bold;">₹0</span>
                                 </td>
                             </tr>
@@ -621,6 +661,10 @@
                 <div class="pdf-footer-col-right">Authorized Signatory</div>
             </div>
         </div>
+    </div>
+    <div class="modal-footer-bar">
+        <button style="background: #0284c7; color: #fff;" onclick="downloadPdfDirectly()">💾 Save / Share PDF</button>
+        <button style="background: #16a34a; color: #fff;" onclick="window.print()">🖨️ Print Document</button>
     </div>
 </div>
 
@@ -697,59 +741,71 @@
         }
     }
 
-    /* DIRECT PDF DOWNLOAD ENGINE USING HTML2CANVAS + JSPDF */
-    async function generatePdfCanvas() {
+    /* IN-APP PREVIEW MODAL CONTROL */
+    function openPreviewModal() {
         saveQuotationToHistory(false);
-        const pdfRoot = document.getElementById('pdf-container-root');
-        
-        // Render html to canvas
-        const canvas = await html2canvas(pdfRoot.querySelector('.pdf-render-box'), {
-            scale: 2,
-            useCORS: true,
-            logging: false
-        });
-
-        const imgData = canvas.toDataURL('image/jpeg', 0.95);
-        const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF('p', 'mm', 'a4');
-        
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-
-        pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
-        return pdf;
+        updatePdfFields();
+        document.getElementById('pdf-preview-modal').classList.remove('hidden');
     }
 
+    function closePreviewModal() {
+        document.getElementById('pdf-preview-modal').classList.add('hidden');
+    }
+
+    /* 100% RELIABLE ANDROID-COMPATIBLE PDF EXPORT / DOWNLOAD */
     async function downloadPdfDirectly() {
+        saveQuotationToHistory(false);
         const dlBtn = document.getElementById('btn-dl-text');
-        dlBtn.innerText = "⏳ Generating...";
+        dlBtn.innerText = "⏳ Processing...";
+
+        let custName = document.getElementById('cust-name').value.trim() || "Client";
+        let fileName = `Quotation_${custName.replace(/\s+/g, '_')}.pdf`;
+
+        // Temporarily make sure modal content is active
+        const renderElement = document.getElementById('modal-pdf-content');
+        const modal = document.getElementById('pdf-preview-modal');
+        const wasHidden = modal.classList.contains('hidden');
+        if (wasHidden) modal.classList.remove('hidden');
 
         try {
-            let custName = document.getElementById('cust-name').value.trim() || "Client";
-            let fileName = `Quotation_${custName.replace(/\s+/g, '_')}.pdf`;
-            const pdf = await generatePdfCanvas();
-            pdf.save(fileName);
+            const canvas = await html2canvas(renderElement, {
+                scale: 2,
+                useCORS: true,
+                logging: false,
+                backgroundColor: '#ffffff'
+            });
+
+            if (wasHidden) modal.classList.add('hidden');
+
+            const imgData = canvas.toDataURL('image/jpeg', 0.95);
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+            pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+
+            // Native Android Web Share Check (Direct PDF File Sharing to WhatsApp / Downloads)
+            const pdfBlob = pdf.output('blob');
+            const pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
+
+            if (navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
+                await navigator.share({
+                    files: [pdfFile],
+                    title: fileName,
+                    text: `Official Quotation for ${custName}`
+                });
+            } else {
+                pdf.save(fileName);
+            }
+
             dlBtn.innerText = "📥 Download PDF";
         } catch(err) {
             console.error("PDF generation failed:", err);
+            if (wasHidden) modal.classList.add('hidden');
             dlBtn.innerText = "📥 Download PDF";
-            alert("PDF Generate karne me error aaya!");
-        }
-    }
-
-    async function previewPdfInNewTab() {
-        const prBtn = document.getElementById('btn-pr-text');
-        prBtn.innerText = "⏳ Opening...";
-
-        try {
-            const pdf = await generatePdfCanvas();
-            const pdfBlob = pdf.output('bloburl');
-            window.open(pdfBlob, '_blank');
-            prBtn.innerText = "👁️ Preview PDF";
-        } catch(err) {
-            console.error(err);
-            prBtn.innerText = "👁️ Preview PDF";
-            alert("PDF Preview open karne me error aaya!");
+            alert("PDF generate ho gaya hai! Aap Preview me se bhi save/print kar sakte hain.");
+            openPreviewModal();
         }
     }
 
