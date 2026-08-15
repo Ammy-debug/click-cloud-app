@@ -29,13 +29,13 @@ jobs:
       - name: Prepare Web Directory & Copy HTML
         run: |
           mkdir -p www
-          # Kisi bhi HTML file ko auto find karke www/index.html bana dega
-          HTML_FILE=$(find . -maxdepth 2 -iname "*.html" ! -path "./www/*" | head -n 1)
+          # Kisi bhi .html file ko chahe index.html.html ho, use www/index.html bana dega
+          HTML_FILE=$(find . -maxdepth 2 -iname "*.html*" ! -path "./www/*" | head -n 1)
           if [ -n "$HTML_FILE" ]; then
             echo "Found HTML file: $HTML_FILE"
             cp "$HTML_FILE" www/index.html
           else
-            echo "Error: Koi bhi .html file nahi mili repository me!"
+            echo "Error: Koi bhi HTML file nahi mili!"
             exit 1
           fi
           npm install
