@@ -26,10 +26,10 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Setup ImageMagick
+      - name: Setup ImageMagick & Python
         run: |
           sudo apt-get update
-          sudo apt-get install -y imagemagick
+          sudo apt-get install -y imagemagick python3
 
       - name: Prepare Web Directory & Copy HTML
         run: |
@@ -39,7 +39,7 @@ jobs:
             echo "Found HTML file: $HTML_FILE"
             cp "$HTML_FILE" www/index.html
           else
-            echo "Error: Koi bhi HTML file nahi mili!"
+            echo "Error: Koi HTML file nahi mili!"
             exit 1
           fi
           npm install
@@ -54,67 +54,65 @@ jobs:
 
       - name: Generate Complete Android Adaptive & Legacy App Icons
         run: |
+          python3 -c '
+          import os, glob, subprocess
+
           # 1. Update App Name to WED+CAL
-          STRINGS_FILE="android/app/src/main/res/values/strings.xml"
-          if [ -f "$STRINGS_FILE" ]; then
-            sed -i 's/<string name="app_name">.*<\/string>/<string name="app_name">WED+CAL<\/string>/g' "$STRINGS_FILE"
-            sed -i 's/<string name="title_activity_main">.*<\/string>/<string name="title_activity_main">WED+CAL<\/string>/g' "$STRINGS_FILE"
-          fi
+          strings_path = "android/app/src/main/res/values/strings.xml"
+          if os.path.exists(strings_path):
+              with open(strings_path, "r", encoding="utf-8") as f:
+                  content = f.read()
+              import re
+              content = re.sub(r"<string name=\"app_name\">.*?</string>", "<string name=\"app_name\">WED+CAL</string>", content)
+              content = re.sub(r"<string name=\"title_activity_main\">.*?</string>", "<string name=\"title_activity_main\">WED+CAL</string>", content)
+              with open(strings_path, "w", encoding="utf-8") as f:
+                  f.write(content)
+              print("✓ Strings updated to WED+CAL")
 
-          # 2. Locate Logo Image
-          LOGO_SRC=$(find . -maxdepth 2 -iname "*logo*.png" -o -iname "*icon*.png" -o -iname "1786*.png" | head -n 1)
+          # 2. Locate Logo
+          candidates = glob.glob("./*logo*.png") + glob.glob("./*icon*.png") + glob.glob("./1786*.png") + glob.glob("./*/*.png")
+          logo_src = candidates[0] if candidates else None
+
+          if not logo_src:
+              print("⚠️ Logo not found!")
+              exit(0)
+
+          print(f"Generating icons from: {logo_src}")
+          res_dir = "android/app/src/main/res"
+
+          # 3. Create Adaptive Icon XMLs
+          anydpi_dir = os.path.join(res_dir, "mipmap-anydpi-v26")
+          os.makedirs(anydpi_dir, exist_ok=True)
           
-          if [ -n "$LOGO_SRC" ]; then
-            echo "Processing Logo from: $LOGO_SRC"
-            RES_DIR="android/app/src/main/res"
+          xml_content = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<adaptive-icon xmlns:android=\"http://schemas.android.com/apk/res/android\">\n    <background android:drawable=\"@color/ic_launcher_background\"/>\n    <foreground android:drawable=\"@mipmap/ic_launcher_foreground\"/>\n</adaptive-icon>\n"
+          
+          with open(os.path.join(anydpi_dir, "ic_launcher.xml"), "w") as f:
+              f.write(xml_content)
+          with open(os.path.join(anydpi_dir, "ic_launcher_round.xml"), "w") as f:
+              f.write(xml_content)
 
-            # Clean and recreate anydpi-v26 adaptive icon XMLs
-            mkdir -p "$RES_DIR/mipmap-anydpi-v26"
-            cat << 'EOF' > "$RES_DIR/mipmap-anydpi-v26/ic_launcher.xml"
-<?xml version="1.0" encoding="utf-8"?>
-<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
-    <background android:drawable="@color/ic_launcher_background"/>
-    <foreground android:drawable="@mipmap/ic_launcher_foreground"/>
-</adaptive-icon>
-EOF
+          # 4. Background Color XML
+          values_dir = os.path.join(res_dir, "values")
+          os.makedirs(values_dir, exist_ok=True)
+          with open(os.path.join(values_dir, "ic_launcher_background.xml"), "w") as f:
+              f.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<resources>\n    <color name=\"ic_launcher_background\">#11080a</color>\n</resources>\n")
 
-            cat << 'EOF' > "$RES_DIR/mipmap-anydpi-v26/ic_launcher_round.xml"
-<?xml version="1.0" encoding="utf-8"?>
-<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
-    <background android:drawable="@color/ic_launcher_background"/>
-    <foreground android:drawable="@mipmap/ic_launcher_foreground"/>
-</adaptive-icon>
-EOF
+          # 5. Generate Icon Densities
+          sizes = { "mipmap-mdpi": (48, 108), "mipmap-hdpi": (72, 162), "mipmap-xhdpi": (96, 216), "mipmap-xxhdpi": (144, 324), "mipmap-xxxhdpi": (192, 432) }
 
-            # Set dark background color for adaptive canvas
-            mkdir -p "$RES_DIR/values"
-            cat << 'EOF' > "$RES_DIR/values/ic_launcher_background.xml"
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="ic_launcher_background">#11080a</color>
-</resources>
-EOF
-
-            declare -A SIZES=( ["mipmap-mdpi"]=48 ["mipmap-hdpi"]=72 ["mipmap-xhdpi"]=96 ["mipmap-xxhdpi"]=144 ["mipmap-xxxhdpi"]=192 )
-            declare -A FG_SIZES=( ["mipmap-mdpi"]=108 ["mipmap-hdpi"]=162 ["mipmap-xhdpi"]=216 ["mipmap-xxhdpi"]=324 ["mipmap-xxxhdpi"]=432 )
-
-            for FOLDER in "${!SIZES[@]}"; do
-              SIZE=${SIZES[$FOLDER]}
-              FG_SIZE=${FG_SIZES[$FOLDER]}
-              mkdir -p "$RES_DIR/$FOLDER"
+          for folder, (size, fg_size) in sizes.items():
+              target_dir = os.path.join(res_dir, folder)
+              os.makedirs(target_dir, exist_ok=True)
               
-              # Standard launcher icon
-              convert "$LOGO_SRC" -resize ${SIZE}x${SIZE} "$RES_DIR/$FOLDER/ic_launcher.png"
-              # Round launcher icon
-              convert "$LOGO_SRC" -resize ${SIZE}x${SIZE} "$RES_DIR/$FOLDER/ic_launcher_round.png"
-              # Adaptive icon foreground layer with center padding
-              convert "$LOGO_SRC" -resize ${FG_SIZE}x${FG_SIZE} -gravity center -background none "$RES_DIR/$FOLDER/ic_launcher_foreground.png"
-            done
-            echo "✓ Complete Android Adaptive Icon Engine executed successfully!"
-          else
-            echo "⚠️ ERROR: logo.png file nahi mili repository me!"
-            exit 1
-          fi
+              # Standard & Round icons
+              subprocess.run(["convert", logo_src, "-resize", f"{size}x{size}", os.path.join(target_dir, "ic_launcher.png")])
+              subprocess.run(["convert", logo_src, "-resize", f"{size}x{size}", os.path.join(target_dir, "ic_launcher_round.png")])
+              
+              # Adaptive foreground
+              subprocess.run(["convert", logo_src, "-resize", f"{fg_size}x{fg_size}", os.path.join(target_dir, "ic_launcher_foreground.png")])
+
+          print("✓ All icon assets successfully created!")
+          '
 
       - name: Build APK via Gradle
         run: |
