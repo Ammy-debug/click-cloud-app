@@ -26,10 +26,14 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
+      - name: Setup ImageMagick & Python for App Icons
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+
       - name: Prepare Web Directory & Copy HTML
         run: |
           mkdir -p www
-          # Kisi bhi .html file ko chahe index.html.html ho, use www/index.html bana dega
           HTML_FILE=$(find . -maxdepth 2 -iname "*.html*" ! -path "./www/*" | head -n 1)
           if [ -n "$HTML_FILE" ]; then
             echo "Found HTML file: $HTML_FILE"
@@ -47,6 +51,35 @@ jobs:
       - name: Sync Capacitor Android
         run: |
           npx cap sync android
+
+      - name: Generate & Replace Android App Icons
+        run: |
+          # Check if logo.png exists, otherwise find any png/jpg logo
+          LOGO_SRC=$(find . -maxdepth 2 -iname "*logo*.png" -o -iname "*icon*.png" -o -iname "1786*.png" | head -n 1)
+          
+          if [ -n "$LOGO_SRC" ]; then
+            echo "Generating App Icons from: $LOGO_SRC"
+            RES_DIR="android/app/src/main/res"
+
+            declare -A SIZES=( ["mipmap-mdpi"]=48 ["mipmap-hdpi"]=72 ["mipmap-xhdpi"]=96 ["mipmap-xxhdpi"]=144 ["mipmap-xxxhdpi"]=192 )
+            declare -A FOREGROUND_SIZES=( ["mipmap-mdpi"]=108 ["mipmap-hdpi"]=162 ["mipmap-xhdpi"]=216 ["mipmap-xxhdpi"]=324 ["mipmap-xxxhdpi"]=432 )
+
+            for FOLDER in "${!SIZES[@]}"; do
+              SIZE=${SIZES[$FOLDER]}
+              FG_SIZE=${FOREGROUND_SIZES[$FOLDER]}
+              mkdir -p "$RES_DIR/$FOLDER"
+              
+              # Standard icon & round icon
+              convert "$LOGO_SRC" -resize ${SIZE}x${SIZE} "$RES_DIR/$FOLDER/ic_launcher.png"
+              convert "$LOGO_SRC" -resize ${SIZE}x${SIZE} "$RES_DIR/$FOLDER/ic_launcher_round.png"
+              
+              # Adaptive icon foreground
+              convert "$LOGO_SRC" -resize ${FG_SIZE}x${FG_SIZE} "$RES_DIR/$FOLDER/ic_launcher_foreground.png"
+            done
+            echo "✓ App Icons successfully created for all screen densities!"
+          else
+            echo "⚠️ Warning: logo.png nahi mili, default icon se build ho raha hai."
+          fi
 
       - name: Build APK via Gradle
         run: |
