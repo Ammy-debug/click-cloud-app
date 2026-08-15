@@ -1,0 +1,13 @@
+{
+  "name": "click-cloud-pricing-app",
+  "version": "1.0.0",
+  "description": "Click Cloud Photography Pricing & Quotation App",
+  "scripts": {
+    "build": "echo 'Build complete'"
+  },
+  "dependencies": {
+    "@capacitor/android": "^5.7.0",
+    "@capacitor/cli": "^5.7.0",
+    "@capacitor/core": "^5.7.0"
+  }
+}
