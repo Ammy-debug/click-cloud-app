@@ -2,14 +2,21 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Click Cloud Photography - Pricing App (₹)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>WED+CAL - Pricing App (₹)</title>
     <!-- QR Code, html2canvas & jsPDF Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
+        /* Global Reset & Box Sizing */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         /* App UI Theme Variables */
         :root {
             --bg: #f8fafc;
@@ -50,62 +57,246 @@
             --accent-text: #fbbf24;
         }
 
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; background: var(--bg); color: var(--text); padding: 12px; transition: all 0.3s ease; -webkit-tap-highlight-color: transparent; }
-        .app-container { max-width: 600px; margin: 0 auto; background: var(--card); border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); overflow: hidden; border: 1px solid var(--border); }
-        
-        .app-header { background: var(--header-bg); color: var(--header-text); padding: 16px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .app-header h2 { margin: 0; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
-        
-        .tabs { display: flex; border-bottom: 1px solid var(--border); }
-        .tab-btn { flex: 1; padding: 12px; border: none; background: var(--bg); font-weight: bold; cursor: pointer; color: var(--text); opacity: 0.7; font-size: 0.9rem; }
-        .tab-btn.active { background: var(--card); color: var(--primary); border-bottom: 3px solid var(--primary); opacity: 1; }
-        .tab-content { padding: 16px; }
-        
-        /* Client Inputs Block */
-        .client-info-box { background: var(--bg); border: 1px solid var(--border); padding: 12px; border-radius: 10px; margin-bottom: 16px; }
-        .client-info-box h4 { margin: 0 0 8px 0; color: var(--text); font-size: 0.9rem; text-transform: uppercase; }
-        .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-        .form-field { display: flex; flex-direction: column; }
-        .form-field label { font-size: 0.75rem; font-weight: bold; color: var(--accent-text); margin-bottom: 2px; }
-        .form-input { padding: 8px; border: 1px solid var(--border); background: var(--card); color: var(--text); border-radius: 6px; font-size: 0.85rem; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding: 10px;
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+            overflow-x: hidden;
+        }
 
-        .item-card { border-bottom: 1px solid var(--border); padding: 12px 0; }
-        .item-row { display: flex; align-items: center; justify-content: space-between; }
-        .item-left { display: flex; align-items: center; gap: 10px; }
-        .item-left input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; }
-        .item-title { font-weight: 600; font-size: 0.95rem; }
-        .qty-controls { display: flex; align-items: center; gap: 8px; background: var(--bg); padding: 4px 8px; border-radius: 8px; border: 1px solid var(--border); }
-        .btn-qty { border: none; background: var(--primary); color: #fff; width: 28px; height: 28px; border-radius: 6px; font-size: 1.1rem; font-weight: bold; cursor: pointer; }
+        .app-container {
+            max-width: 550px;
+            margin: 0 auto;
+            background: var(--card);
+            border-radius: 14px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            width: 100%;
+        }
+        
+        .app-header {
+            background: var(--header-bg);
+            color: var(--header-text);
+            padding: 14px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .app-header h2 {
+            margin: 0;
+            font-size: 1.05rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg);
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 11px 6px;
+            border: none;
+            background: transparent;
+            font-weight: bold;
+            cursor: pointer;
+            color: var(--text);
+            opacity: 0.7;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+        .tab-btn.active {
+            background: var(--card);
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+            opacity: 1;
+        }
+        .tab-content {
+            padding: 12px;
+            width: 100%;
+        }
+        
+        /* Client Inputs Block - Fixed Overflow */
+        .client-info-box {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 14px;
+            width: 100%;
+        }
+        .client-info-box h4 {
+            margin-bottom: 10px;
+            color: var(--text);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+            width: 100%;
+        }
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            min-width: 0;
+        }
+        .form-field label {
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: var(--accent-text);
+            margin-bottom: 3px;
+        }
+        .form-input {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            outline: none;
+        }
+        .form-input:focus {
+            border-color: var(--primary);
+        }
+
+        .item-card {
+            border-bottom: 1px solid var(--border);
+            padding: 10px 0;
+            width: 100%;
+        }
+        .item-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+        .item-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            min-width: 0;
+        }
+        .item-left input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .item-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            white-space: normal;
+            word-break: break-word;
+        }
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg);
+            padding: 3px 6px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+        .btn-qty {
+            border: none;
+            background: var(--primary);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         .btn-qty:disabled { opacity: 0.4; cursor: not-allowed; }
-        .qty-num { font-weight: bold; min-width: 20px; text-align: center; }
+        .qty-num { font-weight: bold; min-width: 18px; text-align: center; font-size: 0.85rem; }
         
-        .date-tag-box { margin-top: 8px; margin-left: 28px; background: var(--sub-card); border: 1px solid var(--sub-border); padding: 8px 10px; border-radius: 6px; }
-        .date-tag-box label { font-size: 0.75rem; font-weight: bold; color: var(--accent-text); display: block; margin-bottom: 4px; }
-        .date-input-field { padding: 6px; font-size: 0.85rem; border: 1px solid var(--border); background: var(--card); color: var(--text); border-radius: 4px; width: 95%; box-sizing: border-box; }
+        .date-tag-box {
+            margin-top: 8px;
+            background: var(--sub-card);
+            border: 1px solid var(--sub-border);
+            padding: 6px 8px;
+            border-radius: 6px;
+            width: 100%;
+        }
+        .date-tag-box label {
+            font-size: 0.72rem;
+            font-weight: bold;
+            color: var(--accent-text);
+            display: block;
+            margin-bottom: 3px;
+        }
+        .date-input-field {
+            padding: 6px 8px;
+            font-size: 0.8rem;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+            border-radius: 4px;
+            width: 100%;
+        }
         
-        .total-box { background: var(--sub-card); border: 1px solid var(--sub-border); padding: 16px; border-radius: 12px; margin-top: 16px; }
-        .total-row { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.95rem; }
-        .grand-total { font-size: 1.2rem; font-weight: bold; color: var(--accent-text); border-top: 1px solid var(--sub-border); padding-top: 8px; margin-top: 8px; }
+        .total-box {
+            background: var(--sub-card);
+            border: 1px solid var(--sub-border);
+            padding: 14px;
+            border-radius: 10px;
+            margin-top: 14px;
+            width: 100%;
+        }
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+        }
+        .grand-total {
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: var(--accent-text);
+            border-top: 1px solid var(--sub-border);
+            padding-top: 8px;
+            margin-top: 8px;
+        }
         
         /* 2x2 ACTION BUTTON GRID */
         .btn-action-grid { 
             display: grid; 
             grid-template-columns: 1fr 1fr; 
-            gap: 10px; 
-            margin-top: 16px; 
+            gap: 8px; 
+            margin-top: 14px;
+            width: 100%; 
         }
         .btn-action-grid button {
-            padding: 12px 8px;
+            padding: 11px 6px;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             font-weight: bold;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            gap: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.06);
             transition: transform 0.1s ease;
         }
         .btn-action-grid button:active { transform: scale(0.98); }
@@ -115,23 +306,24 @@
         .btn-whatsapp { background: #25d366; color: white; }
         .btn-save-qh { background: #6366f1; color: white; }
         
-        .btn-add { background: var(--primary); color: white; border: none; padding: 10px 14px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 8px; }
-        .btn-delete { background: #ef4444; color: white; border: none; padding: 6px 10px; border-radius: 6px; font-size: 0.8rem; cursor: pointer; }
-        .btn-unlock { background: #d97706; color: white; border: none; padding: 6px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; cursor: pointer; }
-        .btn-secondary { background: #64748b; color: white; border: none; padding: 6px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; cursor: pointer; }
-        .edit-input { width: 100%; padding: 8px; border: 1px solid var(--border); background: var(--card); color: var(--text); border-radius: 6px; margin-top: 4px; box-sizing: border-box; }
-        .theme-select { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--card); color: var(--text); font-weight: bold; margin-top: 6px; cursor: pointer; }
+        .btn-add { background: var(--primary); color: white; border: none; padding: 9px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 8px; font-size: 0.85rem; }
+        .btn-delete { background: #ef4444; color: white; border: none; padding: 5px 8px; border-radius: 5px; font-size: 0.75rem; cursor: pointer; }
+        .btn-unlock { background: #d97706; color: white; border: none; padding: 5px 8px; border-radius: 5px; font-size: 0.75rem; font-weight: bold; cursor: pointer; }
+        .btn-secondary { background: #64748b; color: white; border: none; padding: 6px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: bold; cursor: pointer; }
+        .btn-reset { background: #ef4444; color: white; border: none; padding: 10px 14px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 0.85rem; }
+        .edit-input { width: 100%; padding: 8px; border: 1px solid var(--border); background: var(--card); color: var(--text); border-radius: 6px; margin-top: 4px; font-size: 0.85rem; }
+        .theme-select { width: 100%; padding: 8px; border-radius: 6px; border: 1px solid var(--border); background: var(--card); color: var(--text); font-weight: bold; margin-top: 6px; cursor: pointer; font-size: 0.85rem; }
         
         /* History (QH) Styling */
-        .qh-card { background: var(--sub-card); border: 1px solid var(--sub-border); border-radius: 10px; padding: 12px; margin-bottom: 12px; }
+        .qh-card { background: var(--sub-card); border: 1px solid var(--sub-border); border-radius: 8px; padding: 10px; margin-bottom: 10px; width: 100%; }
         .qh-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; border-bottom: 1px dashed var(--border); padding-bottom: 6px; }
-        .qh-cust-name { font-weight: bold; font-size: 1rem; color: var(--accent-text); }
-        .qh-timestamp { font-size: 0.75rem; color: #64748b; }
-        .qh-details-row { font-size: 0.85rem; margin-bottom: 4px; }
-        .qh-actions { display: flex; gap: 8px; margin-top: 10px; }
-        .btn-qh-load { background: #16a34a; color: white; border: none; padding: 6px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; cursor: pointer; flex: 1; }
-        .btn-qh-delete { background: #ef4444; color: white; border: none; padding: 6px 10px; border-radius: 6px; font-size: 0.8rem; cursor: pointer; }
-        .status-select { padding: 4px 8px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; border: 1px solid var(--border); cursor: pointer; }
+        .qh-cust-name { font-weight: bold; font-size: 0.95rem; color: var(--accent-text); }
+        .qh-timestamp { font-size: 0.72rem; color: #64748b; }
+        .qh-details-row { font-size: 0.8rem; margin-bottom: 4px; }
+        .qh-actions { display: flex; gap: 6px; margin-top: 8px; }
+        .btn-qh-load { background: #16a34a; color: white; border: none; padding: 6px 8px; border-radius: 5px; font-size: 0.75rem; font-weight: bold; cursor: pointer; flex: 1; }
+        .btn-qh-delete { background: #ef4444; color: white; border: none; padding: 6px 8px; border-radius: 5px; font-size: 0.75rem; cursor: pointer; }
+        .status-select { padding: 3px 6px; border-radius: 5px; font-size: 0.75rem; font-weight: bold; border: 1px solid var(--border); cursor: pointer; background: var(--card); color: var(--text); }
 
         .hidden { display: none !important; }
 
@@ -147,13 +339,13 @@
         .modal-header-bar {
             background: #1e293b;
             color: #fff;
-            padding: 12px 16px;
+            padding: 10px 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .modal-header-bar h3 { margin: 0; font-size: 0.95rem; }
-        .modal-close-btn { background: #ef4444; color: #fff; border: none; padding: 6px 14px; border-radius: 6px; font-weight: bold; cursor: pointer; }
+        .modal-header-bar h3 { margin: 0; font-size: 0.9rem; }
+        .modal-close-btn { background: #ef4444; color: #fff; border: none; padding: 5px 12px; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 0.8rem; }
         .modal-body {
             flex: 1;
             overflow-y: auto;
@@ -173,21 +365,21 @@
         }
         .modal-footer-bar {
             background: #0f172a;
-            padding: 10px 14px;
+            padding: 10px 12px;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 8px;
         }
         .modal-footer-bar button {
-            padding: 12px 6px;
+            padding: 11px 6px;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             font-weight: bold;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             cursor: pointer;
         }
 
-        /* HIDDEN OFF-SCREEN RENDER SOURCE */
+        /* HIDDEN OFF-SCREEN SOURCE TO RENDER CANVAS */
         #pdf-render-source {
             position: fixed;
             left: -9999px;
@@ -329,10 +521,10 @@
 
         <div class="total-box">
             <div class="total-row"><span>Subtotal:</span> <strong id="subtotal-val">₹0</strong></div>
-            <div class="total-row"><span>Discount (%):</span> <input type="number" id="discount-input" value="0" min="0" max="100" style="width: 50px;" onchange="calculateTotal()"></div>
+            <div class="total-row"><span>Discount (%):</span> <input type="number" id="discount-input" value="0" min="0" max="100" style="width: 55px; padding: 4px;" onchange="calculateTotal()"></div>
             <div class="total-row grand-total"><span>Grand Total:</span> <span id="grand-val">₹0</span></div>
             <div class="total-row" style="color: var(--accent-text); font-weight: bold; margin-top: 6px;">
-                <span>50% Advance Booking Required:</span> <span id="advance-val">₹0</span>
+                <span>50% Advance Booking:</span> <span id="advance-val">₹0</span>
             </div>
         </div>
 
@@ -348,39 +540,39 @@
     <!-- 'QH' (QUOTATION HISTORY) TAB -->
     <div id="tab-qh" class="tab-content hidden">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-            <h3 style="margin: 0; font-size: 1.05rem;">📜 Saved Quotation History</h3>
+            <h3 style="margin: 0; font-size: 1rem;">📜 Saved Quotation History</h3>
             <button class="btn-delete" onclick="clearAllHistory()">🗑️ Clear All</button>
         </div>
 
-        <input type="text" id="qh-search-input" class="form-input" placeholder="🔍 Search History by Name, Phone or Venue..." style="width: 100%; box-sizing: border-box; margin-bottom: 14px;" oninput="renderHistory()">
+        <input type="text" id="qh-search-input" class="form-input" placeholder="🔍 Search History by Name, Phone or Venue..." style="margin-bottom: 12px;" oninput="renderHistory()">
 
         <div id="qh-history-list"></div>
     </div>
 
     <!-- ADVANCE TAB -->
     <div id="tab-advance" class="tab-content hidden">
-        <div style="background: var(--sub-card); border: 1px solid var(--sub-border); padding: 12px; border-radius: 8px; margin-bottom: 16px;">
-            <label style="font-weight: bold; font-size: 0.85rem; color: var(--accent-text);">💳 UPI Payment QR Code Setup (For PDF):</label>
+        <div style="background: var(--sub-card); border: 1px solid var(--sub-border); padding: 12px; border-radius: 8px; margin-bottom: 14px;">
+            <label style="font-weight: bold; font-size: 0.82rem; color: var(--accent-text);">💳 UPI Payment QR Code Setup (For PDF):</label>
             <input type="text" id="upi-id-input" class="edit-input" placeholder="e.g. 98270XXXXX@ybl or gpay/paytm UPI ID" oninput="handleUpiInput(this.value)">
-            <div style="font-size: 0.75rem; color: #64748b; margin-top: 4px;">Enter UPI ID to generate auto Advance-Payment QR Code on PDF.</div>
+            <div style="font-size: 0.72rem; color: #64748b; margin-top: 4px;">Enter UPI ID to generate auto Advance-Payment QR Code on PDF.</div>
         </div>
 
-        <div style="background: var(--sub-card); border: 1px solid var(--sub-border); padding: 12px; border-radius: 8px; margin-bottom: 16px;">
-            <label style="font-weight: bold; font-size: 0.85rem; color: var(--accent-text);">🖼️ Studio Logo Import (Auto-Connect to PDF & App):</label>
+        <div style="background: var(--sub-card); border: 1px solid var(--sub-border); padding: 12px; border-radius: 8px; margin-bottom: 14px;">
+            <label style="font-weight: bold; font-size: 0.82rem; color: var(--accent-text);">🖼️ Studio Logo Import (Auto-Connect to PDF & App):</label>
             <div style="display: flex; gap: 10px; align-items: center; margin-top: 8px;">
-                <div id="logo-preview-box" style="width: 48px; height: 48px; border: 1px dashed var(--border); border-radius: 6px; display: flex; align-items: center; justify-content: center; background: var(--card); font-size: 20px; overflow: hidden;">
+                <div id="logo-preview-box" style="width: 44px; height: 44px; border: 1px dashed var(--border); border-radius: 6px; display: flex; align-items: center; justify-content: center; background: var(--card); font-size: 18px; overflow: hidden; flex-shrink: 0;">
                     📸
                 </div>
-                <div style="flex: 1;">
-                    <input type="file" id="logo-file-input" accept="image/*" style="font-size: 0.8rem;" onchange="handleLogoUpload(event)">
-                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 4px;">PNG / JPG Logo supported (Auto-Saved)</div>
+                <div style="flex: 1; min-width: 0;">
+                    <input type="file" id="logo-file-input" accept="image/*" style="font-size: 0.75rem; width: 100%;" onchange="handleLogoUpload(event)">
+                    <div style="font-size: 0.72rem; color: #64748b; margin-top: 3px;">PNG / JPG Logo supported (Auto-Saved)</div>
                 </div>
-                <button class="btn-secondary" onclick="resetLogo()">🗑️ Reset Logo</button>
+                <button class="btn-secondary" onclick="resetLogo()">🗑️ Reset</button>
             </div>
         </div>
 
-        <div style="background: var(--sub-card); border: 1px solid var(--sub-border); padding: 12px; border-radius: 8px; margin-bottom: 16px;">
-            <label style="font-weight: bold; font-size: 0.85rem; color: var(--accent-text);">🎨 Choose App UI Theme:</label>
+        <div style="background: var(--sub-card); border: 1px solid var(--sub-border); padding: 12px; border-radius: 8px; margin-bottom: 14px;">
+            <label style="font-weight: bold; font-size: 0.82rem; color: var(--accent-text);">🎨 Choose App UI Theme:</label>
             <select id="theme-selector" class="theme-select" onchange="changeTheme(this.value)">
                 <option value="light">☀️ Clean Apple Light Theme</option>
                 <option value="dark">🌙 Dark Studio Theme</option>
@@ -388,32 +580,32 @@
             </select>
         </div>
 
-        <div style="background: var(--sub-card); border: 1px solid var(--sub-border); padding: 12px; border-radius: 8px; margin-bottom: 16px;">
+        <div style="background: var(--sub-card); border: 1px solid var(--sub-border); padding: 12px; border-radius: 8px; margin-bottom: 14px;">
             <div style="display: flex; justify-content: space-between; align-items: center;">
-                <label style="font-weight: bold; font-size: 0.85rem; color: var(--accent-text);">⚙️ Studio / Company Name:</label>
-                <button class="btn-unlock" id="btn-lock-toggle" onclick="toggleCompanyLock()">🔒 Locked (Click to Edit)</button>
+                <label style="font-weight: bold; font-size: 0.82rem; color: var(--accent-text);">⚙️ Studio / Company Name:</label>
+                <button class="btn-unlock" id="btn-lock-toggle" onclick="toggleCompanyLock()">🔒 Locked</button>
             </div>
             <input type="text" id="company-name-input" class="edit-input" style="font-weight: bold;" disabled oninput="handleNameInput(this.value)">
             
-            <label style="font-weight: bold; font-size: 0.85rem; color: var(--accent-text); margin-top: 10px; display: block;">📍 Studio Address & Contact Info (For PDF Footer):</label>
+            <label style="font-weight: bold; font-size: 0.82rem; color: var(--accent-text); margin-top: 10px; display: block;">📍 Studio Address & Contact Info (For PDF Footer):</label>
             <input type="text" id="company-address-input" class="edit-input" placeholder="e.g. Priyadarshini Nagar, Risali / Nevai Bhata Road, Bhilai, Chhattisgarh | Ph: +91 7566889884" disabled oninput="handleAddressInput(this.value)">
         </div>
 
-        <h3>Edit Items & Base Prices (₹)</h3>
-        <p style="font-size: 0.8rem; color: #16a34a; font-weight: bold;">✓ All changes are automatically saved in local memory.</p>
+        <h3 style="font-size: 0.95rem; margin-bottom: 4px;">Edit Items & Base Prices (₹)</h3>
+        <p style="font-size: 0.75rem; color: #16a34a; font-weight: bold; margin-bottom: 10px;">✓ All changes are automatically saved in local memory.</p>
         <div id="advance-edit-list"></div>
 
-        <div style="background: var(--bg); border: 1px dashed var(--border); padding: 12px; border-radius: 8px; margin-top: 16px;">
-            <h4 style="margin: 0 0 8px 0; font-size: 0.9rem;">➕ Add New Custom Service Item</h4>
+        <div style="background: var(--bg); border: 1px dashed var(--border); padding: 12px; border-radius: 8px; margin-top: 14px;">
+            <h4 style="margin-bottom: 8px; font-size: 0.85rem;">➕ Add New Custom Service Item</h4>
             <div style="display: flex; gap: 8px; margin-bottom: 8px;">
-                <input type="text" id="new-item-name" class="edit-input" placeholder="Item Name (e.g. LED Wall Setup)" style="flex: 2;">
-                <input type="number" id="new-item-price" class="edit-input" placeholder="Price (₹)" style="flex: 1;">
+                <input type="text" id="new-item-name" class="edit-input" placeholder="Item Name (e.g. LED Wall Setup)" style="flex: 2; margin-top: 0;">
+                <input type="number" id="new-item-price" class="edit-input" placeholder="Price (₹)" style="flex: 1; margin-top: 0;">
             </div>
             <button class="btn-add" onclick="addNewService()">+ Add Item to List</button>
         </div>
 
-        <hr style="margin: 20px 0; border: 0; border-top: 1px solid var(--border);">
-        <label><strong>Hidden Service Charge (₹) [Hidden from Calculator & PDF]:</strong></label>
+        <hr style="margin: 16px 0; border: 0; border-top: 1px solid var(--border);">
+        <label style="font-size: 0.82rem; font-weight: bold;">Hidden Service Charge (₹) [Hidden from Calculator & PDF]:</label>
         <input type="number" id="hidden-fee-input" class="edit-input" placeholder="e.g. 2000" value="0" onchange="saveHiddenFee()">
         <br><br>
         <button class="btn-reset" onclick="resetToDefaults()">🔄 Reset App to Default</button>
@@ -427,7 +619,7 @@
         <button class="modal-close-btn" onclick="closePreviewModal()">✖ Close</button>
     </div>
     <div class="modal-body">
-        <div id="modal-loading-text" style="color: #fff; padding: 20px; font-weight: bold;">⏳ Generating crisp quotation...</div>
+        <div id="modal-loading-text" style="color: #fff; padding: 20px; font-weight: bold; font-size: 0.85rem;">⏳ Generating crisp quotation...</div>
         <img id="modal-img-preview" class="hidden" alt="Quotation Preview">
     </div>
     <div class="modal-footer-bar">
@@ -673,7 +865,6 @@
 
             const base64Pdf = pdf.output('datauristring').split(',')[1];
 
-            // 1. Check Native Capacitor Android Plugins
             if (window.Capacitor && window.Capacitor.Plugins) {
                 const { Filesystem, Share } = window.Capacitor.Plugins;
                 if (Filesystem && Share) {
@@ -693,7 +884,6 @@
                 }
             }
 
-            // 2. Web Share API fallback
             const pdfBlob = pdf.output('blob');
             const pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
             if (navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
@@ -770,7 +960,7 @@
         );
 
         if (filtered.length === 0) {
-            container.innerHTML = `<p style="text-align: center; color: #64748b; font-size: 0.85rem; padding: 20px 0;">Koi quotation history nahi mili.</p>`;
+            container.innerHTML = `<p style="text-align: center; color: #64748b; font-size: 0.82rem; padding: 20px 0;">Koi quotation history nahi mili.</p>`;
             return;
         }
 
@@ -789,14 +979,14 @@
                             <div class="qh-cust-name">${record.custName}</div>
                             <div class="qh-timestamp">📅 Saved: ${record.timestamp}</div>
                         </div>
-                        <div style="font-weight: bold; color: var(--accent-text); font-size: 1.05rem;">${record.grandTotal}</div>
+                        <div style="font-weight: bold; color: var(--accent-text); font-size: 0.95rem;">${record.grandTotal}</div>
                     </div>
                     <div class="qh-details-row"><strong>📞 Phone:</strong> ${record.custPhone} | <strong>📍 Venue:</strong> ${record.eventPlace}</div>
                     <div class="qh-details-row"><strong>🗓️ Dates:</strong> ${record.eventDate}</div>
-                    <div class="qh-details-row" style="color: #64748b; font-size: 0.8rem; margin-top: 4px;"><strong>Services:</strong> ${selectedNames || 'None'}</div>
+                    <div class="qh-details-row" style="color: #64748b; font-size: 0.75rem; margin-top: 3px;"><strong>Services:</strong> ${selectedNames || 'None'}</div>
                     
-                    <div style="margin-top: 8px; display: flex; align-items: center; gap: 8px;">
-                        <label style="font-size: 0.8rem; font-weight: bold;">Status:</label>
+                    <div style="margin-top: 6px; display: flex; align-items: center; gap: 6px;">
+                        <label style="font-size: 0.75rem; font-weight: bold;">Status:</label>
                         <select class="status-select" onchange="updateRecordStatus(${record.id}, this.value)">
                             <option value="🟡 Quote Sent" ${currentStatus.includes('Quote') ? 'selected' : ''}>🟡 Quote Sent</option>
                             <option value="🟢 Advance Received (Booked)" ${currentStatus.includes('Advance') ? 'selected' : ''}>🟢 Advance Received (Booked)</option>
@@ -918,7 +1108,7 @@
             isCompanyUnlocked = false;
             document.getElementById('company-name-input').disabled = true;
             document.getElementById('company-address-input').disabled = true;
-            document.getElementById('btn-lock-toggle').innerText = "🔒 Locked (Click to Edit)";
+            document.getElementById('btn-lock-toggle').innerText = "🔒 Locked";
             document.getElementById('btn-lock-toggle').style.background = "#d97706";
         }
     }
@@ -987,13 +1177,11 @@
             }
 
             container.innerHTML += `
-                <div class="item-card ${!isSelected ? 'unselected-item' : ''}">
+                <div class="item-card">
                     <div class="item-row">
                         <div class="item-left">
                             <input type="checkbox" ${isSelected ? 'checked' : ''} onchange="toggleCheck(${index})">
-                            <div>
-                                <div class="item-title">${item.name}</div>
-                            </div>
+                            <div class="item-title">${item.name}</div>
                         </div>
                         <div class="qty-controls">
                             <button class="btn-qty" onclick="changeQty(${index}, -1)">-</button>
@@ -1042,14 +1230,14 @@
         container.innerHTML = '';
         services.forEach((item, index) => {
             container.innerHTML += `
-                <div style="margin-bottom: 12px; background: var(--card); padding: 8px; border: 1px solid var(--border); border-radius: 6px;">
+                <div style="margin-bottom: 10px; background: var(--card); padding: 8px; border: 1px solid var(--border); border-radius: 6px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-                        <label style="font-size: 0.85rem; font-weight: bold;">Item #${index + 1}:</label>
+                        <label style="font-size: 0.8rem; font-weight: bold;">Item #${index + 1}:</label>
                         <button class="btn-delete" onclick="deleteService(${index})">🗑️ Delete</button>
                     </div>
                     <div style="display: flex; gap: 8px;">
-                        <input type="text" class="edit-input" value="${item.name}" onchange="updateTitle(${index}, this.value)">
-                        <input type="number" class="edit-input" value="${item.price}" style="width: 110px;" onchange="updatePrice(${index}, this.value)">
+                        <input type="text" class="edit-input" value="${item.name}" style="margin-top: 0;" onchange="updateTitle(${index}, this.value)">
+                        <input type="number" class="edit-input" value="${item.price}" style="width: 100px; margin-top: 0;" onchange="updatePrice(${index}, this.value)">
                     </div>
                 </div>
             `;
