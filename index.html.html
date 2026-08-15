@@ -3,141 +3,459 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>WED+CAL - Pricing App (₹)</title>
+    <title>WED+CAL - Architectural Luxury Pricing App (₹)</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <!-- QR Code, html2canvas & jsPDF Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
-        /* Global Reset & Box Sizing */
         *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
-        /* App UI Theme Variables */
+        /* 1. DEFAULT APP THEME: Warm Amber & Terracotta */
         :root {
-            --bg: #f8fafc;
-            --card: #ffffff;
-            --text: #1e293b;
-            --primary: #2563eb;
-            --header-bg: #1e293b;
-            --header-text: #ffffff;
-            --border: #e2e8f0;
-            --sub-card: #eff6ff;
-            --sub-border: #bfdbfe;
-            --accent-text: #1d4ed8;
+            --app-bg: linear-gradient(150deg, #c48253 0%, #995932 45%, #66361a 100%);
+            --glass-card: rgba(254, 250, 246, 0.94);
+            --glass-card-sub: rgba(247, 240, 232, 0.88);
+            --card-border: rgba(255, 255, 255, 0.45);
+            --card-inner-border: rgba(153, 89, 50, 0.12);
+            --text-primary: #1f1610;
+            --text-secondary: #785a44;
+            --hero-bg: linear-gradient(135deg, #2b1d14 0%, #150d08 100%);
+            --hero-text: #ffffff;
+            --hero-sub: #dfb28e;
+            --hero-border: rgba(255, 255, 255, 0.15);
+            --accent-main: #b86b3a;
+            --accent-glow: #d67f47;
+            --accent-gradient: linear-gradient(135deg, #c97945 0%, #944d21 100%);
+            --pill-bg: #f3eae0;
+            --pill-active: #2b1d14;
+            --pill-active-text: #ffffff;
+            --input-bg: #fdfaf6;
+            --input-border: #e2d2c1;
+            --shadow-glass: 0 16px 40px rgba(71, 35, 14, 0.35);
         }
 
-        [data-theme="dark"] {
-            --bg: #0f172a;
-            --card: #1e293b;
-            --text: #f8fafc;
-            --primary: #3b82f6;
-            --header-bg: #020617;
-            --header-text: #60a5fa;
-            --border: #334155;
-            --sub-card: #0f172a;
-            --sub-border: #3b82f6;
-            --accent-text: #60a5fa;
+        /* App Themes */
+        [data-theme="ocean"] {
+            --app-bg: linear-gradient(150deg, #0f2b48 0%, #081a2e 50%, #030d17 100%);
+            --glass-card: rgba(13, 27, 44, 0.94);
+            --glass-card-sub: rgba(20, 39, 63, 0.88);
+            --card-border: rgba(56, 189, 248, 0.25);
+            --card-inner-border: rgba(255, 255, 255, 0.06);
+            --text-primary: #f0f9ff;
+            --text-secondary: #7dd3fc;
+            --hero-bg: linear-gradient(135deg, #1e3a8a 0%, #0c1c38 100%);
+            --hero-text: #ffffff;
+            --hero-sub: #93c5fd;
+            --hero-border: rgba(56, 189, 248, 0.4);
+            --accent-main: #0284c7;
+            --accent-glow: #38bdf8;
+            --accent-gradient: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%);
+            --pill-bg: rgba(255, 255, 255, 0.06);
+            --pill-active: #0ea5e9;
+            --pill-active-text: #ffffff;
+            --input-bg: rgba(7, 18, 31, 0.8);
+            --input-border: rgba(56, 189, 248, 0.25);
+            --shadow-glass: 0 16px 45px rgba(2, 20, 40, 0.7);
         }
 
-        [data-theme="gold"] {
-            --bg: #1a0f12;
-            --card: #2a181c;
-            --text: #fdf2f4;
-            --primary: #d97706;
-            --header-bg: #11080a;
-            --header-text: #f59e0b;
-            --border: #442329;
-            --sub-card: #361e23;
-            --sub-border: #d97706;
-            --accent-text: #fbbf24;
+        [data-theme="glassy-blue"] {
+            --app-bg: linear-gradient(150deg, #dbeafe 0%, #bfdbfe 50%, #93c5fd 100%);
+            --glass-card: rgba(255, 255, 255, 0.92);
+            --glass-card-sub: rgba(239, 246, 255, 0.9);
+            --card-border: rgba(255, 255, 255, 0.95);
+            --card-inner-border: rgba(37, 99, 235, 0.12);
+            --text-primary: #0f172a;
+            --text-secondary: #3b82f6;
+            --hero-bg: linear-gradient(135deg, #1d4ed8 0%, #1e3a8a 100%);
+            --hero-text: #ffffff;
+            --hero-sub: #bfdbfe;
+            --hero-border: rgba(255, 255, 255, 0.3);
+            --accent-main: #2563eb;
+            --accent-glow: #60a5fa;
+            --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            --pill-bg: #dbeafe;
+            --pill-active: #1e3a8a;
+            --pill-active-text: #ffffff;
+            --input-bg: #ffffff;
+            --input-border: #bfdbfe;
+            --shadow-glass: 0 14px 35px rgba(30, 58, 138, 0.18);
+        }
+
+        [data-theme="rose-silk"] {
+            --app-bg: linear-gradient(150deg, #eed0d8 0%, #dfb2bc 50%, #c993a0 100%);
+            --glass-card: rgba(255, 250, 251, 0.96);
+            --glass-card-sub: rgba(254, 242, 244, 0.92);
+            --card-border: rgba(255, 255, 255, 0.95);
+            --card-inner-border: rgba(219, 39, 119, 0.12);
+            --text-primary: #37121c;
+            --text-secondary: #9d3d57;
+            --hero-bg: linear-gradient(135deg, #701a34 0%, #430c1d 100%);
+            --hero-text: #ffffff;
+            --hero-sub: #fbcfe8;
+            --hero-border: rgba(255, 255, 255, 0.25);
+            --accent-main: #db2777;
+            --accent-glow: #f472b6;
+            --accent-gradient: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+            --pill-bg: #fce7f3;
+            --pill-active: #881337;
+            --pill-active-text: #ffffff;
+            --input-bg: #ffffff;
+            --input-border: #fbcfe8;
+            --shadow-glass: 0 14px 35px rgba(112, 26, 52, 0.18);
+        }
+
+        [data-theme="velvet-wine"] {
+            --app-bg: linear-gradient(150deg, #2b0c16 0%, #17040a 50%, #080104 100%);
+            --glass-card: rgba(36, 12, 20, 0.94);
+            --glass-card-sub: rgba(53, 19, 31, 0.88);
+            --card-border: rgba(244, 114, 182, 0.25);
+            --card-inner-border: rgba(255, 255, 255, 0.06);
+            --text-primary: #fff1f2;
+            --text-secondary: #f472b6;
+            --hero-bg: linear-gradient(135deg, #831843 0%, #4c0519 100%);
+            --hero-text: #ffffff;
+            --hero-sub: #fbcfe8;
+            --hero-border: rgba(244, 114, 182, 0.35);
+            --accent-main: #e11d48;
+            --accent-glow: #fb7185;
+            --accent-gradient: linear-gradient(135deg, #f43f5e 0%, #be123c 100%);
+            --pill-bg: rgba(255, 255, 255, 0.06);
+            --pill-active: #f43f5e;
+            --pill-active-text: #ffffff;
+            --input-bg: rgba(20, 5, 10, 0.8);
+            --input-border: rgba(244, 114, 182, 0.25);
+            --shadow-glass: 0 16px 45px rgba(35, 5, 15, 0.7);
+        }
+
+        [data-theme="sage-mist"] {
+            --app-bg: linear-gradient(150deg, #cbdad0 0%, #b2c5b7 50%, #98ad9e 100%);
+            --glass-card: rgba(255, 255, 255, 0.95);
+            --glass-card-sub: rgba(243, 248, 245, 0.92);
+            --card-border: rgba(255, 255, 255, 0.95);
+            --card-inner-border: rgba(47, 79, 58, 0.12);
+            --text-primary: #192b1f;
+            --text-secondary: #4a6b54;
+            --hero-bg: linear-gradient(135deg, #2d4a36 0%, #192e20 100%);
+            --hero-text: #ffffff;
+            --hero-sub: #c7decb;
+            --hero-border: rgba(255, 255, 255, 0.25);
+            --accent-main: #3a6347;
+            --accent-glow: #568a65;
+            --accent-gradient: linear-gradient(135deg, #447352 0%, #294732 100%);
+            --pill-bg: #e1ede4;
+            --pill-active: #1f3827;
+            --pill-active-text: #ffffff;
+            --input-bg: #ffffff;
+            --input-border: #cadcd0;
+            --shadow-glass: 0 14px 35px rgba(45, 74, 54, 0.18);
+        }
+
+        [data-theme="aurora"] {
+            --app-bg: linear-gradient(150deg, #062b25 0%, #031714 50%, #010807 100%);
+            --glass-card: rgba(7, 31, 26, 0.94);
+            --glass-card-sub: rgba(12, 49, 41, 0.88);
+            --card-border: rgba(45, 212, 191, 0.25);
+            --card-inner-border: rgba(255, 255, 255, 0.06);
+            --text-primary: #f0fdfa;
+            --text-secondary: #5eead4;
+            --hero-bg: linear-gradient(135deg, #115e59 0%, #042f2e 100%);
+            --hero-text: #ffffff;
+            --hero-sub: #99f6e4;
+            --hero-border: rgba(45, 212, 191, 0.35);
+            --accent-main: #0d9488;
+            --accent-glow: #2dd4bf;
+            --accent-gradient: linear-gradient(135deg, #14b8a6 0%, #0f766e 100%);
+            --pill-bg: rgba(255, 255, 255, 0.06);
+            --pill-active: #14b8a6;
+            --pill-active-text: #000000;
+            --input-bg: rgba(3, 15, 13, 0.8);
+            --input-border: rgba(45, 212, 191, 0.25);
+            --shadow-glass: 0 16px 45px rgba(2, 20, 18, 0.7);
+        }
+
+        [data-theme="espresso"] {
+            --app-bg: linear-gradient(150deg, #1f140e 0%, #120b07 50%, #080402 100%);
+            --glass-card: rgba(28, 19, 14, 0.92);
+            --glass-card-sub: rgba(43, 29, 21, 0.85);
+            --card-border: rgba(214, 146, 96, 0.22);
+            --card-inner-border: rgba(255, 255, 255, 0.05);
+            --text-primary: #fdfaf7;
+            --text-secondary: #ba9d87;
+            --hero-bg: linear-gradient(135deg, #382417 0%, #1a100a 100%);
+            --hero-text: #ffffff;
+            --hero-sub: #dfb28e;
+            --hero-border: rgba(214, 146, 96, 0.35);
+            --accent-main: #d67f47;
+            --accent-glow: #f09a62;
+            --accent-gradient: linear-gradient(135deg, #d67f47 0%, #a85827 100%);
+            --pill-bg: rgba(255, 255, 255, 0.06);
+            --pill-active: #d67f47;
+            --pill-active-text: #ffffff;
+            --input-bg: rgba(15, 9, 6, 0.7);
+            --input-border: rgba(214, 146, 96, 0.25);
+            --shadow-glass: 0 16px 45px rgba(0, 0, 0, 0.65);
+        }
+
+        [data-theme="sandstone"] {
+            --app-bg: linear-gradient(150deg, #f0e6dc 0%, #e2d2c1 50%, #d5beaa 100%);
+            --glass-card: rgba(255, 255, 255, 0.96);
+            --glass-card-sub: rgba(247, 243, 238, 0.95);
+            --card-border: rgba(255, 255, 255, 0.9);
+            --card-inner-border: rgba(135, 107, 85, 0.12);
+            --text-primary: #2b231d;
+            --text-secondary: #7d6b5e;
+            --hero-bg: linear-gradient(135deg, #87654b 0%, #5a3f2d 100%);
+            --hero-text: #ffffff;
+            --hero-sub: #f5e4d5;
+            --hero-border: rgba(255, 255, 255, 0.25);
+            --accent-main: #87654b;
+            --accent-glow: #aa8161;
+            --accent-gradient: linear-gradient(135deg, #87654b 0%, #5a3f2d 100%);
+            --pill-bg: #ece3d8;
+            --pill-active: #2b231d;
+            --pill-active-text: #ffffff;
+            --input-bg: #ffffff;
+            --input-border: #d4c2b0;
+            --shadow-glass: 0 14px 35px rgba(105, 80, 58, 0.18);
+        }
+
+        [data-theme="obsidian"] {
+            --app-bg: linear-gradient(150deg, #111317 0%, #0a0b0d 50%, #030405 100%);
+            --glass-card: rgba(18, 20, 24, 0.94);
+            --glass-card-sub: rgba(28, 31, 38, 0.88);
+            --card-border: rgba(234, 179, 8, 0.2);
+            --card-inner-border: rgba(255, 255, 255, 0.05);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --hero-bg: linear-gradient(135deg, #232014 0%, #121008 100%);
+            --hero-text: #ffffff;
+            --hero-sub: #fde047;
+            --hero-border: rgba(234, 179, 8, 0.3);
+            --accent-main: #eab308;
+            --accent-glow: #facc15;
+            --accent-gradient: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
+            --pill-bg: rgba(255, 255, 255, 0.06);
+            --pill-active: #eab308;
+            --pill-active-text: #000000;
+            --input-bg: rgba(10, 11, 13, 0.8);
+            --input-border: rgba(234, 179, 8, 0.25);
+            --shadow-glass: 0 16px 45px rgba(0, 0, 0, 0.75);
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            padding: 10px;
-            transition: all 0.3s ease;
-            -webkit-tap-highlight-color: transparent;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--app-bg);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 14px 10px;
             overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .app-container {
-            max-width: 550px;
+            max-width: 540px;
             margin: 0 auto;
-            background: var(--card);
-            border-radius: 14px;
-            box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+            background: var(--glass-card);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border-radius: 28px;
+            border: 1px solid var(--card-border);
+            box-shadow: var(--shadow-glass);
             overflow: hidden;
-            border: 1px solid var(--border);
             width: 100%;
+            transition: all 0.4s ease;
         }
-        
+
         .app-header {
-            background: var(--header-bg);
-            color: var(--header-text);
-            padding: 14px;
-            text-align: center;
+            padding: 18px 20px 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .app-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .header-logo-badge {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: var(--pill-bg);
+            border: 1px solid var(--card-border);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            font-size: 22px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
         }
-        .app-header h2 {
-            margin: 0;
-            font-size: 1.05rem;
-            text-transform: uppercase;
+        .header-logo-badge img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .header-title-box h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+            color: var(--text-primary);
+        }
+        .header-title-box span {
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            font-weight: 600;
             letter-spacing: 0.8px;
+            text-transform: uppercase;
         }
-        
+
         .tabs {
             display: flex;
-            border-bottom: 1px solid var(--border);
-            background: var(--bg);
+            padding: 5px;
+            gap: 6px;
+            background: var(--glass-card-sub);
+            margin: 4px 16px 0 16px;
+            border-radius: 16px;
+            border: 1px solid var(--card-inner-border);
         }
         .tab-btn {
             flex: 1;
-            padding: 11px 6px;
+            padding: 10px 8px;
             border: none;
             background: transparent;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
-            color: var(--text);
-            opacity: 0.7;
-            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-size: 0.82rem;
+            border-radius: 12px;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: center;
+            font-family: 'Outfit', sans-serif;
         }
         .tab-btn.active {
-            background: var(--card);
-            color: var(--primary);
-            border-bottom: 3px solid var(--primary);
-            opacity: 1;
+            background: var(--pill-active);
+            color: var(--pill-active-text);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
         }
+
         .tab-content {
-            padding: 12px;
+            padding: 16px;
             width: 100%;
         }
-        
-        /* Client Inputs Block - Fixed Overflow */
-        .client-info-box {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            padding: 12px;
-            border-radius: 10px;
-            margin-bottom: 14px;
-            width: 100%;
+
+        .interior-hero-card {
+            background: var(--hero-bg);
+            color: var(--hero-text);
+            border: 1px solid var(--hero-border);
+            border-radius: 22px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 16px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
         }
-        .client-info-box h4 {
-            margin-bottom: 10px;
-            color: var(--text);
-            font-size: 0.85rem;
+        .interior-hero-card::after {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 140px;
+            height: 140px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            opacity: 0.35;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .hero-chip-badge {
+            font-size: 0.72rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            color: var(--hero-sub);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .hero-chip-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--hero-sub);
+            box-shadow: 0 0 6px var(--hero-sub);
+        }
+        .hero-balance-label {
+            font-size: 0.75rem;
+            color: var(--hero-sub);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+        .hero-grand-total {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            margin: 4px 0 14px 0;
+        }
+        .hero-stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .hero-stat-item span {
+            font-size: 0.72rem;
+            color: var(--hero-sub);
+            display: block;
+            margin-bottom: 2px;
+        }
+        .hero-stat-item strong {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .porcelain-box {
+            background: var(--glass-card-sub);
+            border: 1px solid var(--card-inner-border);
+            border-radius: 20px;
+            padding: 16px;
+            margin-bottom: 16px;
+            width: 100%;
+        }
+        .porcelain-box-title {
+            margin-bottom: 12px;
+            color: var(--text-secondary);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
         .input-grid {
             display: grid;
@@ -149,55 +467,67 @@
             display: flex;
             flex-direction: column;
             width: 100%;
-            min-width: 0;
         }
         .form-field label {
-            font-size: 0.75rem;
-            font-weight: bold;
-            color: var(--accent-text);
-            margin-bottom: 3px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
         }
         .form-input {
             width: 100%;
-            padding: 8px 10px;
-            border: 1px solid var(--border);
-            background: var(--card);
-            color: var(--text);
-            border-radius: 6px;
+            padding: 11px 12px;
+            border: 1px solid var(--input-border);
+            background: var(--input-bg);
+            color: var(--text-primary);
+            border-radius: 12px;
             font-size: 0.85rem;
             outline: none;
+            transition: all 0.2s ease;
+            font-family: inherit;
         }
         .form-input:focus {
-            border-color: var(--primary);
+            border-color: var(--accent-main);
+            box-shadow: 0 0 0 3px rgba(184, 107, 58, 0.15);
         }
 
-        .item-card {
-            border-bottom: 1px solid var(--border);
-            padding: 10px 0;
-            width: 100%;
+        .service-card {
+            background: var(--glass-card-sub);
+            border: 1px solid var(--card-inner-border);
+            border-radius: 16px;
+            padding: 12px 14px;
+            margin-bottom: 8px;
+            transition: all 0.25s ease;
         }
-        .item-row {
+        .service-card.selected-service {
+            border-color: var(--accent-main);
+            box-shadow: 0 4px 12px rgba(184, 107, 58, 0.12);
+        }
+        .service-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 8px;
         }
-        .item-left {
+        .service-left {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             flex: 1;
             min-width: 0;
         }
-        .item-left input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
+        .custom-checkbox {
+            width: 20px;
+            height: 20px;
+            border-radius: 6px;
+            accent-color: var(--accent-main);
             cursor: pointer;
             flex-shrink: 0;
         }
-        .item-title {
+        .service-title {
             font-weight: 600;
             font-size: 0.9rem;
+            color: var(--text-primary);
             white-space: normal;
             word-break: break-word;
         }
@@ -205,125 +535,116 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            background: var(--bg);
+            background: var(--pill-bg);
             padding: 3px 6px;
-            border-radius: 6px;
-            border: 1px solid var(--border);
+            border-radius: 10px;
+            border: 1px solid var(--card-inner-border);
             flex-shrink: 0;
         }
         .btn-qty {
             border: none;
-            background: var(--primary);
-            color: #fff;
-            width: 26px;
-            height: 26px;
-            border-radius: 5px;
-            font-size: 1rem;
+            background: var(--glass-card);
+            color: var(--text-primary);
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.15s ease;
         }
-        .btn-qty:disabled { opacity: 0.4; cursor: not-allowed; }
-        .qty-num { font-weight: bold; min-width: 18px; text-align: center; font-size: 0.85rem; }
-        
+        .btn-qty:active { transform: scale(0.92); }
+        .btn-qty:disabled { opacity: 0.3; cursor: not-allowed; }
+        .qty-num {
+            font-weight: 700;
+            min-width: 18px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+        }
+
         .date-tag-box {
             margin-top: 8px;
-            background: var(--sub-card);
-            border: 1px solid var(--sub-border);
-            padding: 6px 8px;
-            border-radius: 6px;
+            padding-top: 8px;
+            border-top: 1px dashed var(--card-inner-border);
             width: 100%;
         }
         .date-tag-box label {
-            font-size: 0.72rem;
-            font-weight: bold;
-            color: var(--accent-text);
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--accent-main);
             display: block;
             margin-bottom: 3px;
         }
-        .date-input-field {
-            padding: 6px 8px;
-            font-size: 0.8rem;
-            border: 1px solid var(--border);
-            background: var(--card);
-            color: var(--text);
-            border-radius: 4px;
+
+        .btn-action-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 16px;
             width: 100%;
         }
-        
-        .total-box {
-            background: var(--sub-card);
-            border: 1px solid var(--sub-border);
-            padding: 14px;
-            border-radius: 10px;
-            margin-top: 14px;
-            width: 100%;
-        }
-        .total-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-            font-size: 0.9rem;
-        }
-        .grand-total {
-            font-size: 1.15rem;
-            font-weight: bold;
-            color: var(--accent-text);
-            border-top: 1px solid var(--sub-border);
-            padding-top: 8px;
-            margin-top: 8px;
-        }
-        
-        /* 2x2 ACTION BUTTON GRID */
-        .btn-action-grid { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 8px; 
-            margin-top: 14px;
-            width: 100%; 
-        }
-        .btn-action-grid button {
-            padding: 11px 6px;
+        .action-btn {
+            padding: 13px 10px;
             border: none;
-            border-radius: 8px;
-            font-weight: bold;
+            border-radius: 14px;
+            font-weight: 700;
             font-size: 0.82rem;
+            font-family: 'Outfit', sans-serif;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.06);
-            transition: transform 0.1s ease;
+            gap: 6px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.12);
         }
-        .btn-action-grid button:active { transform: scale(0.98); }
+        .action-btn:active {
+            transform: scale(0.97);
+        }
         
-        .btn-download-pdf { background: #0284c7; color: white; }
-        .btn-print { background: #16a34a; color: white; }
-        .btn-whatsapp { background: #25d366; color: white; }
-        .btn-save-qh { background: #6366f1; color: white; }
+        .btn-download-pdf { background: var(--accent-gradient); }
+        .btn-print { background: #1c1511; }
+        .btn-whatsapp { background: #15803d; }
+        .btn-save-qh { background: #4338ca; }
         
-        .btn-add { background: var(--primary); color: white; border: none; padding: 9px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 8px; font-size: 0.85rem; }
-        .btn-delete { background: #ef4444; color: white; border: none; padding: 5px 8px; border-radius: 5px; font-size: 0.75rem; cursor: pointer; }
-        .btn-unlock { background: #d97706; color: white; border: none; padding: 5px 8px; border-radius: 5px; font-size: 0.75rem; font-weight: bold; cursor: pointer; }
-        .btn-secondary { background: #64748b; color: white; border: none; padding: 6px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: bold; cursor: pointer; }
-        .btn-reset { background: #ef4444; color: white; border: none; padding: 10px 14px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 0.85rem; }
-        .edit-input { width: 100%; padding: 8px; border: 1px solid var(--border); background: var(--card); color: var(--text); border-radius: 6px; margin-top: 4px; font-size: 0.85rem; }
-        .theme-select { width: 100%; padding: 8px; border-radius: 6px; border: 1px solid var(--border); background: var(--card); color: var(--text); font-weight: bold; margin-top: 6px; cursor: pointer; font-size: 0.85rem; }
-        
-        /* History (QH) Styling */
-        .qh-card { background: var(--sub-card); border: 1px solid var(--sub-border); border-radius: 8px; padding: 10px; margin-bottom: 10px; width: 100%; }
-        .qh-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; border-bottom: 1px dashed var(--border); padding-bottom: 6px; }
-        .qh-cust-name { font-weight: bold; font-size: 0.95rem; color: var(--accent-text); }
-        .qh-timestamp { font-size: 0.72rem; color: #64748b; }
-        .qh-details-row { font-size: 0.8rem; margin-bottom: 4px; }
-        .qh-actions { display: flex; gap: 6px; margin-top: 8px; }
-        .btn-qh-load { background: #16a34a; color: white; border: none; padding: 6px 8px; border-radius: 5px; font-size: 0.75rem; font-weight: bold; cursor: pointer; flex: 1; }
-        .btn-qh-delete { background: #ef4444; color: white; border: none; padding: 6px 8px; border-radius: 5px; font-size: 0.75rem; cursor: pointer; }
-        .status-select { padding: 3px 6px; border-radius: 5px; font-size: 0.75rem; font-weight: bold; border: 1px solid var(--border); cursor: pointer; background: var(--card); color: var(--text); }
+        .btn-add { background: var(--accent-gradient); color: #fff; border: none; padding: 11px 16px; border-radius: 10px; font-weight: 700; cursor: pointer; margin-top: 8px; font-size: 0.85rem; }
+        .btn-delete { background: #fee2e2; border: 1px solid #fca5a5; color: #b91c1c; padding: 6px 10px; border-radius: 8px; font-size: 0.75rem; cursor: pointer; font-weight: 700; }
+        .btn-unlock { background: #fef3c7; border: 1px solid #fcd34d; color: #b45309; padding: 6px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; cursor: pointer; }
+        .btn-secondary { background: var(--pill-bg); border: 1px solid var(--input-border); color: var(--text-primary); padding: 8px 12px; border-radius: 10px; font-size: 0.75rem; font-weight: 600; cursor: pointer; }
+        .btn-reset { background: #fef2f2; border: 1px solid #f87171; color: #b91c1c; padding: 12px 14px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.85rem; width: 100%; }
+
+        .qh-card {
+            background: var(--glass-card-sub);
+            border: 1px solid var(--card-inner-border);
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 12px;
+            width: 100%;
+        }
+        .qh-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            border-bottom: 1px solid var(--card-inner-border);
+            padding-bottom: 6px;
+        }
+        .qh-cust-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--accent-main);
+        }
+        .qh-timestamp { font-size: 0.7rem; color: var(--text-secondary); }
+        .qh-details-row { font-size: 0.78rem; margin-bottom: 4px; color: var(--text-secondary); }
+        .qh-details-row strong { color: var(--text-primary); }
+        .qh-actions { display: flex; gap: 8px; margin-top: 10px; }
+        .btn-qh-load { background: var(--accent-gradient); color: white; border: none; padding: 8px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; cursor: pointer; flex: 1; }
+        .status-select { padding: 5px 8px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; border: 1px solid var(--input-border); cursor: pointer; background: var(--input-bg); color: var(--text-primary); outline: none; }
 
         .hidden { display: none !important; }
 
@@ -331,26 +652,29 @@
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.92);
+            background: rgba(20, 14, 10, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             display: flex;
             flex-direction: column;
             z-index: 99999;
         }
         .modal-header-bar {
-            background: #1e293b;
+            background: rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
             color: #fff;
-            padding: 10px 14px;
+            padding: 14px 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .modal-header-bar h3 { margin: 0; font-size: 0.9rem; }
-        .modal-close-btn { background: #ef4444; color: #fff; border: none; padding: 5px 12px; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 0.8rem; }
+        .modal-header-bar h3 { margin: 0; font-size: 0.95rem; font-family: 'Outfit', sans-serif; }
+        .modal-close-btn { background: #ef4444; border: none; color: #fff; padding: 6px 14px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.8rem; }
         .modal-body {
             flex: 1;
             overflow-y: auto;
             overflow-x: hidden;
-            padding: 8px;
+            padding: 12px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -359,27 +683,22 @@
         #modal-img-preview {
             max-width: 100%;
             height: auto;
-            border-radius: 6px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            border-radius: 14px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.5);
             background: #fff;
         }
         .modal-footer-bar {
-            background: #0f172a;
-            padding: 10px 12px;
+            background: rgba(15, 10, 7, 0.7);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 14px;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
-        }
-        .modal-footer-bar button {
-            padding: 11px 6px;
-            border: none;
-            border-radius: 6px;
-            font-weight: bold;
-            font-size: 0.82rem;
-            cursor: pointer;
+            gap: 10px;
         }
 
-        /* HIDDEN OFF-SCREEN SOURCE TO RENDER CANVAS */
+        /* ---------------------------------------------------- */
+        /* DYNAMIC PDF THEMES ENGINE (6 STYLES)                 */
+        /* ---------------------------------------------------- */
         #pdf-render-source {
             position: fixed;
             left: -9999px;
@@ -398,11 +717,80 @@
             font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0 auto;
             color: #333333;
+            /* PDF CSS Variables Default: Amber */
+            --pdf-header-bg: #2b1d14;
+            --pdf-header-text: #ffffff;
+            --pdf-header-sub: #dfb28e;
+            --pdf-accent: #c97945;
+            --pdf-accent-dark: #944d21;
+            --pdf-card-bg: #fdfaf6;
+            --pdf-card-border: #e2d2c1;
+            --pdf-table-row: #faf5ee;
+        }
+
+        /* PDF Theme 2: Royal Navy & Sapphire */
+        .pdf-render-box[data-pdf-theme="navy"] {
+            --pdf-header-bg: #0c1c38;
+            --pdf-header-text: #ffffff;
+            --pdf-header-sub: #93c5fd;
+            --pdf-accent: #0284c7;
+            --pdf-accent-dark: #0369a1;
+            --pdf-card-bg: #f0f9ff;
+            --pdf-card-border: #bae6fd;
+            --pdf-table-row: #f0f7ff;
+        }
+
+        /* PDF Theme 3: Rose Quartz & Wine Velvet */
+        .pdf-render-box[data-pdf-theme="rose"] {
+            --pdf-header-bg: #4c0519;
+            --pdf-header-text: #ffffff;
+            --pdf-header-sub: #fbcfe8;
+            --pdf-accent: #db2777;
+            --pdf-accent-dark: #9d174d;
+            --pdf-card-bg: #fdf2f8;
+            --pdf-card-border: #fbcfe8;
+            --pdf-table-row: #fdf4f6;
+        }
+
+        /* PDF Theme 4: Emerald Forest & Sage */
+        .pdf-render-box[data-pdf-theme="emerald"] {
+            --pdf-header-bg: #064e3b;
+            --pdf-header-text: #ffffff;
+            --pdf-header-sub: #a7f3d0;
+            --pdf-accent: #059669;
+            --pdf-accent-dark: #065f46;
+            --pdf-card-bg: #f0fdf4;
+            --pdf-card-border: #bbf7d0;
+            --pdf-table-row: #f2fbf5;
+        }
+
+        /* PDF Theme 5: Obsidian Black & VIP Gold */
+        .pdf-render-box[data-pdf-theme="obsidian-gold"] {
+            --pdf-header-bg: #121212;
+            --pdf-header-text: #ffffff;
+            --pdf-header-sub: #facc15;
+            --pdf-accent: #eab308;
+            --pdf-accent-dark: #a16207;
+            --pdf-card-bg: #fefce8;
+            --pdf-card-border: #fef08a;
+            --pdf-table-row: #fefdf2;
+        }
+
+        /* PDF Theme 6: Minimal Classic Sandstone */
+        .pdf-render-box[data-pdf-theme="sandstone"] {
+            --pdf-header-bg: #5a3f2d;
+            --pdf-header-text: #ffffff;
+            --pdf-header-sub: #f5e4d5;
+            --pdf-accent: #87654b;
+            --pdf-accent-dark: #5a3f2d;
+            --pdf-card-bg: #f7f3ee;
+            --pdf-card-border: #d4c2b0;
+            --pdf-table-row: #faf8f5;
         }
 
         .pdf-header-wave-box {
-            background: #2b2d30;
-            color: #ffffff;
+            background: var(--pdf-header-bg);
+            color: var(--pdf-header-text);
             padding: 26px 30px 45px 30px;
             position: relative;
         }
@@ -417,29 +805,28 @@
             border-top-left-radius: 50% 20px;
             border-top-right-radius: 50% 20px;
         }
-
         .pdf-header-top-flex { display: flex; justify-content: space-between; align-items: center; }
         .pdf-logo-area { display: flex; align-items: center; gap: 12px; }
         .pdf-logo-icon {
-            width: 44px; height: 44px; background: #f3af3d; border-radius: 8px;
+            width: 44px; height: 44px; background: var(--pdf-accent); border-radius: 8px;
             display: flex; align-items: center; justify-content: center; font-size: 22px; overflow: hidden;
         }
         .pdf-logo-icon img { width: 100%; height: 100%; object-fit: contain; }
         .pdf-company-title { font-size: 18pt; font-weight: 800; letter-spacing: 1px; margin: 0; color: #ffffff; }
-        .pdf-contact-header { text-align: right; max-width: 55%; font-size: 9pt; color: #e2e8f0; line-height: 1.45; }
-        .pdf-contact-header strong { color: #f3af3d; font-size: 10pt; letter-spacing: 0.5px; text-transform: uppercase; display: block; margin-bottom: 2px; }
+        .pdf-contact-header { text-align: right; max-width: 55%; font-size: 9pt; color: var(--pdf-header-sub); line-height: 1.45; }
+        .pdf-contact-header strong { color: var(--pdf-accent); font-size: 10pt; letter-spacing: 0.5px; text-transform: uppercase; display: block; margin-bottom: 2px; }
 
         .pdf-body-area { padding: 20px 30px 30px 30px; }
         .pdf-top-title-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .pdf-invoice-big-title { font-size: 24pt; font-weight: 800; letter-spacing: 2px; color: #2b2d30; margin: 0; }
+        .pdf-invoice-big-title { font-size: 24pt; font-weight: 800; letter-spacing: 2px; color: var(--pdf-header-bg); margin: 0; }
 
         .pdf-client-card-full {
-            background: #f9f9f9; border: 1px solid #e0e0e0; border-left: 5px solid #f3af3d;
+            background: var(--pdf-card-bg); border: 1px solid var(--pdf-card-border); border-left: 5px solid var(--pdf-accent);
             padding: 12px 18px; border-radius: 6px; font-size: 10pt; color: #222222; margin-bottom: 20px;
         }
         .pdf-client-card-full h4 {
-            margin: 0 0 8px 0; font-size: 10pt; color: #b8860b; text-transform: uppercase;
-            letter-spacing: 1.5px; border-bottom: 1px solid #eaeaea; padding-bottom: 4px;
+            margin: 0 0 8px 0; font-size: 10pt; color: var(--pdf-accent-dark); text-transform: uppercase;
+            letter-spacing: 1.5px; border-bottom: 1px solid rgba(0,0,0,0.06); padding-bottom: 4px;
         }
         .pdf-client-grid-box { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; }
         .pdf-client-item { display: flex; gap: 6px; }
@@ -447,31 +834,31 @@
 
         .pdf-wave-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
         .pdf-wave-table th { padding: 10px 14px; font-size: 9.5pt; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
-        .pdf-th-gold { background: #f3af3d; color: #2b2d30; text-align: left; }
-        .pdf-th-dark { background: #2b2d30; color: #ffffff; text-align: right; }
+        .pdf-th-gold { background: var(--pdf-accent); color: #ffffff; text-align: left; }
+        .pdf-th-dark { background: var(--pdf-header-bg); color: #ffffff; text-align: right; }
         .pdf-wave-table td { padding: 12px 14px; font-size: 10pt; color: #333333; }
-        .pdf-row-even { background: #f5f5f5; }
+        .pdf-row-even { background: var(--pdf-table-row); }
 
         .pdf-totals-flex { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 15px; }
         .pdf-terms-left { width: 50%; font-size: 9pt; color: #555555; line-height: 1.5; }
-        .pdf-terms-left strong { color: #2b2d30; }
+        .pdf-terms-left strong { color: var(--pdf-header-bg); }
 
         .pdf-qr-section {
             margin-top: 10px; display: flex; align-items: center; gap: 12px;
-            background: #fffdf5; border: 1px solid #f3af3d; padding: 8px; border-radius: 6px;
+            background: var(--pdf-card-bg); border: 1px solid var(--pdf-accent); padding: 8px; border-radius: 6px;
         }
         .pdf-qr-box { width: 65px; height: 65px; background: #fff; border: 1px solid #ccc; padding: 2px; }
 
         .pdf-right-summary { width: 45%; }
         .pdf-summary-table { width: 100%; font-size: 10pt; border-collapse: collapse; }
         .pdf-summary-table td { padding: 6px 10px; }
-        .pdf-gold-total-bar { background: #f3af3d !important; color: #2b2d30 !important; font-weight: 800; font-size: 11pt; }
+        .pdf-gold-total-bar { background: var(--pdf-accent) !important; color: #ffffff !important; font-weight: 800; font-size: 11pt; }
         .pdf-gold-total-bar td { padding: 8px 10px !important; }
 
         .pdf-footer-wave-bar {
-            position: absolute; bottom: 0; left: 0; right: 0; background: #f3af3d !important;
-            color: #2b2d30 !important; padding: 14px 30px; display: grid; grid-template-columns: 1fr auto 1fr;
-            align-items: center; box-sizing: border-box; font-size: 9pt; font-weight: bold; border-top: 1px solid #d4a02c;
+            position: absolute; bottom: 0; left: 0; right: 0; background: var(--pdf-accent) !important;
+            color: #ffffff !important; padding: 14px 30px; display: grid; grid-template-columns: 1fr auto 1fr;
+            align-items: center; box-sizing: border-box; font-size: 9pt; font-weight: bold; border-top: 1px solid var(--pdf-accent-dark);
         }
         .pdf-footer-col-left { text-align: left; letter-spacing: 0.5px; }
         .pdf-footer-col-center { text-align: center; }
@@ -481,25 +868,51 @@
 <body>
 
 <div class="app-container">
+    <!-- Top Architectural Header -->
     <div class="app-header">
-        <div id="app-header-logo-box">📸</div>
-        <h2 id="app-company-header">CLICK CLOUD PHOTOGRAPHY</h2>
+        <div class="app-header-left">
+            <div class="header-logo-badge" id="app-header-logo-box">📸</div>
+            <div class="header-title-box">
+                <h2 id="app-company-header">WED+CAL</h2>
+                <span>Studio Pricing Engine</span>
+            </div>
+        </div>
     </div>
 
-    <!-- TABS -->
+    <!-- Pill Segment Navigation -->
     <div class="tabs">
-        <button class="tab-btn active" onclick="switchTab('calc')">Calculator</button>
-        <button class="tab-btn" onclick="switchTab('qh')">📜 QH (History)</button>
-        <button class="tab-btn" onclick="switchTab('advance')">Advance Settings</button>
+        <button class="tab-btn active" onclick="switchTab('calc')">⚡ Calculator</button>
+        <button class="tab-btn" onclick="switchTab('qh')">📜 History (QH)</button>
+        <button class="tab-btn" onclick="switchTab('advance')">⚙️ Settings</button>
     </div>
 
     <!-- CALCULATOR TAB -->
     <div id="tab-calc" class="tab-content">
-        <div class="client-info-box">
-            <h4>📋 Client & Event Details</h4>
+        <div class="interior-hero-card">
+            <div class="hero-top-row">
+                <div class="hero-chip-badge">Official Quotation</div>
+                <div style="font-size: 0.75rem; color: var(--hero-sub); font-weight: 700;">₹ INR ACTIVE</div>
+            </div>
+            <div class="hero-balance-label">Total Booking Value</div>
+            <div class="hero-grand-total" id="grand-val">₹0</div>
+            
+            <div class="hero-stats-grid">
+                <div class="hero-stat-item">
+                    <span>50% Advance Lock:</span>
+                    <strong id="advance-val">₹0</strong>
+                </div>
+                <div class="hero-stat-item">
+                    <span>Subtotal:</span>
+                    <strong id="subtotal-val">₹0</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="porcelain-box">
+            <div class="porcelain-box-title">📋 Client & Event Details</div>
             <div class="input-grid">
                 <div class="form-field">
-                    <label>Customer Name</label>
+                    <label>Client Name</label>
                     <input type="text" id="cust-name" class="form-input" placeholder="e.g. Rahul Sharma" oninput="updatePdfFields()">
                 </div>
                 <div class="form-field">
@@ -507,40 +920,38 @@
                     <input type="tel" id="cust-phone" class="form-input" placeholder="e.g. 98270XXXXX" oninput="updatePdfFields()">
                 </div>
                 <div class="form-field">
-                    <label>Event Place / Venue</label>
+                    <label>Event Venue</label>
                     <input type="text" id="event-place" class="form-input" placeholder="e.g. Bhilai" oninput="updatePdfFields()">
                 </div>
                 <div class="form-field">
-                    <label>Overall Event Date Range</label>
+                    <label>Event Date Range</label>
                     <input type="text" id="event-date" class="form-input" placeholder="e.g. 14-16 Nov 2026" oninput="updatePdfFields()">
                 </div>
             </div>
         </div>
 
-        <div id="services-list"></div>
-
-        <div class="total-box">
-            <div class="total-row"><span>Subtotal:</span> <strong id="subtotal-val">₹0</strong></div>
-            <div class="total-row"><span>Discount (%):</span> <input type="number" id="discount-input" value="0" min="0" max="100" style="width: 55px; padding: 4px;" onchange="calculateTotal()"></div>
-            <div class="total-row grand-total"><span>Grand Total:</span> <span id="grand-val">₹0</span></div>
-            <div class="total-row" style="color: var(--accent-text); font-weight: bold; margin-top: 6px;">
-                <span>50% Advance Booking:</span> <span id="advance-val">₹0</span>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin: 16px 4px 10px 4px;">
+            <span style="font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary);">Select Services</span>
+            <div style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 700; color: var(--text-secondary);">
+                <span>Discount (%):</span>
+                <input type="number" id="discount-input" value="0" min="0" max="100" class="form-input" style="width: 55px; padding: 5px 6px; text-align: center;" onchange="calculateTotal()">
             </div>
         </div>
 
-        <!-- 2x2 ACTION BUTTON GRID -->
+        <div id="services-list"></div>
+
         <div class="btn-action-grid">
-            <button class="btn-download-pdf" id="btn-dl-text" onclick="handleDirectShareOrDownload()">📥 Share / Save PDF</button>
-            <button class="btn-print" id="btn-pr-text" onclick="openPreviewModal()">👁️ Preview Quotation</button>
-            <button class="btn-whatsapp" onclick="sendWhatsAppSummary()">💬 Send WhatsApp</button>
-            <button class="btn-save-qh" onclick="saveQuotationToHistory(true)">💾 Save to History</button>
+            <button class="action-btn btn-download-pdf" id="btn-dl-text" onclick="handleDirectShareOrDownload()">📥 Share / Save PDF</button>
+            <button class="action-btn btn-print" id="btn-pr-text" onclick="openPreviewModal()">👁️ Preview Quote</button>
+            <button class="action-btn btn-whatsapp" onclick="sendWhatsAppSummary()">💬 WhatsApp</button>
+            <button class="action-btn btn-save-qh" onclick="saveQuotationToHistory(true)">💾 Save Quote</button>
         </div>
     </div>
 
     <!-- 'QH' (QUOTATION HISTORY) TAB -->
     <div id="tab-qh" class="tab-content hidden">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-            <h3 style="margin: 0; font-size: 1rem;">📜 Saved Quotation History</h3>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <h3 style="margin: 0; font-size: 1rem; font-family: 'Outfit', sans-serif;">📜 Saved History</h3>
             <button class="btn-delete" onclick="clearAllHistory()">🗑️ Clear All</button>
         </div>
 
@@ -549,65 +960,86 @@
         <div id="qh-history-list"></div>
     </div>
 
-    <!-- ADVANCE TAB -->
+    <!-- ADVANCE TAB (App Themes & PDF Themes) -->
     <div id="tab-advance" class="tab-content hidden">
-        <div style="background: var(--sub-card); border: 1px solid var(--sub-border); padding: 12px; border-radius: 8px; margin-bottom: 14px;">
-            <label style="font-weight: bold; font-size: 0.82rem; color: var(--accent-text);">💳 UPI Payment QR Code Setup (For PDF):</label>
-            <input type="text" id="upi-id-input" class="edit-input" placeholder="e.g. 98270XXXXX@ybl or gpay/paytm UPI ID" oninput="handleUpiInput(this.value)">
-            <div style="font-size: 0.72rem; color: #64748b; margin-top: 4px;">Enter UPI ID to generate auto Advance-Payment QR Code on PDF.</div>
+        <!-- PDF THEME SELECTOR -->
+        <div class="porcelain-box" style="border-left: 4px solid var(--accent-main);">
+            <label style="font-weight: 800; font-size: 0.84rem; color: var(--accent-main);">📄 Select Export PDF Theme (Quotation Style):</label>
+            <select id="pdf-theme-selector" class="form-input" style="margin-top: 6px; font-weight: 700;" onchange="changePdfTheme(this.value)">
+                <option value="amber">🍂 Architectural Amber & Terracotta (Default)</option>
+                <option value="navy">👑 Royal Navy & Sapphire Blue</option>
+                <option value="rose">🌸 Rose Quartz & Wine Velvet</option>
+                <option value="emerald">🌿 Emerald Forest & Sage Green</option>
+                <option value="obsidian-gold">✨ Obsidian Black & Pure VIP Gold</option>
+                <option value="sandstone">🏛️ Minimal Classic Sandstone</option>
+            </select>
+            <div style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 4px;">Choose the exact color theme for your client PDF quotation exports.</div>
         </div>
 
-        <div style="background: var(--sub-card); border: 1px solid var(--sub-border); padding: 12px; border-radius: 8px; margin-bottom: 14px;">
-            <label style="font-weight: bold; font-size: 0.82rem; color: var(--accent-text);">🖼️ Studio Logo Import (Auto-Connect to PDF & App):</label>
+        <!-- APP UI THEME SELECTOR -->
+        <div class="porcelain-box">
+            <label style="font-weight: 800; font-size: 0.82rem; color: var(--accent-main);">🎨 Select App UI Screen Theme:</label>
+            <select id="theme-selector" class="form-input" style="margin-top: 6px; font-weight: 700;" onchange="changeTheme(this.value)">
+                <option value="amber">🍂 Warm Amber & Terracotta (Architectural)</option>
+                <option value="ocean">🌊 Deep Ocean Wave & Sapphire</option>
+                <option value="glassy-blue">💎 Frosted Glassy Blue (Cryo Finish)</option>
+                <option value="rose-silk">🌸 Rose Quartz & Blush Silk (Luxury Pink)</option>
+                <option value="velvet-wine">👑 Royal Velvet Wine & Ruby Pink</option>
+                <option value="sage-mist">🌿 Sage Mist & Raw Linen (Organic Minimal)</option>
+                <option value="aurora">🌌 Midnight Aurora (Neon Emerald Teal)</option>
+                <option value="espresso">☕ Dark Espresso & Bronze (Luxury Night)</option>
+                <option value="sandstone">🏛️ Sandstone & Cream Minimal (Soft Light)</option>
+                <option value="obsidian">✨ Obsidian Midnight & Gold (High Contrast)</option>
+            </select>
+        </div>
+
+        <div class="porcelain-box">
+            <label style="font-weight: 800; font-size: 0.82rem; color: var(--accent-main);">💳 UPI Payment QR Code Setup (For PDF):</label>
+            <input type="text" id="upi-id-input" class="form-input" style="margin-top: 6px;" placeholder="e.g. 98270XXXXX@ybl or UPI ID" oninput="handleUpiInput(this.value)">
+            <div style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 4px;">Dynamic advance amount QR code automatically renders on PDF.</div>
+        </div>
+
+        <div class="porcelain-box">
+            <label style="font-weight: 800; font-size: 0.82rem; color: var(--accent-main);">🖼️ Studio Logo Import:</label>
             <div style="display: flex; gap: 10px; align-items: center; margin-top: 8px;">
-                <div id="logo-preview-box" style="width: 44px; height: 44px; border: 1px dashed var(--border); border-radius: 6px; display: flex; align-items: center; justify-content: center; background: var(--card); font-size: 18px; overflow: hidden; flex-shrink: 0;">
-                    📸
-                </div>
+                <div id="logo-preview-box" class="header-logo-badge" style="width: 44px; height: 44px; flex-shrink: 0;">📸</div>
                 <div style="flex: 1; min-width: 0;">
-                    <input type="file" id="logo-file-input" accept="image/*" style="font-size: 0.75rem; width: 100%;" onchange="handleLogoUpload(event)">
-                    <div style="font-size: 0.72rem; color: #64748b; margin-top: 3px;">PNG / JPG Logo supported (Auto-Saved)</div>
+                    <input type="file" id="logo-file-input" accept="image/*" style="font-size: 0.75rem; width: 100%; color: var(--text-secondary);" onchange="handleLogoUpload(event)">
                 </div>
                 <button class="btn-secondary" onclick="resetLogo()">🗑️ Reset</button>
             </div>
         </div>
 
-        <div style="background: var(--sub-card); border: 1px solid var(--sub-border); padding: 12px; border-radius: 8px; margin-bottom: 14px;">
-            <label style="font-weight: bold; font-size: 0.82rem; color: var(--accent-text);">🎨 Choose App UI Theme:</label>
-            <select id="theme-selector" class="theme-select" onchange="changeTheme(this.value)">
-                <option value="light">☀️ Clean Apple Light Theme</option>
-                <option value="dark">🌙 Dark Studio Theme</option>
-                <option value="gold">🔱 Gold Luxury Theme</option>
-            </select>
-        </div>
-
-        <div style="background: var(--sub-card); border: 1px solid var(--sub-border); padding: 12px; border-radius: 8px; margin-bottom: 14px;">
+        <div class="porcelain-box">
             <div style="display: flex; justify-content: space-between; align-items: center;">
-                <label style="font-weight: bold; font-size: 0.82rem; color: var(--accent-text);">⚙️ Studio / Company Name:</label>
+                <label style="font-weight: 800; font-size: 0.82rem; color: var(--accent-main);">⚙️ Studio / Company Name:</label>
                 <button class="btn-unlock" id="btn-lock-toggle" onclick="toggleCompanyLock()">🔒 Locked</button>
             </div>
-            <input type="text" id="company-name-input" class="edit-input" style="font-weight: bold;" disabled oninput="handleNameInput(this.value)">
+            <input type="text" id="company-name-input" class="form-input" style="font-weight: bold; margin-top: 6px;" disabled oninput="handleNameInput(this.value)">
             
-            <label style="font-weight: bold; font-size: 0.82rem; color: var(--accent-text); margin-top: 10px; display: block;">📍 Studio Address & Contact Info (For PDF Footer):</label>
-            <input type="text" id="company-address-input" class="edit-input" placeholder="e.g. Priyadarshini Nagar, Risali / Nevai Bhata Road, Bhilai, Chhattisgarh | Ph: +91 7566889884" disabled oninput="handleAddressInput(this.value)">
+            <label style="font-weight: 800; font-size: 0.82rem; color: var(--accent-main); margin-top: 12px; display: block;">📍 Studio Address & Contact (For PDF Footer):</label>
+            <input type="text" id="company-address-input" class="form-input" style="margin-top: 6px;" placeholder="Priyadarshini Nagar, Risali / Nevai Bhata Road, Bhilai, Chhattisgarh | Ph: +91 7566889884" disabled oninput="handleAddressInput(this.value)">
         </div>
 
-        <h3 style="font-size: 0.95rem; margin-bottom: 4px;">Edit Items & Base Prices (₹)</h3>
-        <p style="font-size: 0.75rem; color: #16a34a; font-weight: bold; margin-bottom: 10px;">✓ All changes are automatically saved in local memory.</p>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin: 16px 4px 6px 4px;">
+            <span style="font-size: 0.82rem; font-weight: 800; text-transform: uppercase; color: var(--text-primary);">Base Services & Pricing (₹)</span>
+        </div>
         <div id="advance-edit-list"></div>
 
-        <div style="background: var(--bg); border: 1px dashed var(--border); padding: 12px; border-radius: 8px; margin-top: 14px;">
-            <h4 style="margin-bottom: 8px; font-size: 0.85rem;">➕ Add New Custom Service Item</h4>
+        <div class="porcelain-box" style="border-style: dashed; margin-top: 12px;">
+            <h4 style="margin-bottom: 8px; font-size: 0.82rem; color: var(--accent-main);">➕ Add New Service Item</h4>
             <div style="display: flex; gap: 8px; margin-bottom: 8px;">
-                <input type="text" id="new-item-name" class="edit-input" placeholder="Item Name (e.g. LED Wall Setup)" style="flex: 2; margin-top: 0;">
-                <input type="number" id="new-item-price" class="edit-input" placeholder="Price (₹)" style="flex: 1; margin-top: 0;">
+                <input type="text" id="new-item-name" class="form-input" placeholder="Service Name (e.g. LED Wall Setup)" style="flex: 2;">
+                <input type="number" id="new-item-price" class="form-input" placeholder="Price (₹)" style="flex: 1;">
             </div>
-            <button class="btn-add" onclick="addNewService()">+ Add Item to List</button>
+            <button class="btn-add" onclick="addNewService()">+ Add Item</button>
         </div>
 
-        <hr style="margin: 16px 0; border: 0; border-top: 1px solid var(--border);">
-        <label style="font-size: 0.82rem; font-weight: bold;">Hidden Service Charge (₹) [Hidden from Calculator & PDF]:</label>
-        <input type="number" id="hidden-fee-input" class="edit-input" placeholder="e.g. 2000" value="0" onchange="saveHiddenFee()">
-        <br><br>
+        <div class="porcelain-box" style="margin-top: 12px;">
+            <label style="font-size: 0.82rem; font-weight: 800; color: var(--accent-main);">Hidden Service Charge (₹) [Internal Margin]:</label>
+            <input type="number" id="hidden-fee-input" class="form-input" style="margin-top: 6px;" placeholder="e.g. 2000" value="0" onchange="saveHiddenFee()">
+        </div>
+
         <button class="btn-reset" onclick="resetToDefaults()">🔄 Reset App to Default</button>
     </div>
 </div>
@@ -623,8 +1055,8 @@
         <img id="modal-img-preview" class="hidden" alt="Quotation Preview">
     </div>
     <div class="modal-footer-bar">
-        <button style="background: #0284c7; color: #fff;" onclick="handleDirectShareOrDownload()">📤 Share / Save PDF</button>
-        <button style="background: #25d366; color: #fff;" onclick="sendWhatsAppSummary()">💬 Send WhatsApp</button>
+        <button class="action-btn btn-download-pdf" onclick="handleDirectShareOrDownload()">📤 Share / Save PDF</button>
+        <button class="action-btn btn-whatsapp" onclick="sendWhatsAppSummary()">💬 WhatsApp</button>
     </div>
 </div>
 
@@ -636,8 +1068,8 @@
                 <div class="pdf-logo-area">
                     <div class="pdf-logo-icon" id="pdf-logo-icon-box">📸</div>
                     <div>
-                        <h1 class="pdf-company-title" id="pdf-logo-company">CLICK CLOUD</h1>
-                        <div style="font-size: 8pt; color: #f3af3d; letter-spacing: 2px;">PHOTOGRAPHY & FILMS</div>
+                        <h1 class="pdf-company-title" id="pdf-logo-company">WED+CAL</h1>
+                        <div style="font-size: 8pt; color: var(--pdf-header-sub); letter-spacing: 2px;">PHOTOGRAPHY & FILMS</div>
                     </div>
                 </div>
                 <div class="pdf-contact-header">
@@ -698,7 +1130,7 @@
                     <div class="pdf-qr-section" id="pdf-qr-container" style="display: none;">
                         <div class="pdf-qr-box" id="pdf-qrcode-div"></div>
                         <div>
-                            <strong style="color: #b8860b; font-size: 8.5pt;">SCAN TO PAY 50% ADVANCE:</strong><br>
+                            <strong style="color: var(--pdf-accent-dark); font-size: 8.5pt;">SCAN TO PAY 50% ADVANCE:</strong><br>
                             <span id="pdf-upi-id-label" style="font-size: 8pt; color: #333; font-weight: bold;"></span><br>
                             <span style="font-size: 7.5pt; color: #666;">Scan via GPay / PhonePe / Paytm</span>
                         </div>
@@ -711,13 +1143,18 @@
                             <td>Sub Total:</td>
                             <td style="text-align: right;" id="pdf-subtotal-val">₹0</td>
                         </tr>
+                        <!-- PDF Discount Row -->
+                        <tr id="pdf-discount-row" style="display: none; color: #b91c1c;">
+                            <td>Discount (<span id="pdf-discount-pct">0</span>%):</td>
+                            <td style="text-align: right; font-weight: bold;" id="pdf-discount-val">-₹0</td>
+                        </tr>
                         <tr class="pdf-gold-total-bar">
                             <td>GRAND TOTAL:</td>
                             <td style="text-align: right;" id="pdf-grand-val">₹0</td>
                         </tr>
                         <tr>
                             <td colspan="2" style="font-size: 8.5pt; color: #333333; text-align: right; padding-top: 6px;">
-                                <strong>50% Advance Booking Lock:</strong> <span id="pdf-advance-val" style="color: #1d4ed8; font-weight: bold;">₹0</span>
+                                <strong>50% Advance Booking Lock:</strong> <span id="pdf-advance-val" style="color: var(--pdf-accent-dark); font-weight: bold;">₹0</span>
                             </td>
                         </tr>
                     </table>
@@ -726,7 +1163,7 @@
         </div>
 
         <div class="pdf-footer-wave-bar">
-            <div class="pdf-footer-col-left" id="pdf-footer-company-bottom">CLICK CLOUD PHOTOGRAPHY</div>
+            <div class="pdf-footer-col-left" id="pdf-footer-company-bottom">WED+CAL</div>
             <div class="pdf-footer-col-center" id="pdf-footer-address-bottom">📍 Bhilai, Chhattisgarh</div>
             <div class="pdf-footer-col-right">Authorized Signatory</div>
         </div>
@@ -735,7 +1172,7 @@
 
 <script>
     const SECURITY_PASSWORD = "CCP123#";
-    const defaultCompany = "CLICK CLOUD PHOTOGRAPHY";
+    const defaultCompany = "WED+CAL";
     const defaultAddress = "Priyadarshini Nagar, Risali / Nevai Bhata Road, Bhilai, Chhattisgarh | Ph: +91 7566889884";
     const defaultServices = [
         { id: 1, name: "Traditional Photography", price: 5000, qty: 0, checked: false, dates: "" },
@@ -754,7 +1191,8 @@
     let isCompanyUnlocked = false;
     let upiId = localStorage.getItem('ccp_upi') || "";
     let customLogo = localStorage.getItem('ccp_logo') || null;
-    let currentTheme = localStorage.getItem('ccp_theme') || 'light';
+    let currentTheme = localStorage.getItem('ccp_theme') || 'amber';
+    let currentPdfTheme = localStorage.getItem('ccp_pdf_theme') || 'amber';
     let companyName = localStorage.getItem('ccp_company') || defaultCompany;
     let companyAddress = localStorage.getItem('ccp_address') || defaultAddress;
     let services = JSON.parse(localStorage.getItem('ccp_services')) || JSON.parse(JSON.stringify(defaultServices));
@@ -769,6 +1207,7 @@
         }
         localStorage.setItem('ccp_upi', upiId);
         localStorage.setItem('ccp_theme', currentTheme);
+        localStorage.setItem('ccp_pdf_theme', currentPdfTheme);
         localStorage.setItem('ccp_company', companyName);
         localStorage.setItem('ccp_address', companyAddress);
         localStorage.setItem('ccp_services', JSON.stringify(services));
@@ -848,7 +1287,7 @@
     async function handleDirectShareOrDownload() {
         saveQuotationToHistory(false);
         const dlBtn = document.getElementById('btn-dl-text');
-        dlBtn.innerText = "⏳ Generating PDF...";
+        dlBtn.innerText = "⏳ Generating...";
 
         let custName = document.getElementById('cust-name').value.trim() || "Client";
         let fileName = `Quotation_${custName.replace(/\s+/g, '_')}.pdf`;
@@ -875,7 +1314,7 @@
                     });
                     await Share.share({
                         title: fileName,
-                        text: `Click Cloud Photography Official Quotation for ${custName}`,
+                        text: `WED+CAL Official Quotation for ${custName}`,
                         url: savedFile.uri,
                         dialogTitle: 'Send Quotation'
                     });
@@ -937,7 +1376,7 @@
         saveToMemory();
         renderHistory();
 
-        if (showAlert) alert("✓ Quotation 'QH History' tab me save ho gaya hai!");
+        if (showAlert) alert("✓ Quotation History tab me save ho gaya hai!");
     }
 
     function updateRecordStatus(id, newStatus) {
@@ -960,7 +1399,7 @@
         );
 
         if (filtered.length === 0) {
-            container.innerHTML = `<p style="text-align: center; color: #64748b; font-size: 0.82rem; padding: 20px 0;">Koi quotation history nahi mili.</p>`;
+            container.innerHTML = `<p style="text-align: center; color: var(--text-secondary); font-size: 0.82rem; padding: 20px 0;">Koi quotation history nahi mili.</p>`;
             return;
         }
 
@@ -979,13 +1418,13 @@
                             <div class="qh-cust-name">${record.custName}</div>
                             <div class="qh-timestamp">📅 Saved: ${record.timestamp}</div>
                         </div>
-                        <div style="font-weight: bold; color: var(--accent-text); font-size: 0.95rem;">${record.grandTotal}</div>
+                        <div style="font-weight: 800; color: var(--accent-main); font-size: 1.05rem;">${record.grandTotal}</div>
                     </div>
                     <div class="qh-details-row"><strong>📞 Phone:</strong> ${record.custPhone} | <strong>📍 Venue:</strong> ${record.eventPlace}</div>
                     <div class="qh-details-row"><strong>🗓️ Dates:</strong> ${record.eventDate}</div>
-                    <div class="qh-details-row" style="color: #64748b; font-size: 0.75rem; margin-top: 3px;"><strong>Services:</strong> ${selectedNames || 'None'}</div>
+                    <div class="qh-details-row" style="color: var(--text-secondary); font-size: 0.75rem; margin-top: 3px;"><strong>Services:</strong> ${selectedNames || 'None'}</div>
                     
-                    <div style="margin-top: 6px; display: flex; align-items: center; gap: 6px;">
+                    <div style="margin-top: 8px; display: flex; align-items: center; gap: 6px;">
                         <label style="font-size: 0.75rem; font-weight: bold;">Status:</label>
                         <select class="status-select" onchange="updateRecordStatus(${record.id}, this.value)">
                             <option value="🟡 Quote Sent" ${currentStatus.includes('Quote') ? 'selected' : ''}>🟡 Quote Sent</option>
@@ -996,8 +1435,8 @@
                     </div>
 
                     <div class="qh-actions">
-                        <button class="btn-qh-load" onclick="loadHistoryRecord(${record.id})">📂 Load Back to Calculator</button>
-                        <button class="btn-qh-delete" onclick="deleteHistoryRecord(${record.id})">🗑️ Delete</button>
+                        <button class="btn-qh-load" onclick="loadHistoryRecord(${record.id})">📂 Load Back to Calc</button>
+                        <button class="btn-delete" onclick="deleteHistoryRecord(${record.id})">🗑️ Delete</button>
                     </div>
                 </div>
             `;
@@ -1073,7 +1512,7 @@
         const advancePreview = document.getElementById('logo-preview-box');
 
         if (customLogo) {
-            const imgHtml = `<img src="${customLogo}" style="width:100%; height:100%; object-fit:contain;">`;
+            const imgHtml = `<img src="${customLogo}" style="width:100%; height:100%; object-fit:cover;">`;
             appHeaderLogo.innerHTML = imgHtml;
             pdfHeaderLogo.innerHTML = imgHtml;
             advancePreview.innerHTML = imgHtml;
@@ -1086,8 +1525,25 @@
 
     function changeTheme(themeName) {
         currentTheme = themeName;
-        document.documentElement.setAttribute('data-theme', themeName);
+        if (themeName === 'amber') {
+            document.documentElement.removeAttribute('data-theme');
+        } else {
+            document.documentElement.setAttribute('data-theme', themeName);
+        }
         document.getElementById('theme-selector').value = themeName;
+        saveToMemory();
+    }
+
+    /* CHANGE DYNAMIC PDF THEME */
+    function changePdfTheme(pdfThemeName) {
+        currentPdfTheme = pdfThemeName;
+        const pdfContentBox = document.getElementById('pdf-content-box');
+        if (pdfThemeName === 'amber') {
+            pdfContentBox.removeAttribute('data-pdf-theme');
+        } else {
+            pdfContentBox.setAttribute('data-pdf-theme', pdfThemeName);
+        }
+        document.getElementById('pdf-theme-selector').value = pdfThemeName;
         saveToMemory();
     }
 
@@ -1099,7 +1555,8 @@
                 document.getElementById('company-name-input').disabled = false;
                 document.getElementById('company-address-input').disabled = false;
                 document.getElementById('btn-lock-toggle').innerText = "🔓 Unlocked";
-                document.getElementById('btn-lock-toggle').style.background = "#16a34a";
+                document.getElementById('btn-lock-toggle').style.background = "#dcfce7";
+                document.getElementById('btn-lock-toggle').style.color = "#15803d";
                 alert("✓ Details editing unlocked!");
             } else {
                 alert("❌ Wrong Password! Action Denied.");
@@ -1109,7 +1566,8 @@
             document.getElementById('company-name-input').disabled = true;
             document.getElementById('company-address-input').disabled = true;
             document.getElementById('btn-lock-toggle').innerText = "🔒 Locked";
-            document.getElementById('btn-lock-toggle').style.background = "#d97706";
+            document.getElementById('btn-lock-toggle').style.background = "#fef3c7";
+            document.getElementById('btn-lock-toggle').style.color = "#b45309";
         }
     }
 
@@ -1143,10 +1601,11 @@
     function resetToDefaults() {
         let pass = prompt("🔐 Default par reset karne ke liye Password daalein:");
         if (pass === SECURITY_PASSWORD) {
-            if (confirm("Kya aap sabhi details (Name, Address, Logo, Items) default par reset karna chahte hain?")) {
+            if (confirm("Kya aap sabhi details default par reset karna chahte hain?")) {
                 customLogo = null;
                 upiId = "";
-                currentTheme = 'light';
+                currentTheme = 'amber';
+                currentPdfTheme = 'amber';
                 companyName = defaultCompany;
                 companyAddress = defaultAddress;
                 services = JSON.parse(JSON.stringify(defaultServices));
@@ -1171,17 +1630,17 @@
                 dateHtml = `
                     <div class="date-tag-box">
                         <label>📅 Booking Date(s) for ${item.name}:</label>
-                        <input type="text" class="date-input-field" placeholder="e.g. 14 Nov, 15 Nov" value="${item.dates || ''}" oninput="updateServiceDates(${index}, this.value)">
+                        <input type="text" class="form-input" style="padding: 6px 10px; font-size: 0.8rem;" placeholder="e.g. 14 Nov, 15 Nov" value="${item.dates || ''}" oninput="updateServiceDates(${index}, this.value)">
                     </div>
                 `;
             }
 
             container.innerHTML += `
-                <div class="item-card">
-                    <div class="item-row">
-                        <div class="item-left">
-                            <input type="checkbox" ${isSelected ? 'checked' : ''} onchange="toggleCheck(${index})">
-                            <div class="item-title">${item.name}</div>
+                <div class="service-card ${isSelected ? 'selected-service' : ''}">
+                    <div class="service-row">
+                        <div class="service-left">
+                            <input type="checkbox" class="custom-checkbox" ${isSelected ? 'checked' : ''} onchange="toggleCheck(${index})">
+                            <div class="service-title">${item.name}</div>
                         </div>
                         <div class="qty-controls">
                             <button class="btn-qty" onclick="changeQty(${index}, -1)">-</button>
@@ -1230,14 +1689,14 @@
         container.innerHTML = '';
         services.forEach((item, index) => {
             container.innerHTML += `
-                <div style="margin-bottom: 10px; background: var(--card); padding: 8px; border: 1px solid var(--border); border-radius: 6px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-                        <label style="font-size: 0.8rem; font-weight: bold;">Item #${index + 1}:</label>
+                <div class="porcelain-box" style="padding: 10px; margin-bottom: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <span style="font-size: 0.78rem; font-weight: 700; color: var(--text-secondary);">Item #${index + 1}</span>
                         <button class="btn-delete" onclick="deleteService(${index})">🗑️ Delete</button>
                     </div>
                     <div style="display: flex; gap: 8px;">
-                        <input type="text" class="edit-input" value="${item.name}" style="margin-top: 0;" onchange="updateTitle(${index}, this.value)">
-                        <input type="number" class="edit-input" value="${item.price}" style="width: 100px; margin-top: 0;" onchange="updatePrice(${index}, this.value)">
+                        <input type="text" class="form-input" value="${item.name}" onchange="updateTitle(${index}, this.value)">
+                        <input type="number" class="form-input" value="${item.price}" style="width: 100px;" onchange="updatePrice(${index}, this.value)">
                     </div>
                 </div>
             `;
@@ -1268,7 +1727,7 @@
         priceInput.value = "";
         renderAdvance();
         renderCalc();
-        alert("✓ Naya item list mein add ho gaya hai!");
+        alert("✓ Naya item add ho gaya!");
     }
 
     function deleteService(index) {
@@ -1323,10 +1782,18 @@
         let rawSubtotal = services.reduce((acc, item) => (item.checked || item.qty > 0) ? acc + (item.price * item.qty) : acc, 0);
         let discountPct = parseFloat(document.getElementById('discount-input').value) || 0;
         
-        let effectiveSubtotal = rawSubtotal + hiddenFee;
-        let grandTotal = effectiveSubtotal - (effectiveSubtotal * (discountPct / 100));
+        let effectiveSubtotal = 0;
+        let discountAmount = 0;
+        let grandTotal = 0;
+
+        if (rawSubtotal > 0) {
+            effectiveSubtotal = rawSubtotal + hiddenFee;
+            discountAmount = (effectiveSubtotal * (discountPct / 100));
+            grandTotal = effectiveSubtotal - discountAmount;
+        }
 
         let formattedSubtotal = '₹' + effectiveSubtotal.toLocaleString('en-IN');
+        let formattedDiscount = '-₹' + Math.round(discountAmount).toLocaleString('en-IN');
         let formattedGrand = '₹' + Math.round(grandTotal).toLocaleString('en-IN');
         let formattedAdvance = '₹' + Math.round(grandTotal / 2).toLocaleString('en-IN');
 
@@ -1337,6 +1804,15 @@
         document.getElementById('pdf-subtotal-val').innerText = formattedSubtotal;
         document.getElementById('pdf-grand-val').innerText = formattedGrand;
         document.getElementById('pdf-advance-val').innerText = formattedAdvance;
+
+        const pdfDiscountRow = document.getElementById('pdf-discount-row');
+        if (discountPct > 0 && effectiveSubtotal > 0) {
+            document.getElementById('pdf-discount-pct').innerText = discountPct;
+            document.getElementById('pdf-discount-val').innerText = formattedDiscount;
+            pdfDiscountRow.style.display = 'table-row';
+        } else {
+            pdfDiscountRow.style.display = 'none';
+        }
 
         renderUpiQrCode();
     }
@@ -1349,6 +1825,7 @@
         let dates = document.getElementById('event-date').value.trim() || "-";
         let grandTotal = document.getElementById('grand-val').innerText;
         let advance = document.getElementById('advance-val').innerText;
+        let discountPct = parseFloat(document.getElementById('discount-input').value) || 0;
 
         if (!phone) {
             alert("Kripya pehle Customer ka Contact Phone number bharein!");
@@ -1365,11 +1842,14 @@
             return;
         }
 
+        let discountLine = discountPct > 0 ? `*Special Discount:* ${discountPct}%%0A` : '';
+
         let message = `*${companyName.toUpperCase()} - QUOTATION*%0A%0A` +
             `*Client Name:* ${name}%0A` +
             `*Venue:* ${place}%0A` +
             `*Event Dates:* ${dates}%0A%0A` +
             `*Selected Services:*%0A${selectedList}%0A%0A` +
+            discountLine +
             `*Grand Total:* ${grandTotal}%0A` +
             `*50% Advance Booking:* ${advance}%0A%0A` +
             `Thank you for choosing us! Please find the detailed quotation PDF attached.`;
@@ -1406,6 +1886,7 @@
     function initApp() {
         applyLogo();
         changeTheme(currentTheme);
+        changePdfTheme(currentPdfTheme);
         updateCompanyName(companyName);
         updateCompanyAddress(companyAddress);
         renderCalc();
