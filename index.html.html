@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click Cloud Photography - Pricing App (₹)</title>
+    <!-- QR Code, html2canvas & jsPDF Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+        /* App UI Theme Variables */
+        :root {
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --primary: #2563eb;
+            --header-bg: #1e293b;
+            --header-text: #ffffff;
+            --border: #e2e8f0;
+            --sub-card: #eff6ff;
+            --sub-border: #bfdbfe;
+            --accent-text: #1d4ed8;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f8fafc;
+            --primary: #3b82f6;
+            --header-bg: #020617;
+            --header-text: #60a5fa;
+            --border: #334155;
+            --sub-card: #0f172a;
+            --sub-border: #3b82f6;
+            --accent-text: #60a5fa;
+        }
+
+        [data-theme="gold"] {
+            --bg: #1a0f12;
+            --card: #2a181c;
+            --text: #fdf2f4;
+            --primary: #d97706;
+            --header-bg: #11080a;
+            --header-text: #f59e0b;
+            --border: #442329;
+            --sub-card: #361e23;
+            --sub-border: #d97706;
+            --accent-text: #fbbf24;
+        }
+
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; background: var(--bg); color: var(--text); padding: 12px; transition: all 0.3s ease; }
+        .app-container { max-width: 600px; margin: 0 auto; background: var(--card); border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); overflow: hidden; border: 1px solid var(--border); }
+        
+        .app-header { background: var(--header-bg); color: var(--header-text); padding: 16px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .app-header h2 { margin: 0; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .tabs { display: flex; border-bottom: 1px solid var(--border); }
+        .tab-btn { flex: 1; padding: 12px; border: none; background: var(--bg); font-weight: bold; cursor: pointer; color: var(--text); opacity: 0.7; font-size: 0.9rem; }
+        .tab-btn.active { background: var(--card); color: var(--primary); border-bottom: 3px solid var(--primary); opacity: 1; }
+        .tab-content { padding: 16px; }
+        
+        /* Client Inputs Block */
+        .client-info-box { background: var(--bg); border: 1px solid var(--border); padding: 12px; border-radius: 10px; margin-bottom: 16px; }
+        .client-info-box h4 { margin: 0 0 8px 0; color: var(--text); font-size: 0.9rem; text-transform: uppercase; }
+        .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .form-field { display: flex; flex-direction: column; }
+        .form-field label { font-size: 0.75rem; font-weight: bold; color: var(--accent-text); margin-bottom: 2px; }
+        .form-input { padding: 8px; border: 1px solid var(--border); background: var(--card); color: var(--text); border-radius: 6px; font-size: 0.85rem; }
+
+        .item-card { border-bottom: 1px solid var(--border); padding: 12px 0; }
+        .item-row { display: flex; align-items: center; justify-content: space-between; }
+        .item-left { display: flex; align-items: center; gap: 10px; }
+        .item-left input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; }
+        .item-title { font-weight: 600; font-size: 0.95rem; }
+        .qty-controls { display: flex; align-items: center; gap: 8px; background: var(--bg); padding: 4px 8px; border-radius: 8px; border: 1px solid var(--border); }
+        .btn-qty { border: none; background: var(--primary); color: #fff; width: 28px; height: 28px; border-radius: 6px; font-size: 1.1rem; font-weight: bold; cursor: pointer; }
+        .btn-qty:disabled { opacity: 0.4; cursor: not-allowed; }
+        .qty-num { font-weight: bold; min-width: 20px; text-align: center; }
+        
+        .date-tag-box { margin-top: 8px; margin-left: 28px; background: var(--sub-card); border: 1px solid var(--sub-border); padding: 8px 10px; border-radius: 6px; }
+        .date-tag-box label { font-size: 0.75rem; font-weight: bold; color: var(--accent-text); display: block; margin-bottom: 4px; }
+        .date-input-field { padding: 6px; font-size: 0.85rem; border: 1px solid var(--border); background: var(--card); color: var(--text); border-radius: 4px; width: 95%; box-sizing: border-box; }
+        
+        .total-box { background: var(--sub-card); border: 1px solid var(--sub-border); padding: 16px; border-radius: 12px; margin-top: 16px; }
+        .total-row { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.95rem; }
+        .grand-total { font-size: 1.2rem; font-weight: bold; color: var(--accent-text); border-top: 1px solid var(--sub-border); padding-top: 8px; margin-top: 8px; }
+        
+        /* 2x2 ACTION BUTTON GRID */
+        .btn-action-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 10px; 
+            margin-top: 16px; 
+        }
+        .btn-action-grid button {
+            padding: 12px 8px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            transition: transform 0.1s ease, opacity 0.2s;
+        }
+        .btn-action-grid button:active { transform: scale(0.98); }
+        
+        .btn-download-pdf { background: #0284c7; color: white; }
+        .btn-print { background: #16a34a; color: white; }
+        .btn-whatsapp { background: #25d366; color: white; }
+        .btn-save-qh { background: #6366f1; color: white; }
+        
+        .btn-add { background: var(--primary); color: white; border: none; padding: 10px 14px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 8px; }
+        .btn-delete { background: #ef4444; color: white; border: none; padding: 6px 10px; border-radius: 6px; font-size: 0.8rem; cursor: pointer; }
+        .btn-unlock { background: #d97706; color: white; border: none; padding: 6px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; cursor: pointer; }
+        .btn-secondary { background: #64748b; color: white; border: none; padding: 6px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; cursor: pointer; }
+        .edit-input { width: 100%; padding: 8px; border: 1px solid var(--border); background: var(--card); color: var(--text); border-radius: 6px; margin-top: 4px; box-sizing: border-box; }
+        .theme-select { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--card); color: var(--text); font-weight: bold; margin-top: 6px; cursor: pointer; }
+        
+        /* History (QH) Styling */
+        .qh-card { background: var(--sub-card); border: 1px solid var(--sub-border); border-radius: 10px; padding: 12px; margin-bottom: 12px; }
+        .qh-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; border-bottom: 1px dashed var(--border); padding-bottom: 6px; }
+        .qh-cust-name { font-weight: bold; font-size: 1rem; color: var(--accent-text); }
+        .qh-timestamp { font-size: 0.75rem; color: #64748b; }
+        .qh-details-row { font-size: 0.85rem; margin-bottom: 4px; }
+        .qh-actions { display: flex; gap: 8px; margin-top: 10px; }
+        .btn-qh-load { background: #16a34a; color: white; border: none; padding: 6px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; cursor: pointer; flex: 1; }
+        .btn-qh-delete { background: #ef4444; color: white; border: none; padding: 6px 10px; border-radius: 6px; font-size: 0.8rem; cursor: pointer; }
+        .status-select { padding: 4px 8px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; border: 1px solid var(--border); cursor: pointer; }
+
+        .hidden { display: none; }
+
+        /* OFF-SCREEN PDF RENDER STYLES */
+        #pdf-container-root {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            width: 210mm;
+            background: #ffffff;
+        }
+
+        .pdf-render-box {
+            background: #fdfdfd;
+            width: 210mm;
+            min-height: 297mm;
+            box-sizing: border-box;
+            position: relative;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0 auto;
+        }
+
+        .pdf-header-wave-box {
+            background: #2b2d30;
+            color: #ffffff;
+            padding: 26px 22mm 45px 22mm;
+            position: relative;
+        }
+        .pdf-header-wave-box::after {
+            content: "";
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: #fdfdfd;
+            border-top-left-radius: 50% 20px;
+            border-top-right-radius: 50% 20px;
+        }
+
+        .pdf-header-top-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .pdf-logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .pdf-logo-icon {
+            width: 42px;
+            height: 42px;
+            background: #f3af3d;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            overflow: hidden;
+        }
+        .pdf-logo-icon img {
+            width: 100%; height: 100%; object-fit: contain;
+        }
+        .pdf-company-title {
+            font-size: 17pt;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin: 0;
+            color: #ffffff;
+        }
+        
+        .pdf-contact-header {
+            text-align: right;
+            max-width: 55%;
+            font-size: 8.5pt;
+            color: #e2e8f0;
+            line-height: 1.45;
+        }
+        .pdf-contact-header strong {
+            color: #f3af3d;
+            font-size: 9.5pt;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .pdf-body-area {
+            padding: 20px 22mm 25mm 22mm;
+        }
+        
+        .pdf-top-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .pdf-invoice-big-title {
+            font-size: 24pt;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #2b2d30;
+            margin: 0;
+        }
+
+        .pdf-client-card-full {
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-left: 5px solid #f3af3d;
+            padding: 12px 18px;
+            border-radius: 6px;
+            font-size: 9.5pt;
+            color: #222222;
+            margin-bottom: 20px;
+        }
+        .pdf-client-card-full h4 {
+            margin: 0 0 8px 0;
+            font-size: 9.5pt;
+            color: #b8860b;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 4px;
+        }
+        .pdf-client-grid-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 24px;
+        }
+        .pdf-client-item {
+            display: flex;
+            gap: 6px;
+        }
+        .pdf-client-item label {
+            font-weight: bold;
+            color: #111111;
+            min-width: 95px;
+        }
+
+        .pdf-wave-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .pdf-wave-table th {
+            padding: 10px 14px;
+            font-size: 9pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .pdf-th-gold {
+            background: #f3af3d;
+            color: #2b2d30;
+            text-align: left;
+        }
+        .pdf-th-dark {
+            background: #2b2d30;
+            color: #ffffff;
+            text-align: right;
+        }
+        .pdf-wave-table td {
+            padding: 12px 14px;
+            font-size: 9.5pt;
+            color: #333333;
+        }
+        .pdf-row-even {
+            background: #f5f5f5;
+        }
+
+        .pdf-totals-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-top: 15px;
+        }
+        .pdf-terms-left {
+            width: 50%;
+            font-size: 8.5pt;
+            color: #666666;
+            line-height: 1.5;
+        }
+        .pdf-terms-left strong {
+            color: #2b2d30;
+        }
+
+        .pdf-qr-section {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #fffdf5;
+            border: 1px solid #f3af3d;
+            padding: 8px;
+            border-radius: 6px;
+        }
+        .pdf-qr-box {
+            width: 65px;
+            height: 65px;
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 2px;
+        }
+
+        .pdf-right-summary {
+            width: 45%;
+        }
+        .pdf-summary-table {
+            width: 100%;
+            font-size: 9.5pt;
+            border-collapse: collapse;
+        }
+        .pdf-summary-table td {
+            padding: 5px 10px;
+        }
+        .pdf-gold-total-bar {
+            background: #f3af3d !important;
+            color: #2b2d30 !important;
+            font-weight: 800;
+            font-size: 11pt;
+        }
+        .pdf-gold-total-bar td {
+            padding: 8px 10px !important;
+        }
+
+        .pdf-footer-wave-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #f3af3d !important;
+            color: #2b2d30 !important;
+            padding: 14px 22mm;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            box-sizing: border-box;
+            font-size: 8.5pt;
+            font-weight: bold;
+            border-top: 1px solid #d4a02c;
+        }
+        .pdf-footer-col-left { text-align: left; letter-spacing: 0.5px; }
+        .pdf-footer-col-center { text-align: center; }
+        .pdf-footer-col-right { text-align: right; text-transform: uppercase; letter-spacing: 0.5px; }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <div class="app-header">
+        <div id="app-header-logo-box">📸</div>
+        <h2 id="app-company-header">CLICK CLOUD PHOTOGRAPHY</h2>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('calc')">Calculator</button>
+        <button class="tab-btn" onclick="switchTab('qh')">📜 QH (History)</button>
+        <button class="tab-btn" onclick="switchTab('advance')">Advance Settings</button>
+    </div>
+
+    <!-- CALCULATOR TAB -->
+    <div id="tab-calc" class="tab-content">
+        <!-- CUSTOMER & EVENT DETAILS INPUTS -->
+        <div class="client-info-box">
+            <h4>📋 Client & Event Details</h4>
+            <div class="input-grid">
+                <div class="form-field">
+                    <label>Customer Name</label>
+                    <input type="text" id="cust-name" class="form-input" placeholder="e.g. Rahul Sharma" oninput="updatePdfFields()">
+                </div>
+                <div class="form-field">
+                    <label>Contact Phone</label>
+                    <input type="tel" id="cust-phone" class="form-input" placeholder="e.g. 98270XXXXX" oninput="updatePdfFields()">
+                </div>
+                <div class="form-field">
+                    <label>Event Place / Venue</label>
+                    <input type="text" id="event-place" class="form-input" placeholder="e.g. Bhilai" oninput="updatePdfFields()">
+                </div>
+                <div class="form-field">
+                    <label>Overall Event Date Range</label>
+                    <input type="text" id="event-date" class="form-input" placeholder="e.g. 14-16 Nov 2026" oninput="updatePdfFields()">
+                </div>
+            </div>
+        </div>
+
+        <div id="services-list"></div>
+
+        <div class="total-box">
+            <div class="total-row"><span>Subtotal:</span> <strong id="subtotal-val">₹0</strong></div>
+            <div class="total-row"><span>Discount (%):</span> <input type="number" id="discount-input" value="0" min="0" max="100" style="width: 50px;" onchange="calculateTotal()"></div>
+            <div class="total-row grand-total"><span>Grand Total:</span> <span id="grand-val">₹0</span></div>
+            <div class="total-row" style="color: var(--accent-text); font-weight: bold; margin-top: 6px;">
+                <span>50% Advance Booking Required:</span> <span id="advance-val">₹0</span>
+            </div>
+        </div>
+
+        <!-- 2x2 ACTION BUTTON GRID -->
+        <div class="btn-action-grid">
+            <button class="btn-download-pdf" id="btn-dl-text" onclick="downloadPdfDirectly()">📥 Download PDF</button>
+            <button class="btn-print" id="btn-pr-text" onclick="previewPdfInNewTab()">👁️ Preview PDF</button>
+            <button class="btn-whatsapp" onclick="sendWhatsAppSummary()">💬 Send WhatsApp</button>
+            <button class="btn-save-qh" onclick="saveQuotationToHistory(true)">💾 Save to History</button>
+        </div>
+    </div>
+
+    <!-- 'QH' (QUOTATION HISTORY) TAB -->
+    <div id="tab-qh" class="tab-content hidden">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <h3 style="margin: 0; font-size: 1.05rem;">📜 Saved Quotation History</h3>
+            <button class="btn-delete" onclick="clearAllHistory()">🗑️ Clear All</button>
+        </div>
+
+        <input type="text" id="qh-search-input" class="form-input" placeholder="🔍 Search History by Name, Phone or Venue..." style="width: 100%; box-sizing: border-box; margin-bottom: 14px;" oninput="renderHistory()">
+
+        <div id="qh-history-list"></div>
+    </div>
+
+    <!-- ADVANCE TAB -->
+    <div id="tab-advance" class="tab-content hidden">
+        <!-- UPI PAYMENT QR CARD -->
+        <div style="background: var(--sub-card); border: 1px solid var(--sub-border); padding: 12px; border-radius: 8px; margin-bottom: 16px;">
+            <label style="font-weight: bold; font-size: 0.85rem; color: var(--accent-text);">💳 UPI Payment QR Code Setup (For PDF):</label>
+            <input type="text" id="upi-id-input" class="edit-input" placeholder="e.g. 98270XXXXX@ybl or gpay/paytm UPI ID" oninput="handleUpiInput(this.value)">
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 4px;">Enter UPI ID to generate auto Advance-Payment QR Code on PDF.</div>
+        </div>
+
+        <!-- LOGO MANAGEMENT CARD -->
+        <div style="background: var(--sub-card); border: 1px solid var(--sub-border); padding: 12px; border-radius: 8px; margin-bottom: 16px;">
+            <label style="font-weight: bold; font-size: 0.85rem; color: var(--accent-text);">🖼️ Studio Logo Import (Auto-Connect to PDF & App):</label>
+            <div style="display: flex; gap: 10px; align-items: center; margin-top: 8px;">
+                <div id="logo-preview-box" style="width: 48px; height: 48px; border: 1px dashed var(--border); border-radius: 6px; display: flex; align-items: center; justify-content: center; background: var(--card); font-size: 20px; overflow: hidden;">
+                    📸
+                </div>
+                <div style="flex: 1;">
+                    <input type="file" id="logo-file-input" accept="image/*" style="font-size: 0.8rem;" onchange="handleLogoUpload(event)">
+                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 4px;">PNG / JPG Logo supported (Auto-Saved)</div>
+                </div>
+                <button class="btn-secondary" onclick="resetLogo()">🗑️ Reset Logo</button>
+            </div>
+        </div>
+
+        <div style="background: var(--sub-card); border: 1px solid var(--sub-border); padding: 12px; border-radius: 8px; margin-bottom: 16px;">
+            <label style="font-weight: bold; font-size: 0.85rem; color: var(--accent-text);">🎨 Choose App UI Theme:</label>
+            <select id="theme-selector" class="theme-select" onchange="changeTheme(this.value)">
+                <option value="light">☀️ Clean Apple Light Theme</option>
+                <option value="dark">🌙 Dark Studio Theme</option>
+                <option value="gold">🔱 Gold Luxury Theme</option>
+            </select>
+        </div>
+
+        <div style="background: var(--sub-card); border: 1px solid var(--sub-border); padding: 12px; border-radius: 8px; margin-bottom: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <label style="font-weight: bold; font-size: 0.85rem; color: var(--accent-text);">⚙️ Studio / Company Name:</label>
+                <button class="btn-unlock" id="btn-lock-toggle" onclick="toggleCompanyLock()">🔒 Locked (Click to Edit)</button>
+            </div>
+            <input type="text" id="company-name-input" class="edit-input" style="font-weight: bold;" disabled oninput="handleNameInput(this.value)">
+            
+            <label style="font-weight: bold; font-size: 0.85rem; color: var(--accent-text); margin-top: 10px; display: block;">📍 Studio Address & Contact Info (For PDF Footer):</label>
+            <input type="text" id="company-address-input" class="edit-input" placeholder="e.g. Priyadarshini Nagar, Risali / Nevai Bhata Road, Bhilai, Chhattisgarh | Ph: +91 7566889884" disabled oninput="handleAddressInput(this.value)">
+        </div>
+
+        <h3>Edit Items & Base Prices (₹)</h3>
+        <p style="font-size: 0.8rem; color: #16a34a; font-weight: bold;">✓ All changes are automatically saved in local memory.</p>
+        <div id="advance-edit-list"></div>
+
+        <!-- ADD NEW SERVICE ITEM BOX -->
+        <div style="background: var(--bg); border: 1px dashed var(--border); padding: 12px; border-radius: 8px; margin-top: 16px;">
+            <h4 style="margin: 0 0 8px 0; font-size: 0.9rem;">➕ Add New Custom Service Item</h4>
+            <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+                <input type="text" id="new-item-name" class="edit-input" placeholder="Item Name (e.g. LED Wall Setup)" style="flex: 2;">
+                <input type="number" id="new-item-price" class="edit-input" placeholder="Price (₹)" style="flex: 1;">
+            </div>
+            <button class="btn-add" onclick="addNewService()">+ Add Item to List</button>
+        </div>
+
+        <hr style="margin: 20px 0; border: 0; border-top: 1px solid var(--border);">
+        <label><strong>Hidden Service Charge (₹) [Hidden from Calculator & PDF]:</strong></label>
+        <input type="number" id="hidden-fee-input" class="edit-input" placeholder="e.g. 2000" value="0" onchange="saveHiddenFee()">
+        <br><br>
+        <button class="btn-reset" onclick="resetToDefaults()">🔄 Reset App to Default</button>
+    </div>
+
+    <!-- PDF TEMPLATE (RENDERED OFF-SCREEN FOR CANVAS GENERATION) -->
+    <div id="pdf-container-root">
+        <div class="pdf-render-box">
+            <div class="pdf-header-wave-box">
+                <div class="pdf-header-top-flex">
+                    <div class="pdf-logo-area">
+                        <div class="pdf-logo-icon" id="pdf-logo-icon-box">📸</div>
+                        <div>
+                            <h1 class="pdf-company-title" id="pdf-logo-company">CLICK CLOUD</h1>
+                            <div style="font-size: 7.5pt; color: #f3af3d; letter-spacing: 2px;">PHOTOGRAPHY & FILMS</div>
+                        </div>
+                    </div>
+                    <div class="pdf-contact-header">
+                        <strong>Studio Contact:</strong>
+                        <div id="pdf-header-address-text">
+                            Priyadarshini Nagar, Risali / Nevai Bhata Road,<br>
+                            Bhilai, Chhattisgarh | Ph: +91 7566889884
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pdf-body-area">
+                <div class="pdf-top-title-row">
+                    <h2 class="pdf-invoice-big-title">OFFICIAL QUOTATION</h2>
+                </div>
+
+                <div class="pdf-client-card-full">
+                    <h4>📋 QUOTATION FOR CLIENT</h4>
+                    <div class="pdf-client-grid-box">
+                        <div class="pdf-client-item">
+                            <label>Client Name:</label>
+                            <span id="pdf-cust-name">-</span>
+                        </div>
+                        <div class="pdf-client-item">
+                            <label>Contact Phone:</label>
+                            <span id="pdf-cust-phone">-</span>
+                        </div>
+                        <div class="pdf-client-item">
+                            <label>Event Venue:</label>
+                            <span id="pdf-event-place">-</span>
+                        </div>
+                        <div class="pdf-client-item">
+                            <label>Event Dates:</label>
+                            <span id="pdf-event-date">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="pdf-wave-table">
+                    <thead>
+                        <tr>
+                            <th class="pdf-th-gold" width="55%">ITEM DESCRIPTION</th>
+                            <th class="pdf-th-dark" width="45%" style="text-align: right;">BOOKING DATES</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pdf-wave-tbody">
+                        <!-- Dynamic selected items -->
+                    </tbody>
+                </table>
+
+                <div class="pdf-totals-flex">
+                    <div class="pdf-terms-left">
+                        <strong>Payment & Booking Terms:</strong><br>
+                        • 50% Advance Required for Date Lock.<br>
+                        • 40% On Event Shoot Completion.<br>
+                        • 10% On Final Album / Deliverables Handover.
+
+                        <!-- Dynamic UPI Payment QR Code -->
+                        <div class="pdf-qr-section" id="pdf-qr-container" style="display: none;">
+                            <div class="pdf-qr-box" id="pdf-qrcode-div"></div>
+                            <div>
+                                <strong style="color: #b8860b; font-size: 8pt;">SCAN TO PAY 50% ADVANCE:</strong><br>
+                                <span id="pdf-upi-id-label" style="font-size: 7.5pt; color: #333; font-weight: bold;"></span><br>
+                                <span style="font-size: 7pt; color: #666;">Scan via GPay / PhonePe / Paytm</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pdf-right-summary">
+                        <table class="pdf-summary-table">
+                            <tr>
+                                <td>Sub Total:</td>
+                                <td style="text-align: right;" id="pdf-subtotal-val">₹0</td>
+                            </tr>
+                            <tr class="pdf-gold-total-bar">
+                                <td>GRAND TOTAL:</td>
+                                <td style="text-align: right;" id="pdf-grand-val">₹0</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="font-size: 8pt; color: #333333; text-align: right; padding-top: 6px;">
+                                    <strong>50% Advance Booking Lock:</strong> <span id="pdf-advance-val" style="color: #1d4ed8; font-weight: bold;">₹0</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pdf-footer-wave-bar">
+                <div class="pdf-footer-col-left" id="pdf-footer-company-bottom">CLICK CLOUD PHOTOGRAPHY</div>
+                <div class="pdf-footer-col-center" id="pdf-footer-address-bottom">📍 Bhilai, Chhattisgarh</div>
+                <div class="pdf-footer-col-right">Authorized Signatory</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const SECURITY_PASSWORD = "CCP123#";
+    const defaultCompany = "CLICK CLOUD PHOTOGRAPHY";
+    const defaultAddress = "Priyadarshini Nagar, Risali / Nevai Bhata Road, Bhilai, Chhattisgarh | Ph: +91 7566889884";
+    const defaultServices = [
+        { id: 1, name: "Traditional Photography", price: 5000, qty: 0, checked: false, dates: "" },
+        { id: 2, name: "Traditional Videography", price: 7000, qty: 0, checked: false, dates: "" },
+        { id: 3, name: "Candid Photography", price: 12000, qty: 0, checked: false, dates: "" },
+        { id: 4, name: "Cinematography", price: 15000, qty: 0, checked: false, dates: "" },
+        { id: 5, name: "Drone", price: 8000, qty: 0, checked: false, dates: "" },
+        { id: 6, name: "Full Video", price: 10000, qty: 0, checked: false, dates: "" },
+        { id: 7, name: "Highlight", price: 6000, qty: 0, checked: false, dates: "" },
+        { id: 8, name: "Reel", price: 3000, qty: 0, checked: false, dates: "" },
+        { id: 9, name: "Teaser", price: 4000, qty: 0, checked: false, dates: "" },
+        { id: 10, name: "Album", price: 8000, qty: 0, checked: false, dates: "" },
+        { id: 11, name: "Canvera Album", price: 12000, qty: 0, checked: false, dates: "" }
+    ];
+
+    let isCompanyUnlocked = false;
+    let upiId = localStorage.getItem('ccp_upi') || "";
+    let customLogo = localStorage.getItem('ccp_logo') || null;
+    let currentTheme = localStorage.getItem('ccp_theme') || 'light';
+    let companyName = localStorage.getItem('ccp_company') || defaultCompany;
+    let companyAddress = localStorage.getItem('ccp_address') || defaultAddress;
+    let services = JSON.parse(localStorage.getItem('ccp_services')) || JSON.parse(JSON.stringify(defaultServices));
+    let hiddenFee = parseFloat(localStorage.getItem('ccp_hiddenFee')) || 0;
+    let quotationHistory = JSON.parse(localStorage.getItem('ccp_history')) || [];
+
+    function saveToMemory() {
+        if (customLogo) {
+            localStorage.setItem('ccp_logo', customLogo);
+        } else {
+            localStorage.removeItem('ccp_logo');
+        }
+        localStorage.setItem('ccp_upi', upiId);
+        localStorage.setItem('ccp_theme', currentTheme);
+        localStorage.setItem('ccp_company', companyName);
+        localStorage.setItem('ccp_address', companyAddress);
+        localStorage.setItem('ccp_services', JSON.stringify(services));
+        localStorage.setItem('ccp_hiddenFee', hiddenFee.toString());
+        localStorage.setItem('ccp_history', JSON.stringify(quotationHistory));
+    }
+
+    function handleUpiInput(val) {
+        upiId = val.trim();
+        saveToMemory();
+        renderUpiQrCode();
+    }
+
+    function renderUpiQrCode() {
+        const qrContainer = document.getElementById('pdf-qr-container');
+        const qrDiv = document.getElementById('pdf-qrcode-div');
+        const upiLabel = document.getElementById('pdf-upi-id-label');
+
+        if (upiId && upiId !== "") {
+            qrDiv.innerHTML = "";
+            let advanceAmount = document.getElementById('advance-val').innerText.replace(/\D/g, '');
+            let upiString = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(companyName)}&am=${advanceAmount}&cu=INR`;
+
+            new QRCode(qrDiv, {
+                text: upiString,
+                width: 60,
+                height: 60,
+                correctLevel: QRCode.CorrectLevel.M
+            });
+
+            upiLabel.innerText = upiId;
+            qrContainer.style.display = "flex";
+        } else {
+            qrContainer.style.display = "none";
+        }
+    }
+
+    /* DIRECT PDF DOWNLOAD ENGINE USING HTML2CANVAS + JSPDF */
+    async function generatePdfCanvas() {
+        saveQuotationToHistory(false);
+        const pdfRoot = document.getElementById('pdf-container-root');
+        
+        // Render html to canvas
+        const canvas = await html2canvas(pdfRoot.querySelector('.pdf-render-box'), {
+            scale: 2,
+            useCORS: true,
+            logging: false
+        });
+
+        const imgData = canvas.toDataURL('image/jpeg', 0.95);
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+        pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+        return pdf;
+    }
+
+    async function downloadPdfDirectly() {
+        const dlBtn = document.getElementById('btn-dl-text');
+        dlBtn.innerText = "⏳ Generating...";
+
+        try {
+            let custName = document.getElementById('cust-name').value.trim() || "Client";
+            let fileName = `Quotation_${custName.replace(/\s+/g, '_')}.pdf`;
+            const pdf = await generatePdfCanvas();
+            pdf.save(fileName);
+            dlBtn.innerText = "📥 Download PDF";
+        } catch(err) {
+            console.error("PDF generation failed:", err);
+            dlBtn.innerText = "📥 Download PDF";
+            alert("PDF Generate karne me error aaya!");
+        }
+    }
+
+    async function previewPdfInNewTab() {
+        const prBtn = document.getElementById('btn-pr-text');
+        prBtn.innerText = "⏳ Opening...";
+
+        try {
+            const pdf = await generatePdfCanvas();
+            const pdfBlob = pdf.output('bloburl');
+            window.open(pdfBlob, '_blank');
+            prBtn.innerText = "👁️ Preview PDF";
+        } catch(err) {
+            console.error(err);
+            prBtn.innerText = "👁️ Preview PDF";
+            alert("PDF Preview open karne me error aaya!");
+        }
+    }
+
+    /* QUOTATION HISTORY (QH) FUNCTIONS */
+    function saveQuotationToHistory(showAlert = false) {
+        let name = document.getElementById('cust-name').value.trim();
+        let phone = document.getElementById('cust-phone').value.trim();
+        let place = document.getElementById('event-place').value.trim();
+        let dateRange = document.getElementById('event-date').value.trim();
+        let grandTotal = document.getElementById('grand-val').innerText;
+
+        let selectedItems = services.filter(item => item.checked || item.qty > 0);
+
+        if (!name && selectedItems.length === 0) {
+            if (showAlert) alert("Kripya Customer details ya kam se kam ek service select karein!");
+            return;
+        }
+
+        let newRecord = {
+            id: Date.now(),
+            timestamp: new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }),
+            custName: name || "Unnamed Client",
+            custPhone: phone || "-",
+            eventPlace: place || "-",
+            eventDate: dateRange || "-",
+            grandTotal: grandTotal,
+            discount: document.getElementById('discount-input').value,
+            status: "🟡 Quote Sent",
+            servicesState: JSON.parse(JSON.stringify(services))
+        };
+
+        quotationHistory.unshift(newRecord);
+        saveToMemory();
+        renderHistory();
+
+        if (showAlert) alert("✓ Quotation 'QH History' tab me save ho gaya hai!");
+    }
+
+    function updateRecordStatus(id, newStatus) {
+        let record = quotationHistory.find(r => r.id === id);
+        if (record) {
+            record.status = newStatus;
+            saveToMemory();
+        }
+    }
+
+    function renderHistory() {
+        const container = document.getElementById('qh-history-list');
+        const searchVal = document.getElementById('qh-search-input').value.toLowerCase().trim();
+        container.innerHTML = '';
+
+        let filtered = quotationHistory.filter(item => 
+            item.custName.toLowerCase().includes(searchVal) ||
+            item.custPhone.toLowerCase().includes(searchVal) ||
+            item.eventPlace.toLowerCase().includes(searchVal)
+        );
+
+        if (filtered.length === 0) {
+            container.innerHTML = `<p style="text-align: center; color: #64748b; font-size: 0.85rem; padding: 20px 0;">Koi quotation history nahi mili.</p>`;
+            return;
+        }
+
+        filtered.forEach(record => {
+            let selectedNames = record.servicesState
+                .filter(s => s.checked || s.qty > 0)
+                .map(s => s.name)
+                .join(', ');
+
+            let currentStatus = record.status || "🟡 Quote Sent";
+
+            container.innerHTML += `
+                <div class="qh-card">
+                    <div class="qh-header">
+                        <div>
+                            <div class="qh-cust-name">${record.custName}</div>
+                            <div class="qh-timestamp">📅 Saved: ${record.timestamp}</div>
+                        </div>
+                        <div style="font-weight: bold; color: var(--accent-text); font-size: 1.05rem;">${record.grandTotal}</div>
+                    </div>
+                    <div class="qh-details-row"><strong>📞 Phone:</strong> ${record.custPhone} | <strong>📍 Venue:</strong> ${record.eventPlace}</div>
+                    <div class="qh-details-row"><strong>🗓️ Dates:</strong> ${record.eventDate}</div>
+                    <div class="qh-details-row" style="color: #64748b; font-size: 0.8rem; margin-top: 4px;"><strong>Services:</strong> ${selectedNames || 'None'}</div>
+                    
+                    <div style="margin-top: 8px; display: flex; align-items: center; gap: 8px;">
+                        <label style="font-size: 0.8rem; font-weight: bold;">Status:</label>
+                        <select class="status-select" onchange="updateRecordStatus(${record.id}, this.value)">
+                            <option value="🟡 Quote Sent" ${currentStatus.includes('Quote') ? 'selected' : ''}>🟡 Quote Sent</option>
+                            <option value="🟢 Advance Received (Booked)" ${currentStatus.includes('Advance') ? 'selected' : ''}>🟢 Advance Received (Booked)</option>
+                            <option value="🔵 Shoot Completed" ${currentStatus.includes('Shoot') ? 'selected' : ''}>🔵 Shoot Completed</option>
+                            <option value="✅ Final Delivered & Paid" ${currentStatus.includes('Final') ? 'selected' : ''}>✅ Final Delivered & Paid</option>
+                        </select>
+                    </div>
+
+                    <div class="qh-actions">
+                        <button class="btn-qh-load" onclick="loadHistoryRecord(${record.id})">📂 Load Back to Calculator</button>
+                        <button class="btn-qh-delete" onclick="deleteHistoryRecord(${record.id})">🗑️ Delete</button>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    function loadHistoryRecord(id) {
+        let record = quotationHistory.find(r => r.id === id);
+        if (record) {
+            if (confirm(`Kya aap "${record.custName}" ka quotation wapas Calculator me load karna chahte hain?`)) {
+                document.getElementById('cust-name').value = record.custName === "Unnamed Client" ? "" : record.custName;
+                document.getElementById('cust-phone').value = record.custPhone === "-" ? "" : record.custPhone;
+                document.getElementById('event-place').value = record.eventPlace === "-" ? "" : record.eventPlace;
+                document.getElementById('event-date').value = record.eventDate === "-" ? "" : record.eventDate;
+                document.getElementById('discount-input').value = record.discount || 0;
+
+                services = JSON.parse(JSON.stringify(record.servicesState));
+                saveToMemory();
+                renderCalc();
+                updatePdfFields();
+                switchTab('calc');
+                alert("✓ Details Calculator me load ho gayi hain!");
+            }
+        }
+    }
+
+    function deleteHistoryRecord(id) {
+        if (confirm("Kya aap is entry ko history se hatana chahte hain?")) {
+            quotationHistory = quotationHistory.filter(r => r.id !== id);
+            saveToMemory();
+            renderHistory();
+        }
+    }
+
+    function clearAllHistory() {
+        let pass = prompt("🔐 History clear karne ke liye Password daalein:");
+        if (pass === SECURITY_PASSWORD) {
+            if (confirm("Kya aap poori quotation history clear karna chahte hain?")) {
+                quotationHistory = [];
+                saveToMemory();
+                renderHistory();
+            }
+        } else {
+            alert("❌ Wrong Password!");
+        }
+    }
+
+    function handleLogoUpload(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                customLogo = reader.result;
+                saveToMemory();
+                applyLogo();
+                alert("✓ Logo successfully updated across App & PDF!");
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function resetLogo() {
+        customLogo = null;
+        document.getElementById('logo-file-input').value = "";
+        saveToMemory();
+        applyLogo();
+        alert("✓ Logo reset to default camera icon!");
+    }
+
+    function applyLogo() {
+        const appHeaderLogo = document.getElementById('app-header-logo-box');
+        const pdfHeaderLogo = document.getElementById('pdf-logo-icon-box');
+        const advancePreview = document.getElementById('logo-preview-box');
+
+        if (customLogo) {
+            const imgHtml = `<img src="${customLogo}" style="width:100%; height:100%; object-fit:contain;">`;
+            appHeaderLogo.innerHTML = imgHtml;
+            pdfHeaderLogo.innerHTML = imgHtml;
+            advancePreview.innerHTML = imgHtml;
+        } else {
+            appHeaderLogo.innerHTML = '📸';
+            pdfHeaderLogo.innerHTML = '📸';
+            advancePreview.innerHTML = '📸';
+        }
+    }
+
+    function changeTheme(themeName) {
+        currentTheme = themeName;
+        document.documentElement.setAttribute('data-theme', themeName);
+        document.getElementById('theme-selector').value = themeName;
+        saveToMemory();
+    }
+
+    function toggleCompanyLock() {
+        if (!isCompanyUnlocked) {
+            let pass = prompt("🔐 Company Details Unlock karne ke liye Password daalein:");
+            if (pass === SECURITY_PASSWORD) {
+                isCompanyUnlocked = true;
+                document.getElementById('company-name-input').disabled = false;
+                document.getElementById('company-address-input').disabled = false;
+                document.getElementById('btn-lock-toggle').innerText = "🔓 Unlocked";
+                document.getElementById('btn-lock-toggle').style.background = "#16a34a";
+                alert("✓ Details editing unlocked!");
+            } else {
+                alert("❌ Wrong Password! Action Denied.");
+            }
+        } else {
+            isCompanyUnlocked = false;
+            document.getElementById('company-name-input').disabled = true;
+            document.getElementById('company-address-input').disabled = true;
+            document.getElementById('btn-lock-toggle').innerText = "🔒 Locked (Click to Edit)";
+            document.getElementById('btn-lock-toggle').style.background = "#d97706";
+        }
+    }
+
+    function handleNameInput(val) {
+        if (isCompanyUnlocked) {
+            updateCompanyName(val);
+        }
+    }
+
+    function handleAddressInput(val) {
+        if (isCompanyUnlocked) {
+            updateCompanyAddress(val);
+        }
+    }
+
+    function updateCompanyName(val) {
+        companyName = val || defaultCompany;
+        document.getElementById('app-company-header').innerText = companyName;
+        document.getElementById('pdf-logo-company').innerText = companyName;
+        document.getElementById('pdf-footer-company-bottom').innerText = companyName;
+        saveToMemory();
+    }
+
+    function updateCompanyAddress(val) {
+        companyAddress = val || defaultAddress;
+        document.getElementById('pdf-header-address-text').innerHTML = companyAddress.replace('|', '<br>');
+        document.getElementById('pdf-footer-address-bottom').innerText = "📍 " + companyAddress.split('|')[0];
+        saveToMemory();
+    }
+
+    function resetToDefaults() {
+        let pass = prompt("🔐 Default par reset karne ke liye Password daalein:");
+        if (pass === SECURITY_PASSWORD) {
+            if (confirm("Kya aap sabhi details (Name, Address, Logo, Items) default par reset karna chahte hain?")) {
+                customLogo = null;
+                upiId = "";
+                currentTheme = 'light';
+                companyName = defaultCompany;
+                companyAddress = defaultAddress;
+                services = JSON.parse(JSON.stringify(defaultServices));
+                hiddenFee = 0;
+                quotationHistory = [];
+                saveToMemory();
+                initApp();
+            }
+        } else {
+            alert("❌ Wrong Password!");
+        }
+    }
+
+    function renderCalc() {
+        const container = document.getElementById('services-list');
+        container.innerHTML = '';
+        services.forEach((item, index) => {
+            let isSelected = item.checked || item.qty > 0;
+            
+            let dateHtml = '';
+            if (isSelected) {
+                dateHtml = `
+                    <div class="date-tag-box">
+                        <label>📅 Booking Date(s) for ${item.name}:</label>
+                        <input type="text" class="date-input-field" placeholder="e.g. 14 Nov, 15 Nov" value="${item.dates || ''}" oninput="updateServiceDates(${index}, this.value)">
+                    </div>
+                `;
+            }
+
+            container.innerHTML += `
+                <div class="item-card ${!isSelected ? 'unselected-item' : ''}">
+                    <div class="item-row">
+                        <div class="item-left">
+                            <input type="checkbox" ${isSelected ? 'checked' : ''} onchange="toggleCheck(${index})">
+                            <div>
+                                <div class="item-title">${item.name}</div>
+                            </div>
+                        </div>
+                        <div class="qty-controls">
+                            <button class="btn-qty" onclick="changeQty(${index}, -1)">-</button>
+                            <span class="qty-num">${item.qty}</span>
+                            <button class="btn-qty" onclick="changeQty(${index}, 1)">+</button>
+                        </div>
+                    </div>
+                    ${dateHtml}
+                </div>
+            `;
+        });
+        document.getElementById('hidden-fee-input').value = hiddenFee;
+        calculateTotal();
+        renderPdfItems();
+    }
+
+    function updateServiceDates(i, val) {
+        services[i].dates = val;
+        saveToMemory();
+        renderPdfItems();
+    }
+
+    function renderPdfItems() {
+        const tbody = document.getElementById('pdf-wave-tbody');
+        tbody.innerHTML = '';
+        
+        let selectedServices = services.filter(item => item.checked || item.qty > 0);
+        selectedServices.forEach((item, idx) => {
+            let datesDisplay = item.dates && item.dates.trim() !== "" ? `📍 ${item.dates.trim()}` : '-';
+            let rowClass = (idx % 2 === 1) ? 'pdf-row-even' : '';
+
+            tbody.innerHTML += `
+                <tr class="${rowClass}">
+                    <td><strong>• ${item.name}</strong></td>
+                    <td style="text-align: right; font-weight: bold; color: #1e293b;">${datesDisplay}</td>
+                </tr>
+            `;
+        });
+    }
+
+    function renderAdvance() {
+        document.getElementById('company-name-input').value = companyName;
+        document.getElementById('company-address-input').value = companyAddress;
+        document.getElementById('upi-id-input').value = upiId;
+        const container = document.getElementById('advance-edit-list');
+        container.innerHTML = '';
+        services.forEach((item, index) => {
+            container.innerHTML += `
+                <div style="margin-bottom: 12px; background: var(--card); padding: 8px; border: 1px solid var(--border); border-radius: 6px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                        <label style="font-size: 0.85rem; font-weight: bold;">Item #${index + 1}:</label>
+                        <button class="btn-delete" onclick="deleteService(${index})">🗑️ Delete</button>
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" class="edit-input" value="${item.name}" onchange="updateTitle(${index}, this.value)">
+                        <input type="number" class="edit-input" value="${item.price}" style="width: 110px;" onchange="updatePrice(${index}, this.value)">
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    function addNewService() {
+        const nameInput = document.getElementById('new-item-name');
+        const priceInput = document.getElementById('new-item-price');
+        
+        if (!nameInput.value.trim()) {
+            alert("Kripya item ka naam bharein!");
+            return;
+        }
+
+        const newItem = {
+            id: Date.now(),
+            name: nameInput.value.trim(),
+            price: parseFloat(priceInput.value) || 0,
+            qty: 0,
+            checked: false,
+            dates: ""
+        };
+
+        services.push(newItem);
+        saveToMemory();
+        nameInput.value = "";
+        priceInput.value = "";
+        renderAdvance();
+        renderCalc();
+        alert("✓ Naya item list mein add ho gaya hai!");
+    }
+
+    function deleteService(index) {
+        if (confirm(`Kya aap "${services[index].name}" ko list se hatana chahte hain?`)) {
+            services.splice(index, 1);
+            saveToMemory();
+            renderAdvance();
+            renderCalc();
+        }
+    }
+
+    function toggleCheck(i) {
+        services[i].checked = !services[i].checked;
+        if (services[i].checked && services[i].qty === 0) {
+            services[i].qty = 1;
+        } else if (!services[i].checked) {
+            services[i].qty = 0;
+            services[i].dates = "";
+        }
+        saveToMemory();
+        renderCalc();
+    }
+
+    function changeQty(i, delta) {
+        let newQty = services[i].qty + delta;
+        if (newQty >= 0) {
+            services[i].qty = newQty;
+            services[i].checked = newQty > 0;
+            if (newQty === 0) services[i].dates = "";
+            saveToMemory();
+            renderCalc();
+        }
+    }
+
+    function updateTitle(i, val) { services[i].name = val; saveToMemory(); renderCalc(); }
+    function updatePrice(i, val) { services[i].price = parseFloat(val) || 0; saveToMemory(); renderCalc(); }
+    function saveHiddenFee() {
+        hiddenFee = parseFloat(document.getElementById('hidden-fee-input').value) || 0;
+        saveToMemory();
+        calculateTotal();
+    }
+
+    function updatePdfFields() {
+        document.getElementById('pdf-cust-name').innerText = document.getElementById('cust-name').value || '-';
+        document.getElementById('pdf-cust-phone').innerText = document.getElementById('cust-phone').value || '-';
+        document.getElementById('pdf-event-place').innerText = document.getElementById('event-place').value || '-';
+        document.getElementById('pdf-event-date').innerText = document.getElementById('event-date').value || '-';
+        renderUpiQrCode();
+    }
+
+    function calculateTotal() {
+        let rawSubtotal = services.reduce((acc, item) => (item.checked || item.qty > 0) ? acc + (item.price * item.qty) : acc, 0);
+        let discountPct = parseFloat(document.getElementById('discount-input').value) || 0;
+        
+        let effectiveSubtotal = rawSubtotal + hiddenFee;
+        let grandTotal = effectiveSubtotal - (effectiveSubtotal * (discountPct / 100));
+
+        let formattedSubtotal = '₹' + effectiveSubtotal.toLocaleString('en-IN');
+        let formattedGrand = '₹' + Math.round(grandTotal).toLocaleString('en-IN');
+        let formattedAdvance = '₹' + Math.round(grandTotal / 2).toLocaleString('en-IN');
+
+        document.getElementById('subtotal-val').innerText = formattedSubtotal;
+        document.getElementById('grand-val').innerText = formattedGrand;
+        document.getElementById('advance-val').innerText = formattedAdvance;
+
+        document.getElementById('pdf-subtotal-val').innerText = formattedSubtotal;
+        document.getElementById('pdf-grand-val').innerText = formattedGrand;
+        document.getElementById('pdf-advance-val').innerText = formattedAdvance;
+
+        renderUpiQrCode();
+    }
+
+    function sendWhatsAppSummary() {
+        saveQuotationToHistory(false);
+        let phone = document.getElementById('cust-phone').value.trim();
+        let name = document.getElementById('cust-name').value.trim() || "Customer";
+        let place = document.getElementById('event-place').value.trim() || "-";
+        let dates = document.getElementById('event-date').value.trim() || "-";
+        let grandTotal = document.getElementById('grand-val').innerText;
+        let advance = document.getElementById('advance-val').innerText;
+
+        if (!phone) {
+            alert("Kripya pehle Customer ka Contact Phone number bharein!");
+            return;
+        }
+
+        let selectedList = services
+            .filter(item => item.checked || item.qty > 0)
+            .map(item => `• ${item.name} ${item.dates ? '[' + item.dates + ']' : ''}`)
+            .join('%0A');
+
+        if (!selectedList) {
+            alert("Kripya kam se kam ek service select karein!");
+            return;
+        }
+
+        let message = `*${companyName.toUpperCase()} - QUOTATION*%0A%0A` +
+            `*Client Name:* ${name}%0A` +
+            `*Venue:* ${place}%0A` +
+            `*Event Dates:* ${dates}%0A%0A` +
+            `*Selected Services:*%0A${selectedList}%0A%0A` +
+            `*Grand Total:* ${grandTotal}%0A` +
+            `*50% Advance Booking:* ${advance}%0A%0A` +
+            `Thank you for choosing us! Please find the detailed quotation PDF attached.`;
+
+        let cleanPhone = phone.replace(/\D/g, '');
+        if (cleanPhone.length === 10) {
+            cleanPhone = "91" + cleanPhone;
+        }
+
+        let waUrl = `https://wa.me/${cleanPhone}?text=${message}`;
+        window.open(waUrl, '_blank');
+    }
+
+    function switchTab(tab) {
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.getElementById('tab-calc').classList.add('hidden');
+        document.getElementById('tab-qh').classList.add('hidden');
+        document.getElementById('tab-advance').classList.add('hidden');
+
+        if (tab === 'calc') {
+            document.querySelectorAll('.tab-btn')[0].classList.add('active');
+            document.getElementById('tab-calc').classList.remove('hidden');
+        } else if (tab === 'qh') {
+            document.querySelectorAll('.tab-btn')[1].classList.add('active');
+            document.getElementById('tab-qh').classList.remove('hidden');
+            renderHistory();
+        } else {
+            document.querySelectorAll('.tab-btn')[2].classList.add('active');
+            document.getElementById('tab-advance').classList.remove('hidden');
+            renderAdvance();
+        }
+    }
+
+    function initApp() {
+        applyLogo();
+        changeTheme(currentTheme);
+        updateCompanyName(companyName);
+        updateCompanyAddress(companyAddress);
+        renderCalc();
+        renderUpiQrCode();
+    }
+
+    initApp();
+</script>
+</body>
+</html>
