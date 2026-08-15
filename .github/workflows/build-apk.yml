@@ -26,10 +26,18 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Prepare Web Directory & Install Dependencies
+      - name: Prepare Web Directory & Copy HTML
         run: |
           mkdir -p www
-          cp index.html www/
+          # Kisi bhi HTML file ko auto find karke www/index.html bana dega
+          HTML_FILE=$(find . -maxdepth 2 -iname "*.html" ! -path "./www/*" | head -n 1)
+          if [ -n "$HTML_FILE" ]; then
+            echo "Found HTML file: $HTML_FILE"
+            cp "$HTML_FILE" www/index.html
+          else
+            echo "Error: Koi bhi .html file nahi mili repository me!"
+            exit 1
+          fi
           npm install
 
       - name: Add Android Platform
