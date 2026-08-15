@@ -52,26 +52,48 @@ jobs:
         run: |
           npx cap sync android
 
-      - name: Set App Name to WED+CAL & Generate App Icons
+      - name: Generate Complete Android Adaptive & Legacy App Icons
         run: |
-          # 1. Update Android Strings for App Display Name
+          # 1. Update App Name to WED+CAL
           STRINGS_FILE="android/app/src/main/res/values/strings.xml"
           if [ -f "$STRINGS_FILE" ]; then
             sed -i 's/<string name="app_name">.*<\/string>/<string name="app_name">WED+CAL<\/string>/g' "$STRINGS_FILE"
             sed -i 's/<string name="title_activity_main">.*<\/string>/<string name="title_activity_main">WED+CAL<\/string>/g' "$STRINGS_FILE"
-            echo "✓ App display name updated to WED+CAL in strings.xml"
           fi
 
-          # 2. Force-Apply 3D Logo to Android Mipmaps
+          # 2. Locate Logo Image
           LOGO_SRC=$(find . -maxdepth 2 -iname "*logo*.png" -o -iname "*icon*.png" -o -iname "1786*.png" | head -n 1)
           
           if [ -n "$LOGO_SRC" ]; then
-            echo "Using Logo Image: $LOGO_SRC"
+            echo "Processing Logo from: $LOGO_SRC"
             RES_DIR="android/app/src/main/res"
 
-            # Remove adaptive XMLs that block direct PNG display
-            find "$RES_DIR" -name "ic_launcher.xml" -delete || true
-            find "$RES_DIR" -name "ic_launcher_round.xml" -delete || true
+            # Clean and recreate anydpi-v26 adaptive icon XMLs
+            mkdir -p "$RES_DIR/mipmap-anydpi-v26"
+            cat << 'EOF' > "$RES_DIR/mipmap-anydpi-v26/ic_launcher.xml"
+<?xml version="1.0" encoding="utf-8"?>
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@color/ic_launcher_background"/>
+    <foreground android:drawable="@mipmap/ic_launcher_foreground"/>
+</adaptive-icon>
+EOF
+
+            cat << 'EOF' > "$RES_DIR/mipmap-anydpi-v26/ic_launcher_round.xml"
+<?xml version="1.0" encoding="utf-8"?>
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@color/ic_launcher_background"/>
+    <foreground android:drawable="@mipmap/ic_launcher_foreground"/>
+</adaptive-icon>
+EOF
+
+            # Set dark background color for adaptive canvas
+            mkdir -p "$RES_DIR/values"
+            cat << 'EOF' > "$RES_DIR/values/ic_launcher_background.xml"
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ic_launcher_background">#11080a</color>
+</resources>
+EOF
 
             declare -A SIZES=( ["mipmap-mdpi"]=48 ["mipmap-hdpi"]=72 ["mipmap-xhdpi"]=96 ["mipmap-xxhdpi"]=144 ["mipmap-xxxhdpi"]=192 )
             declare -A FG_SIZES=( ["mipmap-mdpi"]=108 ["mipmap-hdpi"]=162 ["mipmap-xhdpi"]=216 ["mipmap-xxhdpi"]=324 ["mipmap-xxxhdpi"]=432 )
@@ -81,13 +103,17 @@ jobs:
               FG_SIZE=${FG_SIZES[$FOLDER]}
               mkdir -p "$RES_DIR/$FOLDER"
               
+              # Standard launcher icon
               convert "$LOGO_SRC" -resize ${SIZE}x${SIZE} "$RES_DIR/$FOLDER/ic_launcher.png"
+              # Round launcher icon
               convert "$LOGO_SRC" -resize ${SIZE}x${SIZE} "$RES_DIR/$FOLDER/ic_launcher_round.png"
-              convert "$LOGO_SRC" -resize ${FG_SIZE}x${FG_SIZE} "$RES_DIR/$FOLDER/ic_launcher_foreground.png"
+              # Adaptive icon foreground layer with center padding
+              convert "$LOGO_SRC" -resize ${FG_SIZE}x${FG_SIZE} -gravity center -background none "$RES_DIR/$FOLDER/ic_launcher_foreground.png"
             done
-            echo "✓ App Icons successfully replaced everywhere!"
+            echo "✓ Complete Android Adaptive Icon Engine executed successfully!"
           else
-            echo "⚠️ Logo image nahi mili!"
+            echo "⚠️ ERROR: logo.png file nahi mili repository me!"
+            exit 1
           fi
 
       - name: Build APK via Gradle
