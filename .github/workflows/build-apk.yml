@@ -31,7 +31,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y imagemagick python3
 
-      - name: Prepare Web Directory & Install Plugins
+      - name: Prepare Web Directory & Install Native Plugins
         run: |
           mkdir -p www
           HTML_FILE=$(find . -maxdepth 2 -iname "*.html*" ! -path "./www/*" | head -n 1)
@@ -43,7 +43,7 @@ jobs:
             exit 1
           fi
           npm install
-          npm install @capacitor/filesystem @capacitor/share
+          npm install @capacitor/core @capacitor/android @capacitor/filesystem @capacitor/share
 
       - name: Add Android Platform
         run: |
