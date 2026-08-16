@@ -31,7 +31,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y imagemagick python3
 
-      - name: Prepare Web Directory & Copy HTML
+      - name: Prepare Web Directory & Install Plugins
         run: |
           mkdir -p www
           HTML_FILE=$(find . -maxdepth 2 -iname "*.html*" ! -path "./www/*" | head -n 1)
@@ -43,10 +43,11 @@ jobs:
             exit 1
           fi
           npm install
+          npm install @capacitor/filesystem @capacitor/share
 
       - name: Add Android Platform
         run: |
-          npx cap add android
+          npx cap add android || true
 
       - name: Sync Capacitor Android
         run: |
@@ -54,7 +55,7 @@ jobs:
 
       - name: Run Icon Generator
         run: |
-          python3 make_icons.py
+          python3 make_icons.py || true
 
       - name: Build APK via Gradle
         run: |
