@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>WED+CAL - Midnight Luxury Pricing App (₹)</title>
     
+    <!-- Capacitor Bridge for Native Android File Downloads -->
+    <script src="capacitor.js"></script>
+
     <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,7 +29,7 @@
         /* 10 ULTRA-LUXURY FINTECH & GLASS APP THEMES           */
         /* ---------------------------------------------------- */
 
-        /* 1. DEFAULT THEME: Midnight Sapphire Wave */
+        /* 1. DEFAULT THEME: Midnight Sapphire Wave (Exact Image 1) */
         :root {
             --app-bg: radial-gradient(circle at 50% 0%, #172644 0%, #0c1424 50%, #060a12 100%);
             --glass-card: rgba(16, 26, 44, 0.75);
@@ -276,7 +279,6 @@
             --btn-preview-bg: #0d0312;
         }
 
-        /* BODY WITH FROST SATIN FINISH */
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--app-bg);
@@ -734,7 +736,7 @@
         }
 
         /* ---------------------------------------------------- */
-        /* PDF RENDER ENGINE: 4 LAYOUTS & 10 THEMES            */
+        /* 10 MATCHING DYNAMIC PDF THEMES                       */
         /* ---------------------------------------------------- */
         #pdf-render-source {
             position: fixed;
@@ -754,7 +756,6 @@
             font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0 auto;
             color: #333333;
-            /* PDF Theme Colors Default (Sapphire) */
             --pdf-header-bg: #0c1c38;
             --pdf-header-text: #ffffff;
             --pdf-header-sub: #93c5fd;
@@ -765,7 +766,6 @@
             --pdf-table-row: #f0f7ff;
         }
 
-        /* PDF Color Themes */
         .pdf-render-box[data-pdf-theme="cryo-ice"] { --pdf-header-bg: #0f1a30; --pdf-header-text: #ffffff; --pdf-header-sub: #7dd3fc; --pdf-accent: #2563eb; --pdf-accent-dark: #1d4ed8; --pdf-card-bg: #eff6ff; --pdf-card-border: #bfdbfe; --pdf-table-row: #f5f9ff; }
         .pdf-render-box[data-pdf-theme="obsidian"] { --pdf-header-bg: #0f172a; --pdf-header-text: #ffffff; --pdf-header-sub: #cbd5e1; --pdf-accent: #475569; --pdf-accent-dark: #1e293b; --pdf-card-bg: #f8fafc; --pdf-card-border: #cbd5e1; --pdf-table-row: #f1f5f9; }
         .pdf-render-box[data-pdf-theme="aurora"] { --pdf-header-bg: #042f2e; --pdf-header-text: #ffffff; --pdf-header-sub: #99f6e4; --pdf-accent: #0d9488; --pdf-accent-dark: #115e59; --pdf-card-bg: #f0fdfa; --pdf-card-border: #99f6e4; --pdf-table-row: #f4fbf9; }
@@ -813,9 +813,7 @@
         .pdf-gold-total-bar { background: var(--pdf-accent) !important; color: #ffffff !important; font-weight: 800; font-size: 11pt; }
         .pdf-gold-total-bar td { padding: 8px 10px !important; }
 
-        /* ---------------------------------------------------- */
         /* SPECIFIC LAYOUT 1: STUDIO EDITORIAL (Image 1 Style) */
-        /* ---------------------------------------------------- */
         .pdf-render-box[data-pdf-layout="layout1"] .pdf-header-wave-box {
             background: var(--pdf-header-bg); padding: 34px 30px; border-radius: 0; position: relative;
         }
@@ -829,9 +827,7 @@
             background: var(--pdf-header-bg) !important; color: #ffffff !important; border-radius: 0;
         }
 
-        /* ---------------------------------------------------- */
-        /* SPECIFIC LAYOUT 2: CORPORATE GEOMETRIC (Image 2 Style)*/
-        /* ---------------------------------------------------- */
+        /* SPECIFIC LAYOUT 2: CORPORATE GEOMETRIC (Image 2 Style) */
         .pdf-render-box[data-pdf-layout="layout2"] .pdf-header-wave-box {
             background: #ffffff; color: #111111; padding: 24px 30px 10px 30px; border-bottom: 3px solid var(--pdf-accent);
         }
@@ -844,9 +840,7 @@
             background: var(--pdf-header-bg) !important; border-top: 4px solid var(--pdf-accent);
         }
 
-        /* ---------------------------------------------------- */
         /* SPECIFIC LAYOUT 3: MODERN CURVED WAVE (Image 3 Style) */
-        /* ---------------------------------------------------- */
         .pdf-render-box[data-pdf-layout="layout3"] .pdf-header-wave-box {
             background: var(--pdf-header-bg); border-top: 6px solid var(--pdf-accent); padding: 24px 30px 40px 30px; border-bottom-left-radius: 35px;
         }
@@ -857,9 +851,7 @@
             border-top-left-radius: 35px; background: var(--pdf-header-bg) !important; border-top: 3px solid var(--pdf-accent);
         }
 
-        /* ---------------------------------------------------- */
-        /* SPECIFIC LAYOUT 4: LAYERED DYNAMIC WAVES (Image 4)   */
-        /* ---------------------------------------------------- */
+        /* SPECIFIC LAYOUT 4: LAYERED DYNAMIC WAVES (Image 4) */
         .pdf-render-box[data-pdf-layout="layout4"] .pdf-header-wave-box {
             background: var(--pdf-header-bg); color: var(--pdf-header-text); padding: 26px 30px 45px 30px; position: relative;
         }
@@ -1333,7 +1325,7 @@
         document.getElementById('pdf-preview-modal').classList.add('hidden');
     }
 
-    /* DIRECT ANDROID PDF DOWNLOAD & SAVE */
+    /* COMPLETE NATIVE ANDROID PDF DOWNLOAD / SAVE ENGINE */
     async function downloadPdfDirectly() {
         const btn = document.getElementById('modal-btn-download');
         const origText = btn.innerText;
@@ -1354,39 +1346,46 @@
 
             const base64Pdf = pdf.output('datauristring').split(',')[1];
 
-            // 1. Native Capacitor File Saving & Prompt
+            // 1. Check Capacitor Native Bridge (Installed in APK)
             if (window.Capacitor && window.Capacitor.Plugins) {
-                const { Filesystem, Share } = window.Capacitor.Plugins;
+                const Plugins = window.Capacitor.Plugins;
+                const Filesystem = Plugins.Filesystem || window.CapacitorCustomFilesystem;
+                const Share = Plugins.Share;
+
                 if (Filesystem) {
-                    const savedFile = await Filesystem.writeFile({
-                        path: fileName,
-                        data: base64Pdf,
-                        directory: 'DOCUMENTS',
-                        recursive: true
-                    }).catch(async () => {
-                        return await Filesystem.writeFile({
+                    try {
+                        const savedFile = await Filesystem.writeFile({
                             path: fileName,
                             data: base64Pdf,
-                            directory: 'CACHE'
+                            directory: 'DOCUMENTS',
+                            recursive: true
+                        }).catch(async () => {
+                            return await Filesystem.writeFile({
+                                path: fileName,
+                                data: base64Pdf,
+                                directory: 'CACHE'
+                            });
                         });
-                    });
 
-                    btn.innerText = origText;
-                    if (Share) {
-                        await Share.share({
-                            title: fileName,
-                            text: `Quotation PDF saved for ${custName}`,
-                            url: savedFile.uri,
-                            dialogTitle: 'Save / Open PDF'
-                        });
-                    } else {
-                        alert("✓ PDF Successfully Saved to Documents: " + fileName);
+                        btn.innerText = origText;
+                        if (Share) {
+                            await Share.share({
+                                title: fileName,
+                                text: `Quotation PDF saved for ${custName}`,
+                                url: savedFile.uri,
+                                dialogTitle: 'Save PDF to Device / Drive'
+                            });
+                        } else {
+                            alert("✓ PDF Successfully Saved to Documents!");
+                        }
+                        return;
+                    } catch(fsErr) {
+                        console.warn("Filesystem write error, falling back to Share:", fsErr);
                     }
-                    return;
                 }
             }
 
-            // 2. Web Share API Fallback
+            // 2. Native Web Share API (Android Native Intent)
             const pdfBlob = pdf.output('blob');
             const pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
             if (navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
@@ -1407,14 +1406,14 @@
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
-            setTimeout(() => URL.revokeObjectURL(downloadUrl), 1500);
+            setTimeout(() => URL.revokeObjectURL(downloadUrl), 2000);
 
             btn.innerText = origText;
-            alert("✓ PDF Download Complete!");
         } catch(err) {
             console.error("PDF download error:", err);
             btn.innerText = origText;
-            alert("PDF Download ready!");
+            alert("✓ PDF Ready! Sharing...");
+            handleDirectShareOrDownload();
         }
     }
 
