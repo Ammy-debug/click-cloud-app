@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>WED+CAL - Architectural Luxury Pricing App (₹)</title>
+    <title>WED+CAL - Luxury Pricing App (₹)</title>
     
     <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- QR Code, html2canvas & jsPDF Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -22,240 +22,251 @@
             padding: 0;
         }
 
-        /* 1. DEFAULT APP THEME: Warm Amber & Terracotta */
+        /* 1. DEFAULT THEME: Midnight Sapphire Wave */
         :root {
-            --app-bg: linear-gradient(150deg, #c48253 0%, #995932 45%, #66361a 100%);
-            --glass-card: rgba(254, 250, 246, 0.94);
-            --glass-card-sub: rgba(247, 240, 232, 0.88);
-            --card-border: rgba(255, 255, 255, 0.45);
-            --card-inner-border: rgba(153, 89, 50, 0.12);
-            --text-primary: #1f1610;
-            --text-secondary: #785a44;
-            --hero-bg: linear-gradient(135deg, #2b1d14 0%, #150d08 100%);
+            --app-bg: radial-gradient(circle at 50% 0%, #172644 0%, #0c1424 50%, #060a12 100%);
+            --glass-card: rgba(16, 26, 44, 0.75);
+            --glass-card-sub: rgba(22, 36, 62, 0.65);
+            --card-border: rgba(56, 189, 248, 0.22);
+            --card-inner-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --hero-bg: linear-gradient(135deg, #1e3a8a 0%, #0284c7 50%, #0369a1 100%);
             --hero-text: #ffffff;
-            --hero-sub: #dfb28e;
-            --hero-border: rgba(255, 255, 255, 0.15);
-            --accent-main: #b86b3a;
-            --accent-glow: #d67f47;
-            --accent-gradient: linear-gradient(135deg, #c97945 0%, #944d21 100%);
-            --pill-bg: #f3eae0;
-            --pill-active: #2b1d14;
+            --hero-sub: #bae6fd;
+            --hero-border: rgba(56, 189, 248, 0.45);
+            --accent-main: #38bdf8;
+            --accent-glow: #0ea5e9;
+            --accent-gradient: linear-gradient(135deg, #38bdf8 0%, #2563eb 100%);
+            --pill-bg: rgba(255, 255, 255, 0.08);
+            --pill-active: #0284c7;
             --pill-active-text: #ffffff;
-            --input-bg: #fdfaf6;
-            --input-border: #e2d2c1;
-            --shadow-glass: 0 16px 40px rgba(71, 35, 14, 0.35);
+            --input-bg: rgba(9, 15, 26, 0.85);
+            --input-border: rgba(56, 189, 248, 0.25);
+            --shadow-glass: 0 20px 45px rgba(0, 0, 0, 0.75);
+            --btn-preview-bg: #09101d;
         }
 
         /* App Themes */
-        [data-theme="ocean"] {
-            --app-bg: linear-gradient(150deg, #0f2b48 0%, #081a2e 50%, #030d17 100%);
-            --glass-card: rgba(13, 27, 44, 0.94);
-            --glass-card-sub: rgba(20, 39, 63, 0.88);
-            --card-border: rgba(56, 189, 248, 0.25);
-            --card-inner-border: rgba(255, 255, 255, 0.06);
+        [data-theme="cryo-ice"] {
+            --app-bg: radial-gradient(circle at 50% 0%, #1e325c 0%, #0f1a30 50%, #070c17 100%);
+            --glass-card: rgba(18, 32, 58, 0.75);
+            --glass-card-sub: rgba(26, 44, 78, 0.65);
+            --card-border: rgba(125, 211, 252, 0.25);
+            --card-inner-border: rgba(255, 255, 255, 0.1);
             --text-primary: #f0f9ff;
             --text-secondary: #7dd3fc;
-            --hero-bg: linear-gradient(135deg, #1e3a8a 0%, #0c1c38 100%);
+            --hero-bg: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
             --hero-text: #ffffff;
-            --hero-sub: #93c5fd;
-            --hero-border: rgba(56, 189, 248, 0.4);
+            --hero-sub: #e0f2fe;
+            --hero-border: rgba(125, 211, 252, 0.5);
             --accent-main: #0284c7;
             --accent-glow: #38bdf8;
-            --accent-gradient: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%);
-            --pill-bg: rgba(255, 255, 255, 0.06);
-            --pill-active: #0ea5e9;
+            --accent-gradient: linear-gradient(135deg, #0ea5e9 0%, #1d4ed8 100%);
+            --pill-bg: rgba(255, 255, 255, 0.08);
+            --pill-active: #2563eb;
             --pill-active-text: #ffffff;
-            --input-bg: rgba(7, 18, 31, 0.8);
-            --input-border: rgba(56, 189, 248, 0.25);
-            --shadow-glass: 0 16px 45px rgba(2, 20, 40, 0.7);
-        }
-
-        [data-theme="glassy-blue"] {
-            --app-bg: linear-gradient(150deg, #dbeafe 0%, #bfdbfe 50%, #93c5fd 100%);
-            --glass-card: rgba(255, 255, 255, 0.92);
-            --glass-card-sub: rgba(239, 246, 255, 0.9);
-            --card-border: rgba(255, 255, 255, 0.95);
-            --card-inner-border: rgba(37, 99, 235, 0.12);
-            --text-primary: #0f172a;
-            --text-secondary: #3b82f6;
-            --hero-bg: linear-gradient(135deg, #1d4ed8 0%, #1e3a8a 100%);
-            --hero-text: #ffffff;
-            --hero-sub: #bfdbfe;
-            --hero-border: rgba(255, 255, 255, 0.3);
-            --accent-main: #2563eb;
-            --accent-glow: #60a5fa;
-            --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-            --pill-bg: #dbeafe;
-            --pill-active: #1e3a8a;
-            --pill-active-text: #ffffff;
-            --input-bg: #ffffff;
-            --input-border: #bfdbfe;
-            --shadow-glass: 0 14px 35px rgba(30, 58, 138, 0.18);
-        }
-
-        [data-theme="rose-silk"] {
-            --app-bg: linear-gradient(150deg, #eed0d8 0%, #dfb2bc 50%, #c993a0 100%);
-            --glass-card: rgba(255, 250, 251, 0.96);
-            --glass-card-sub: rgba(254, 242, 244, 0.92);
-            --card-border: rgba(255, 255, 255, 0.95);
-            --card-inner-border: rgba(219, 39, 119, 0.12);
-            --text-primary: #37121c;
-            --text-secondary: #9d3d57;
-            --hero-bg: linear-gradient(135deg, #701a34 0%, #430c1d 100%);
-            --hero-text: #ffffff;
-            --hero-sub: #fbcfe8;
-            --hero-border: rgba(255, 255, 255, 0.25);
-            --accent-main: #db2777;
-            --accent-glow: #f472b6;
-            --accent-gradient: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
-            --pill-bg: #fce7f3;
-            --pill-active: #881337;
-            --pill-active-text: #ffffff;
-            --input-bg: #ffffff;
-            --input-border: #fbcfe8;
-            --shadow-glass: 0 14px 35px rgba(112, 26, 52, 0.18);
-        }
-
-        [data-theme="velvet-wine"] {
-            --app-bg: linear-gradient(150deg, #2b0c16 0%, #17040a 50%, #080104 100%);
-            --glass-card: rgba(36, 12, 20, 0.94);
-            --glass-card-sub: rgba(53, 19, 31, 0.88);
-            --card-border: rgba(244, 114, 182, 0.25);
-            --card-inner-border: rgba(255, 255, 255, 0.06);
-            --text-primary: #fff1f2;
-            --text-secondary: #f472b6;
-            --hero-bg: linear-gradient(135deg, #831843 0%, #4c0519 100%);
-            --hero-text: #ffffff;
-            --hero-sub: #fbcfe8;
-            --hero-border: rgba(244, 114, 182, 0.35);
-            --accent-main: #e11d48;
-            --accent-glow: #fb7185;
-            --accent-gradient: linear-gradient(135deg, #f43f5e 0%, #be123c 100%);
-            --pill-bg: rgba(255, 255, 255, 0.06);
-            --pill-active: #f43f5e;
-            --pill-active-text: #ffffff;
-            --input-bg: rgba(20, 5, 10, 0.8);
-            --input-border: rgba(244, 114, 182, 0.25);
-            --shadow-glass: 0 16px 45px rgba(35, 5, 15, 0.7);
-        }
-
-        [data-theme="sage-mist"] {
-            --app-bg: linear-gradient(150deg, #cbdad0 0%, #b2c5b7 50%, #98ad9e 100%);
-            --glass-card: rgba(255, 255, 255, 0.95);
-            --glass-card-sub: rgba(243, 248, 245, 0.92);
-            --card-border: rgba(255, 255, 255, 0.95);
-            --card-inner-border: rgba(47, 79, 58, 0.12);
-            --text-primary: #192b1f;
-            --text-secondary: #4a6b54;
-            --hero-bg: linear-gradient(135deg, #2d4a36 0%, #192e20 100%);
-            --hero-text: #ffffff;
-            --hero-sub: #c7decb;
-            --hero-border: rgba(255, 255, 255, 0.25);
-            --accent-main: #3a6347;
-            --accent-glow: #568a65;
-            --accent-gradient: linear-gradient(135deg, #447352 0%, #294732 100%);
-            --pill-bg: #e1ede4;
-            --pill-active: #1f3827;
-            --pill-active-text: #ffffff;
-            --input-bg: #ffffff;
-            --input-border: #cadcd0;
-            --shadow-glass: 0 14px 35px rgba(45, 74, 54, 0.18);
-        }
-
-        [data-theme="aurora"] {
-            --app-bg: linear-gradient(150deg, #062b25 0%, #031714 50%, #010807 100%);
-            --glass-card: rgba(7, 31, 26, 0.94);
-            --glass-card-sub: rgba(12, 49, 41, 0.88);
-            --card-border: rgba(45, 212, 191, 0.25);
-            --card-inner-border: rgba(255, 255, 255, 0.06);
-            --text-primary: #f0fdfa;
-            --text-secondary: #5eead4;
-            --hero-bg: linear-gradient(135deg, #115e59 0%, #042f2e 100%);
-            --hero-text: #ffffff;
-            --hero-sub: #99f6e4;
-            --hero-border: rgba(45, 212, 191, 0.35);
-            --accent-main: #0d9488;
-            --accent-glow: #2dd4bf;
-            --accent-gradient: linear-gradient(135deg, #14b8a6 0%, #0f766e 100%);
-            --pill-bg: rgba(255, 255, 255, 0.06);
-            --pill-active: #14b8a6;
-            --pill-active-text: #000000;
-            --input-bg: rgba(3, 15, 13, 0.8);
-            --input-border: rgba(45, 212, 191, 0.25);
-            --shadow-glass: 0 16px 45px rgba(2, 20, 18, 0.7);
-        }
-
-        [data-theme="espresso"] {
-            --app-bg: linear-gradient(150deg, #1f140e 0%, #120b07 50%, #080402 100%);
-            --glass-card: rgba(28, 19, 14, 0.92);
-            --glass-card-sub: rgba(43, 29, 21, 0.85);
-            --card-border: rgba(214, 146, 96, 0.22);
-            --card-inner-border: rgba(255, 255, 255, 0.05);
-            --text-primary: #fdfaf7;
-            --text-secondary: #ba9d87;
-            --hero-bg: linear-gradient(135deg, #382417 0%, #1a100a 100%);
-            --hero-text: #ffffff;
-            --hero-sub: #dfb28e;
-            --hero-border: rgba(214, 146, 96, 0.35);
-            --accent-main: #d67f47;
-            --accent-glow: #f09a62;
-            --accent-gradient: linear-gradient(135deg, #d67f47 0%, #a85827 100%);
-            --pill-bg: rgba(255, 255, 255, 0.06);
-            --pill-active: #d67f47;
-            --pill-active-text: #ffffff;
-            --input-bg: rgba(15, 9, 6, 0.7);
-            --input-border: rgba(214, 146, 96, 0.25);
-            --shadow-glass: 0 16px 45px rgba(0, 0, 0, 0.65);
-        }
-
-        [data-theme="sandstone"] {
-            --app-bg: linear-gradient(150deg, #f0e6dc 0%, #e2d2c1 50%, #d5beaa 100%);
-            --glass-card: rgba(255, 255, 255, 0.96);
-            --glass-card-sub: rgba(247, 243, 238, 0.95);
-            --card-border: rgba(255, 255, 255, 0.9);
-            --card-inner-border: rgba(135, 107, 85, 0.12);
-            --text-primary: #2b231d;
-            --text-secondary: #7d6b5e;
-            --hero-bg: linear-gradient(135deg, #87654b 0%, #5a3f2d 100%);
-            --hero-text: #ffffff;
-            --hero-sub: #f5e4d5;
-            --hero-border: rgba(255, 255, 255, 0.25);
-            --accent-main: #87654b;
-            --accent-glow: #aa8161;
-            --accent-gradient: linear-gradient(135deg, #87654b 0%, #5a3f2d 100%);
-            --pill-bg: #ece3d8;
-            --pill-active: #2b231d;
-            --pill-active-text: #ffffff;
-            --input-bg: #ffffff;
-            --input-border: #d4c2b0;
-            --shadow-glass: 0 14px 35px rgba(105, 80, 58, 0.18);
+            --input-bg: rgba(10, 18, 34, 0.85);
+            --input-border: rgba(125, 211, 252, 0.25);
+            --shadow-glass: 0 20px 45px rgba(0, 0, 0, 0.75);
+            --btn-preview-bg: #091322;
         }
 
         [data-theme="obsidian"] {
-            --app-bg: linear-gradient(150deg, #111317 0%, #0a0b0d 50%, #030405 100%);
-            --glass-card: rgba(18, 20, 24, 0.94);
-            --glass-card-sub: rgba(28, 31, 38, 0.88);
-            --card-border: rgba(234, 179, 8, 0.2);
-            --card-inner-border: rgba(255, 255, 255, 0.05);
-            --text-primary: #f8fafc;
+            --app-bg: radial-gradient(circle at 50% 0%, #1e2430 0%, #0e1118 50%, #050608 100%);
+            --glass-card: rgba(18, 22, 30, 0.85);
+            --glass-card-sub: rgba(28, 34, 46, 0.7);
+            --card-border: rgba(255, 255, 255, 0.15);
+            --card-inner-border: rgba(255, 255, 255, 0.06);
+            --text-primary: #ffffff;
             --text-secondary: #94a3b8;
-            --hero-bg: linear-gradient(135deg, #232014 0%, #121008 100%);
+            --hero-bg: linear-gradient(135deg, #334155 0%, #0f172a 100%);
             --hero-text: #ffffff;
-            --hero-sub: #fde047;
-            --hero-border: rgba(234, 179, 8, 0.3);
-            --accent-main: #eab308;
-            --accent-glow: #facc15;
-            --accent-gradient: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
-            --pill-bg: rgba(255, 255, 255, 0.06);
-            --pill-active: #eab308;
-            --pill-active-text: #000000;
-            --input-bg: rgba(10, 11, 13, 0.8);
-            --input-border: rgba(234, 179, 8, 0.25);
-            --shadow-glass: 0 16px 45px rgba(0, 0, 0, 0.75);
+            --hero-sub: #cbd5e1;
+            --hero-border: rgba(255, 255, 255, 0.25);
+            --accent-main: #94a3b8;
+            --accent-glow: #cbd5e1;
+            --accent-gradient: linear-gradient(135deg, #64748b 0%, #334155 100%);
+            --pill-bg: rgba(255, 255, 255, 0.08);
+            --pill-active: #475569;
+            --pill-active-text: #ffffff;
+            --input-bg: rgba(10, 12, 16, 0.9);
+            --input-border: rgba(255, 255, 255, 0.15);
+            --shadow-glass: 0 20px 45px rgba(0, 0, 0, 0.85);
+            --btn-preview-bg: #080a0e;
         }
 
+        [data-theme="aurora"] {
+            --app-bg: radial-gradient(circle at 50% 0%, #0f332c 0%, #071c18 50%, #020a08 100%);
+            --glass-card: rgba(10, 32, 28, 0.8);
+            --glass-card-sub: rgba(16, 48, 42, 0.65);
+            --card-border: rgba(45, 212, 191, 0.28);
+            --card-inner-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f0fdfa;
+            --text-secondary: #99f6e4;
+            --hero-bg: linear-gradient(135deg, #0d9488 0%, #042f2e 100%);
+            --hero-text: #ffffff;
+            --hero-sub: #ccfbf1;
+            --hero-border: rgba(45, 212, 191, 0.45);
+            --accent-main: #14b8a6;
+            --accent-glow: #2dd4bf;
+            --accent-gradient: linear-gradient(135deg, #14b8a6 0%, #0f766e 100%);
+            --pill-bg: rgba(255, 255, 255, 0.08);
+            --pill-active: #0d9488;
+            --pill-active-text: #ffffff;
+            --input-bg: rgba(5, 18, 16, 0.85);
+            --input-border: rgba(45, 212, 191, 0.25);
+            --shadow-glass: 0 20px 45px rgba(0, 0, 0, 0.75);
+            --btn-preview-bg: #030f0d;
+        }
+
+        [data-theme="indigo"] {
+            --app-bg: radial-gradient(circle at 50% 0%, #261b47 0%, #140d28 50%, #080412 100%);
+            --glass-card: rgba(26, 18, 50, 0.8);
+            --glass-card-sub: rgba(38, 26, 72, 0.65);
+            --card-border: rgba(167, 139, 250, 0.28);
+            --card-inner-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #faf5ff;
+            --text-secondary: #d8b4fe;
+            --hero-bg: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
+            --hero-text: #ffffff;
+            --hero-sub: #e0e7ff;
+            --hero-border: rgba(167, 139, 250, 0.45);
+            --accent-main: #818cf8;
+            --accent-glow: #a78bfa;
+            --accent-gradient: linear-gradient(135deg, #818cf8 0%, #4f46e5 100%);
+            --pill-bg: rgba(255, 255, 255, 0.08);
+            --pill-active: #6366f1;
+            --pill-active-text: #ffffff;
+            --input-bg: rgba(12, 8, 24, 0.85);
+            --input-border: rgba(167, 139, 250, 0.25);
+            --shadow-glass: 0 20px 45px rgba(0, 0, 0, 0.75);
+            --btn-preview-bg: #0b0616;
+        }
+
+        [data-theme="rose-ruby"] {
+            --app-bg: radial-gradient(circle at 50% 0%, #361422 0%, #1f0812 50%, #0d0207 100%);
+            --glass-card: rgba(38, 14, 24, 0.8);
+            --glass-card-sub: rgba(56, 22, 36, 0.65);
+            --card-border: rgba(244, 114, 182, 0.28);
+            --card-inner-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #fff1f2;
+            --text-secondary: #fbcfe8;
+            --hero-bg: linear-gradient(135deg, #e11d48 0%, #9f1239 100%);
+            --hero-text: #ffffff;
+            --hero-sub: #ffe4e6;
+            --hero-border: rgba(244, 114, 182, 0.45);
+            --accent-main: #f43f5e;
+            --accent-glow: #fb7185;
+            --accent-gradient: linear-gradient(135deg, #f43f5e 0%, #be123c 100%);
+            --pill-bg: rgba(255, 255, 255, 0.08);
+            --pill-active: #e11d48;
+            --pill-active-text: #ffffff;
+            --input-bg: rgba(18, 6, 12, 0.85);
+            --input-border: rgba(244, 114, 182, 0.25);
+            --shadow-glass: 0 20px 45px rgba(0, 0, 0, 0.75);
+            --btn-preview-bg: #0f0308;
+        }
+
+        [data-theme="gold-vip"] {
+            --app-bg: radial-gradient(circle at 50% 0%, #28200c 0%, #141004 50%, #080601 100%);
+            --glass-card: rgba(30, 24, 8, 0.85);
+            --glass-card-sub: rgba(44, 36, 14, 0.7);
+            --card-border: rgba(234, 179, 8, 0.32);
+            --card-inner-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #fefce8;
+            --text-secondary: #fef08a;
+            --hero-bg: linear-gradient(135deg, #eab308 0%, #a16207 100%);
+            --hero-text: #170f02;
+            --hero-sub: #422006;
+            --hero-border: rgba(254, 240, 138, 0.5);
+            --accent-main: #eab308;
+            --accent-glow: #facc15;
+            --accent-gradient: linear-gradient(135deg, #facc15 0%, #ca8a04 100%);
+            --pill-bg: rgba(255, 255, 255, 0.08);
+            --pill-active: #eab308;
+            --pill-active-text: #170f02;
+            --input-bg: rgba(14, 10, 2, 0.9);
+            --input-border: rgba(234, 179, 8, 0.3);
+            --shadow-glass: 0 20px 45px rgba(0, 0, 0, 0.8);
+            --btn-preview-bg: #0a0802;
+        }
+
+        [data-theme="titanium"] {
+            --app-bg: radial-gradient(circle at 50% 0%, #232d3d 0%, #121822 50%, #090c12 100%);
+            --glass-card: rgba(22, 30, 42, 0.8);
+            --glass-card-sub: rgba(32, 44, 62, 0.65);
+            --card-border: rgba(148, 163, 184, 0.25);
+            --card-inner-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --hero-bg: linear-gradient(135deg, #475569 0%, #1e293b 100%);
+            --hero-text: #ffffff;
+            --hero-sub: #e2e8f0;
+            --hero-border: rgba(148, 163, 184, 0.4);
+            --accent-main: #38bdf8;
+            --accent-glow: #7dd3fc;
+            --accent-gradient: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+            --pill-bg: rgba(255, 255, 255, 0.08);
+            --pill-active: #0284c7;
+            --pill-active-text: #ffffff;
+            --input-bg: rgba(11, 16, 24, 0.85);
+            --input-border: rgba(148, 163, 184, 0.25);
+            --shadow-glass: 0 20px 45px rgba(0, 0, 0, 0.75);
+            --btn-preview-bg: #090f18;
+        }
+
+        [data-theme="glacier"] {
+            --app-bg: radial-gradient(circle at 50% 0%, #133342 0%, #091c26 50%, #030d12 100%);
+            --glass-card: rgba(12, 34, 46, 0.8);
+            --glass-card-sub: rgba(18, 50, 68, 0.65);
+            --card-border: rgba(103, 232, 249, 0.28);
+            --card-inner-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #ecfeff;
+            --text-secondary: #a5f3fc;
+            --hero-bg: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);
+            --hero-text: #ffffff;
+            --hero-sub: #cffafe;
+            --hero-border: rgba(103, 232, 249, 0.45);
+            --accent-main: #06b6d4;
+            --accent-glow: #22d3ee;
+            --accent-gradient: linear-gradient(135deg, #06b6d4 0%, #0369a1 100%);
+            --pill-bg: rgba(255, 255, 255, 0.08);
+            --pill-active: #0891b2;
+            --pill-active-text: #ffffff;
+            --input-bg: rgba(5, 18, 24, 0.85);
+            --input-border: rgba(103, 232, 249, 0.25);
+            --shadow-glass: 0 20px 45px rgba(0, 0, 0, 0.75);
+            --btn-preview-bg: #030e14;
+        }
+
+        [data-theme="cosmic"] {
+            --app-bg: radial-gradient(circle at 50% 0%, #301642 0%, #1a0a26 50%, #0b0212 100%);
+            --glass-card: rgba(32, 14, 46, 0.8);
+            --glass-card-sub: rgba(48, 22, 68, 0.65);
+            --card-border: rgba(216, 180, 254, 0.28);
+            --card-inner-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #faf5ff;
+            --text-secondary: #e9d5ff;
+            --hero-bg: linear-gradient(135deg, #9333ea 0%, #581c87 100%);
+            --hero-text: #ffffff;
+            --hero-sub: #f3e8ff;
+            --hero-border: rgba(216, 180, 254, 0.45);
+            --accent-main: #a855f7;
+            --accent-glow: #c084fc;
+            --accent-gradient: linear-gradient(135deg, #a855f7 0%, #6b21a8 100%);
+            --pill-bg: rgba(255, 255, 255, 0.08);
+            --pill-active: #9333ea;
+            --pill-active-text: #ffffff;
+            --input-bg: rgba(16, 6, 24, 0.85);
+            --input-border: rgba(216, 180, 254, 0.25);
+            --shadow-glass: 0 20px 45px rgba(0, 0, 0, 0.75);
+            --btn-preview-bg: #0d0312;
+        }
+
+        /* BODY WITH FROST SATIN FINISH */
         body {
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--app-bg);
             background-attachment: fixed;
             color: var(--text-primary);
@@ -263,20 +274,24 @@
             padding: 14px 10px;
             overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
+            position: relative;
+            transition: all 0.35s ease;
         }
 
         .app-container {
             max-width: 540px;
             margin: 0 auto;
             background: var(--glass-card);
-            backdrop-filter: blur(28px);
-            -webkit-backdrop-filter: blur(28px);
+            backdrop-filter: blur(28px) saturate(180%);
+            -webkit-backdrop-filter: blur(28px) saturate(180%);
             border-radius: 28px;
             border: 1px solid var(--card-border);
-            box-shadow: var(--shadow-glass);
+            box-shadow: var(--shadow-glass), inset 0 1px 2px rgba(255, 255, 255, 0.15);
             overflow: hidden;
             width: 100%;
-            transition: all 0.4s ease;
+            position: relative;
+            z-index: 2;
+            transition: all 0.35s ease;
         }
 
         .app-header {
@@ -301,7 +316,7 @@
             justify-content: center;
             font-size: 22px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.25);
         }
         .header-logo-badge img {
             width: 100%;
@@ -311,14 +326,14 @@
         .header-title-box h2 {
             font-family: 'Outfit', sans-serif;
             font-size: 1.15rem;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: -0.2px;
             color: var(--text-primary);
         }
         .header-title-box span {
             font-size: 0.72rem;
             color: var(--text-secondary);
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 0.8px;
             text-transform: uppercase;
         }
@@ -349,7 +364,7 @@
         .tab-btn.active {
             background: var(--pill-active);
             color: var(--pill-active-text);
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
         }
 
         .tab-content {
@@ -366,7 +381,7 @@
             position: relative;
             overflow: hidden;
             margin-bottom: 16px;
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(255,255,255,0.35);
         }
         .interior-hero-card::after {
             content: '';
@@ -375,8 +390,8 @@
             right: -50px;
             width: 140px;
             height: 140px;
-            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-            opacity: 0.35;
+            background: radial-gradient(circle, #ffffff 0%, transparent 70%);
+            opacity: 0.2;
             border-radius: 50%;
             pointer-events: none;
         }
@@ -384,12 +399,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
         .hero-chip-badge {
             font-size: 0.72rem;
             text-transform: uppercase;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: 1.2px;
             color: var(--hero-sub);
             display: flex;
@@ -401,50 +416,55 @@
             width: 6px;
             height: 6px;
             border-radius: 50%;
-            background: var(--hero-sub);
-            box-shadow: 0 0 6px var(--hero-sub);
+            background: #ffffff;
+            box-shadow: 0 0 8px #ffffff;
         }
         .hero-balance-label {
             font-size: 0.75rem;
             color: var(--hero-sub);
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.8px;
         }
         .hero-grand-total {
             font-family: 'Outfit', sans-serif;
             font-size: 2.2rem;
-            font-weight: 800;
+            font-weight: 900;
             color: #ffffff;
             letter-spacing: -0.5px;
             margin: 4px 0 14px 0;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
         .hero-stats-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
             padding-top: 14px;
-            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
         }
         .hero-stat-item span {
             font-size: 0.72rem;
             color: var(--hero-sub);
             display: block;
             margin-bottom: 2px;
+            font-weight: 600;
         }
         .hero-stat-item strong {
             font-size: 1.05rem;
-            font-weight: 700;
+            font-weight: 800;
             color: #ffffff;
         }
 
         .porcelain-box {
             background: var(--glass-card-sub);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--card-inner-border);
             border-radius: 20px;
             padding: 16px;
             margin-bottom: 16px;
             width: 100%;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2), inset 0 1px 1px rgba(255,255,255,0.1);
         }
         .porcelain-box-title {
             margin-bottom: 12px;
@@ -452,7 +472,7 @@
             font-size: 0.78rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            font-weight: 700;
+            font-weight: 800;
             display: flex;
             align-items: center;
             gap: 6px;
@@ -485,23 +505,28 @@
             outline: none;
             transition: all 0.2s ease;
             font-family: inherit;
+            font-weight: 600;
         }
         .form-input:focus {
             border-color: var(--accent-main);
-            box-shadow: 0 0 0 3px rgba(184, 107, 58, 0.15);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
         }
 
         .service-card {
             background: var(--glass-card-sub);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--card-inner-border);
             border-radius: 16px;
             padding: 12px 14px;
             margin-bottom: 8px;
             transition: all 0.25s ease;
+            box-shadow: inset 0 1px 1px rgba(255,255,255,0.06);
         }
         .service-card.selected-service {
             border-color: var(--accent-main);
-            box-shadow: 0 4px 12px rgba(184, 107, 58, 0.12);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255,255,255,0.15);
+            background: rgba(255, 255, 255, 0.1);
         }
         .service-row {
             display: flex;
@@ -525,7 +550,7 @@
             flex-shrink: 0;
         }
         .service-title {
-            font-weight: 600;
+            font-weight: 700;
             font-size: 0.9rem;
             color: var(--text-primary);
             white-space: normal;
@@ -543,7 +568,7 @@
         }
         .btn-qty {
             border: none;
-            background: var(--glass-card);
+            background: rgba(255, 255, 255, 0.12);
             color: var(--text-primary);
             width: 28px;
             height: 28px;
@@ -555,11 +580,12 @@
             align-items: center;
             justify-content: center;
             transition: all 0.15s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.25);
         }
         .btn-qty:active { transform: scale(0.92); }
         .btn-qty:disabled { opacity: 0.3; cursor: not-allowed; }
         .qty-num {
-            font-weight: 700;
+            font-weight: 800;
             min-width: 18px;
             text-align: center;
             font-size: 0.85rem;
@@ -580,19 +606,20 @@
             margin-bottom: 3px;
         }
 
-        .btn-action-grid {
+        /* 2 CLEAN ACTION BUTTONS */
+        .btn-calc-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 12px;
             margin-top: 16px;
             width: 100%;
         }
         .action-btn {
-            padding: 13px 10px;
-            border: none;
+            padding: 14px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
             border-radius: 14px;
-            font-weight: 700;
-            font-size: 0.82rem;
+            font-weight: 800;
+            font-size: 0.86rem;
             font-family: 'Outfit', sans-serif;
             cursor: pointer;
             display: flex;
@@ -601,22 +628,20 @@
             gap: 6px;
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             color: #ffffff;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.35), inset 0 1px 1px rgba(255,255,255,0.2);
         }
         .action-btn:active {
             transform: scale(0.97);
         }
         
-        .btn-download-pdf { background: var(--accent-gradient); }
-        .btn-print { background: #1c1511; }
-        .btn-whatsapp { background: #15803d; }
-        .btn-save-qh { background: #4338ca; }
+        .btn-preview-main { background: var(--btn-preview-bg); }
+        .btn-save-main { background: var(--accent-gradient); }
         
-        .btn-add { background: var(--accent-gradient); color: #fff; border: none; padding: 11px 16px; border-radius: 10px; font-weight: 700; cursor: pointer; margin-top: 8px; font-size: 0.85rem; }
-        .btn-delete { background: #fee2e2; border: 1px solid #fca5a5; color: #b91c1c; padding: 6px 10px; border-radius: 8px; font-size: 0.75rem; cursor: pointer; font-weight: 700; }
-        .btn-unlock { background: #fef3c7; border: 1px solid #fcd34d; color: #b45309; padding: 6px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; cursor: pointer; }
-        .btn-secondary { background: var(--pill-bg); border: 1px solid var(--input-border); color: var(--text-primary); padding: 8px 12px; border-radius: 10px; font-size: 0.75rem; font-weight: 600; cursor: pointer; }
-        .btn-reset { background: #fef2f2; border: 1px solid #f87171; color: #b91c1c; padding: 12px 14px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.85rem; width: 100%; }
+        .btn-add { background: var(--accent-gradient); color: #fff; border: none; padding: 11px 16px; border-radius: 10px; font-weight: 800; cursor: pointer; margin-top: 8px; font-size: 0.85rem; }
+        .btn-delete { background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.4); color: #f87171; padding: 6px 10px; border-radius: 8px; font-size: 0.75rem; cursor: pointer; font-weight: 700; }
+        .btn-unlock { background: rgba(245, 158, 11, 0.2); border: 1px solid rgba(245, 158, 11, 0.4); color: #fbbf24; padding: 6px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; cursor: pointer; }
+        .btn-secondary { background: var(--pill-bg); border: 1px solid var(--input-border); color: var(--text-primary); padding: 8px 12px; border-radius: 10px; font-size: 0.75rem; font-weight: 700; cursor: pointer; }
+        .btn-reset { background: rgba(239, 68, 68, 0.25); border: 1px solid #ef4444; color: #fca5a5; padding: 12px 14px; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 0.85rem; width: 100%; }
 
         .qh-card {
             background: var(--glass-card-sub);
@@ -635,7 +660,7 @@
             padding-bottom: 6px;
         }
         .qh-cust-name {
-            font-weight: 700;
+            font-weight: 800;
             font-size: 0.95rem;
             color: var(--accent-main);
         }
@@ -643,16 +668,16 @@
         .qh-details-row { font-size: 0.78rem; margin-bottom: 4px; color: var(--text-secondary); }
         .qh-details-row strong { color: var(--text-primary); }
         .qh-actions { display: flex; gap: 8px; margin-top: 10px; }
-        .btn-qh-load { background: var(--accent-gradient); color: white; border: none; padding: 8px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; cursor: pointer; flex: 1; }
+        .btn-qh-load { background: var(--accent-gradient); color: white; border: none; padding: 8px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 800; cursor: pointer; flex: 1; }
         .status-select { padding: 5px 8px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; border: 1px solid var(--input-border); cursor: pointer; background: var(--input-bg); color: var(--text-primary); outline: none; }
 
         .hidden { display: none !important; }
 
-        /* IN-APP PREVIEW MODAL */
+        /* IN-APP PREVIEW MODAL WITH 3 ACTIONS */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(20, 14, 10, 0.92);
+            background: rgba(6, 10, 18, 0.92);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             display: flex;
@@ -684,20 +709,20 @@
             max-width: 100%;
             height: auto;
             border-radius: 14px;
-            box-shadow: 0 10px 35px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 35px rgba(0,0,0,0.6);
             background: #fff;
         }
         .modal-footer-bar {
-            background: rgba(15, 10, 7, 0.7);
+            background: rgba(6, 10, 18, 0.95);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             padding: 12px 14px;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
         }
 
         /* ---------------------------------------------------- */
-        /* DYNAMIC PDF THEMES ENGINE (6 STYLES)                 */
+        /* PDF RENDER ENGINE: 4 LAYOUTS & 10 THEMES            */
         /* ---------------------------------------------------- */
         #pdf-render-source {
             position: fixed;
@@ -717,19 +742,7 @@
             font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0 auto;
             color: #333333;
-            /* PDF CSS Variables Default: Amber */
-            --pdf-header-bg: #2b1d14;
-            --pdf-header-text: #ffffff;
-            --pdf-header-sub: #dfb28e;
-            --pdf-accent: #c97945;
-            --pdf-accent-dark: #944d21;
-            --pdf-card-bg: #fdfaf6;
-            --pdf-card-border: #e2d2c1;
-            --pdf-table-row: #faf5ee;
-        }
-
-        /* PDF Theme 2: Royal Navy & Sapphire */
-        .pdf-render-box[data-pdf-theme="navy"] {
+            /* PDF Theme Colors Default (Sapphire) */
             --pdf-header-bg: #0c1c38;
             --pdf-header-text: #ffffff;
             --pdf-header-sub: #93c5fd;
@@ -740,85 +753,25 @@
             --pdf-table-row: #f0f7ff;
         }
 
-        /* PDF Theme 3: Rose Quartz & Wine Velvet */
-        .pdf-render-box[data-pdf-theme="rose"] {
-            --pdf-header-bg: #4c0519;
-            --pdf-header-text: #ffffff;
-            --pdf-header-sub: #fbcfe8;
-            --pdf-accent: #db2777;
-            --pdf-accent-dark: #9d174d;
-            --pdf-card-bg: #fdf2f8;
-            --pdf-card-border: #fbcfe8;
-            --pdf-table-row: #fdf4f6;
-        }
+        /* PDF Color Themes */
+        .pdf-render-box[data-pdf-theme="cryo-ice"] { --pdf-header-bg: #0f1a30; --pdf-header-text: #ffffff; --pdf-header-sub: #7dd3fc; --pdf-accent: #2563eb; --pdf-accent-dark: #1d4ed8; --pdf-card-bg: #eff6ff; --pdf-card-border: #bfdbfe; --pdf-table-row: #f5f9ff; }
+        .pdf-render-box[data-pdf-theme="obsidian"] { --pdf-header-bg: #0f172a; --pdf-header-text: #ffffff; --pdf-header-sub: #cbd5e1; --pdf-accent: #475569; --pdf-accent-dark: #1e293b; --pdf-card-bg: #f8fafc; --pdf-card-border: #cbd5e1; --pdf-table-row: #f1f5f9; }
+        .pdf-render-box[data-pdf-theme="aurora"] { --pdf-header-bg: #042f2e; --pdf-header-text: #ffffff; --pdf-header-sub: #99f6e4; --pdf-accent: #0d9488; --pdf-accent-dark: #115e59; --pdf-card-bg: #f0fdfa; --pdf-card-border: #99f6e4; --pdf-table-row: #f4fbf9; }
+        .pdf-render-box[data-pdf-theme="indigo"] { --pdf-header-bg: #1e1b4b; --pdf-header-text: #ffffff; --pdf-header-sub: #c7d2fe; --pdf-accent: #6366f1; --pdf-accent-dark: #4338ca; --pdf-card-bg: #f5f3ff; --pdf-card-border: #ddd6fe; --pdf-table-row: #faf8ff; }
+        .pdf-render-box[data-pdf-theme="rose-ruby"] { --pdf-header-bg: #4c0519; --pdf-header-text: #ffffff; --pdf-header-sub: #fbcfe8; --pdf-accent: #e11d48; --pdf-accent-dark: #9f1239; --pdf-card-bg: #fff1f2; --pdf-card-border: #fecdd3; --pdf-table-row: #fff6f7; }
+        .pdf-render-box[data-pdf-theme="gold-vip"] { --pdf-header-bg: #181404; --pdf-header-text: #ffffff; --pdf-header-sub: #facc15; --pdf-accent: #eab308; --pdf-accent-dark: #a16207; --pdf-card-bg: #fefce8; --pdf-card-border: #fef08a; --pdf-table-row: #fefdf2; }
+        .pdf-render-box[data-pdf-theme="titanium"] { --pdf-header-bg: #1e293b; --pdf-header-text: #ffffff; --pdf-header-sub: #cbd5e1; --pdf-accent: #0284c7; --pdf-accent-dark: #0369a1; --pdf-card-bg: #f1f5f9; --pdf-card-border: #cbd5e1; --pdf-table-row: #f8fafc; }
+        .pdf-render-box[data-pdf-theme="glacier"] { --pdf-header-bg: #0e7490; --pdf-header-text: #ffffff; --pdf-header-sub: #a5f3fc; --pdf-accent: #0891b2; --pdf-accent-dark: #155e75; --pdf-card-bg: #ecfeff; --pdf-card-border: #a5f3fc; --pdf-table-row: #f0fdfa; }
+        .pdf-render-box[data-pdf-theme="cosmic"] { --pdf-header-bg: #3b0764; --pdf-header-text: #ffffff; --pdf-header-sub: #e9d5ff; --pdf-accent: #9333ea; --pdf-accent-dark: #6b21a8; --pdf-card-bg: #faf5ff; --pdf-card-border: #e9d5ff; --pdf-table-row: #fdfaff; }
 
-        /* PDF Theme 4: Emerald Forest & Sage */
-        .pdf-render-box[data-pdf-theme="emerald"] {
-            --pdf-header-bg: #064e3b;
-            --pdf-header-text: #ffffff;
-            --pdf-header-sub: #a7f3d0;
-            --pdf-accent: #059669;
-            --pdf-accent-dark: #065f46;
-            --pdf-card-bg: #f0fdf4;
-            --pdf-card-border: #bbf7d0;
-            --pdf-table-row: #f2fbf5;
-        }
-
-        /* PDF Theme 5: Obsidian Black & VIP Gold */
-        .pdf-render-box[data-pdf-theme="obsidian-gold"] {
-            --pdf-header-bg: #121212;
-            --pdf-header-text: #ffffff;
-            --pdf-header-sub: #facc15;
-            --pdf-accent: #eab308;
-            --pdf-accent-dark: #a16207;
-            --pdf-card-bg: #fefce8;
-            --pdf-card-border: #fef08a;
-            --pdf-table-row: #fefdf2;
-        }
-
-        /* PDF Theme 6: Minimal Classic Sandstone */
-        .pdf-render-box[data-pdf-theme="sandstone"] {
-            --pdf-header-bg: #5a3f2d;
-            --pdf-header-text: #ffffff;
-            --pdf-header-sub: #f5e4d5;
-            --pdf-accent: #87654b;
-            --pdf-accent-dark: #5a3f2d;
-            --pdf-card-bg: #f7f3ee;
-            --pdf-card-border: #d4c2b0;
-            --pdf-table-row: #faf8f5;
-        }
-
-        .pdf-header-wave-box {
-            background: var(--pdf-header-bg);
-            color: var(--pdf-header-text);
-            padding: 26px 30px 45px 30px;
-            position: relative;
-        }
-        .pdf-header-wave-box::after {
-            content: "";
-            position: absolute;
-            bottom: -20px;
-            left: 0;
-            right: 0;
-            height: 30px;
-            background: #ffffff;
-            border-top-left-radius: 50% 20px;
-            border-top-right-radius: 50% 20px;
-        }
-        .pdf-header-top-flex { display: flex; justify-content: space-between; align-items: center; }
-        .pdf-logo-area { display: flex; align-items: center; gap: 12px; }
-        .pdf-logo-icon {
-            width: 44px; height: 44px; background: var(--pdf-accent); border-radius: 8px;
-            display: flex; align-items: center; justify-content: center; font-size: 22px; overflow: hidden;
-        }
-        .pdf-logo-icon img { width: 100%; height: 100%; object-fit: contain; }
-        .pdf-company-title { font-size: 18pt; font-weight: 800; letter-spacing: 1px; margin: 0; color: #ffffff; }
-        .pdf-contact-header { text-align: right; max-width: 55%; font-size: 9pt; color: var(--pdf-header-sub); line-height: 1.45; }
-        .pdf-contact-header strong { color: var(--pdf-accent); font-size: 10pt; letter-spacing: 0.5px; text-transform: uppercase; display: block; margin-bottom: 2px; }
-
+        /* BASE SHARED PDF STRUCTURE */
         .pdf-body-area { padding: 20px 30px 30px 30px; }
-        .pdf-top-title-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .pdf-invoice-big-title { font-size: 24pt; font-weight: 800; letter-spacing: 2px; color: var(--pdf-header-bg); margin: 0; }
+        .pdf-wave-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        .pdf-wave-table th { padding: 10px 14px; font-size: 9.5pt; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        .pdf-th-gold { background: var(--pdf-accent); color: #ffffff; text-align: left; }
+        .pdf-th-dark { background: var(--pdf-header-bg); color: #ffffff; text-align: right; }
+        .pdf-wave-table td { padding: 12px 14px; font-size: 10pt; color: #333333; }
+        .pdf-row-even { background: var(--pdf-table-row); }
 
         .pdf-client-card-full {
             background: var(--pdf-card-bg); border: 1px solid var(--pdf-card-border); border-left: 5px solid var(--pdf-accent);
@@ -831,13 +784,6 @@
         .pdf-client-grid-box { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; }
         .pdf-client-item { display: flex; gap: 6px; }
         .pdf-client-item label { font-weight: bold; color: #111111; min-width: 95px; }
-
-        .pdf-wave-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-        .pdf-wave-table th { padding: 10px 14px; font-size: 9.5pt; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
-        .pdf-th-gold { background: var(--pdf-accent); color: #ffffff; text-align: left; }
-        .pdf-th-dark { background: var(--pdf-header-bg); color: #ffffff; text-align: right; }
-        .pdf-wave-table td { padding: 12px 14px; font-size: 10pt; color: #333333; }
-        .pdf-row-even { background: var(--pdf-table-row); }
 
         .pdf-totals-flex { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 15px; }
         .pdf-terms-left { width: 50%; font-size: 9pt; color: #555555; line-height: 1.5; }
@@ -855,10 +801,83 @@
         .pdf-gold-total-bar { background: var(--pdf-accent) !important; color: #ffffff !important; font-weight: 800; font-size: 11pt; }
         .pdf-gold-total-bar td { padding: 8px 10px !important; }
 
+        /* ---------------------------------------------------- */
+        /* SPECIFIC LAYOUT 1: STUDIO EDITORIAL (Image 1 Style) */
+        /* ---------------------------------------------------- */
+        .pdf-render-box[data-pdf-layout="layout1"] .pdf-header-wave-box {
+            background: var(--pdf-header-bg); padding: 34px 30px; border-radius: 0; position: relative;
+        }
+        .pdf-render-box[data-pdf-layout="layout1"] .pdf-header-wave-box::after { display: none; }
+        .pdf-render-box[data-pdf-layout="layout1"] .pdf-company-title { font-size: 26pt; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
+        .pdf-render-box[data-pdf-layout="layout1"] .pdf-invoice-big-title { font-size: 22pt; letter-spacing: 3px; font-weight: 900; }
+        .pdf-render-box[data-pdf-layout="layout1"] .pdf-wave-table th { background: transparent !important; color: #111111 !important; border-bottom: 2px solid #111111; padding-left: 4px; padding-right: 4px; }
+        .pdf-render-box[data-pdf-layout="layout1"] .pdf-row-even { background: transparent; }
+        .pdf-render-box[data-pdf-layout="layout1"] .pdf-wave-table td { border-bottom: 1px solid #eeeeee; padding-left: 4px; padding-right: 4px; }
+        .pdf-render-box[data-pdf-layout="layout1"] .pdf-footer-wave-bar {
+            background: var(--pdf-header-bg) !important; color: #ffffff !important; border-radius: 0;
+        }
+
+        /* ---------------------------------------------------- */
+        /* SPECIFIC LAYOUT 2: CORPORATE GEOMETRIC (Image 2 Style)*/
+        /* ---------------------------------------------------- */
+        .pdf-render-box[data-pdf-layout="layout2"] .pdf-header-wave-box {
+            background: #ffffff; color: #111111; padding: 24px 30px 10px 30px; border-bottom: 3px solid var(--pdf-accent);
+        }
+        .pdf-render-box[data-pdf-layout="layout2"] .pdf-header-wave-box::after { display: none; }
+        .pdf-render-box[data-pdf-layout="layout2"] .pdf-company-title { color: #111111; font-size: 18pt; }
+        .pdf-render-box[data-pdf-layout="layout2"] .pdf-contact-header { color: #555555; }
+        .pdf-render-box[data-pdf-layout="layout2"] .pdf-wave-table th { background: var(--pdf-accent) !important; color: #ffffff !important; }
+        .pdf-render-box[data-pdf-layout="layout2"] .pdf-wave-table td { border: 1px solid #e5e7eb; }
+        .pdf-render-box[data-pdf-layout="layout2"] .pdf-footer-wave-bar {
+            background: var(--pdf-header-bg) !important; border-top: 4px solid var(--pdf-accent);
+        }
+
+        /* ---------------------------------------------------- */
+        /* SPECIFIC LAYOUT 3: MODERN CURVED WAVE (Image 3 Style) */
+        /* ---------------------------------------------------- */
+        .pdf-render-box[data-pdf-layout="layout3"] .pdf-header-wave-box {
+            background: var(--pdf-header-bg); border-top: 6px solid var(--pdf-accent); padding: 24px 30px 40px 30px; border-bottom-left-radius: 35px;
+        }
+        .pdf-render-box[data-pdf-layout="layout3"] .pdf-header-wave-box::after { display: none; }
+        .pdf-render-box[data-pdf-layout="layout3"] .pdf-wave-table th:first-child { border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
+        .pdf-render-box[data-pdf-layout="layout3"] .pdf-wave-table th:last-child { border-top-right-radius: 8px; border-bottom-right-radius: 8px; }
+        .pdf-render-box[data-pdf-layout="layout3"] .pdf-footer-wave-bar {
+            border-top-left-radius: 35px; background: var(--pdf-header-bg) !important; border-top: 3px solid var(--pdf-accent);
+        }
+
+        /* ---------------------------------------------------- */
+        /* SPECIFIC LAYOUT 4: LAYERED DYNAMIC WAVES (Image 4)   */
+        /* ---------------------------------------------------- */
+        .pdf-render-box[data-pdf-layout="layout4"] .pdf-header-wave-box {
+            background: var(--pdf-header-bg); color: var(--pdf-header-text); padding: 26px 30px 45px 30px; position: relative;
+        }
+        .pdf-render-box[data-pdf-layout="layout4"] .pdf-header-wave-box::after {
+            content: ""; position: absolute; bottom: -20px; left: 0; right: 0; height: 30px; background: #ffffff;
+            border-top-left-radius: 50% 20px; border-top-right-radius: 50% 20px;
+        }
+        .pdf-render-box[data-pdf-layout="layout4"] .pdf-footer-wave-bar {
+            background: var(--pdf-accent) !important; color: #ffffff !important; border-top: 1px solid var(--pdf-accent-dark);
+        }
+
+        /* HEADER COMMON */
+        .pdf-header-top-flex { display: flex; justify-content: space-between; align-items: center; }
+        .pdf-logo-area { display: flex; align-items: center; gap: 12px; }
+        .pdf-logo-icon {
+            width: 44px; height: 44px; background: var(--pdf-accent); border-radius: 8px;
+            display: flex; align-items: center; justify-content: center; font-size: 22px; overflow: hidden;
+        }
+        .pdf-logo-icon img { width: 100%; height: 100%; object-fit: contain; }
+        .pdf-company-title { font-size: 18pt; font-weight: 800; letter-spacing: 1px; margin: 0; color: #ffffff; }
+        .pdf-contact-header { text-align: right; max-width: 55%; font-size: 9pt; color: var(--pdf-header-sub); line-height: 1.45; }
+        .pdf-contact-header strong { color: var(--pdf-accent); font-size: 10pt; letter-spacing: 0.5px; text-transform: uppercase; display: block; margin-bottom: 2px; }
+
+        .pdf-top-title-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .pdf-invoice-big-title { font-size: 24pt; font-weight: 800; letter-spacing: 2px; color: var(--pdf-header-bg); margin: 0; }
+
         .pdf-footer-wave-bar {
             position: absolute; bottom: 0; left: 0; right: 0; background: var(--pdf-accent) !important;
             color: #ffffff !important; padding: 14px 30px; display: grid; grid-template-columns: 1fr auto 1fr;
-            align-items: center; box-sizing: border-box; font-size: 9pt; font-weight: bold; border-top: 1px solid var(--pdf-accent-dark);
+            align-items: center; box-sizing: border-box; font-size: 9pt; font-weight: bold;
         }
         .pdf-footer-col-left { text-align: left; letter-spacing: 0.5px; }
         .pdf-footer-col-center { text-align: center; }
@@ -868,7 +887,7 @@
 <body>
 
 <div class="app-container">
-    <!-- Top Architectural Header -->
+    <!-- Top Header -->
     <div class="app-header">
         <div class="app-header-left">
             <div class="header-logo-badge" id="app-header-logo-box">📸</div>
@@ -891,7 +910,7 @@
         <div class="interior-hero-card">
             <div class="hero-top-row">
                 <div class="hero-chip-badge">Official Quotation</div>
-                <div style="font-size: 0.75rem; color: var(--hero-sub); font-weight: 700;">₹ INR ACTIVE</div>
+                <div style="font-size: 0.75rem; color: var(--hero-sub); font-weight: 800;">₹ INR ACTIVE</div>
             </div>
             <div class="hero-balance-label">Total Booking Value</div>
             <div class="hero-grand-total" id="grand-val">₹0</div>
@@ -899,7 +918,7 @@
             <div class="hero-stats-grid">
                 <div class="hero-stat-item">
                     <span>50% Advance Lock:</span>
-                    <strong id="advance-val">₹0</strong>
+                    <strong id="advance-val" style="color: #ffffff;">₹0</strong>
                 </div>
                 <div class="hero-stat-item">
                     <span>Subtotal:</span>
@@ -940,11 +959,10 @@
 
         <div id="services-list"></div>
 
-        <div class="btn-action-grid">
-            <button class="action-btn btn-download-pdf" id="btn-dl-text" onclick="handleDirectShareOrDownload()">📥 Share / Save PDF</button>
-            <button class="action-btn btn-print" id="btn-pr-text" onclick="openPreviewModal()">👁️ Preview Quote</button>
-            <button class="action-btn btn-whatsapp" onclick="sendWhatsAppSummary()">💬 WhatsApp</button>
-            <button class="action-btn btn-save-qh" onclick="saveQuotationToHistory(true)">💾 Save Quote</button>
+        <!-- 2 CLEAN ACTION BUTTONS -->
+        <div class="btn-calc-grid">
+            <button class="action-btn btn-preview-main" id="btn-pr-text" onclick="openPreviewModal()">👁️ Preview Quote</button>
+            <button class="action-btn btn-save-main" onclick="saveQuotationToHistory(true)">💾 Save Quote (QH)</button>
         </div>
     </div>
 
@@ -960,36 +978,51 @@
         <div id="qh-history-list"></div>
     </div>
 
-    <!-- ADVANCE TAB (App Themes & PDF Themes) -->
+    <!-- ADVANCE TAB (Settings with 4 PDF Layouts & 10 Themes) -->
     <div id="tab-advance" class="tab-content hidden">
-        <!-- PDF THEME SELECTOR -->
+        <!-- 4 PDF LAYOUT SELECTOR -->
         <div class="porcelain-box" style="border-left: 4px solid var(--accent-main);">
-            <label style="font-weight: 800; font-size: 0.84rem; color: var(--accent-main);">📄 Select Export PDF Theme (Quotation Style):</label>
-            <select id="pdf-theme-selector" class="form-input" style="margin-top: 6px; font-weight: 700;" onchange="changePdfTheme(this.value)">
-                <option value="amber">🍂 Architectural Amber & Terracotta (Default)</option>
-                <option value="navy">👑 Royal Navy & Sapphire Blue</option>
-                <option value="rose">🌸 Rose Quartz & Wine Velvet</option>
-                <option value="emerald">🌿 Emerald Forest & Sage Green</option>
-                <option value="obsidian-gold">✨ Obsidian Black & Pure VIP Gold</option>
-                <option value="sandstone">🏛️ Minimal Classic Sandstone</option>
+            <label style="font-weight: 800; font-size: 0.84rem; color: var(--accent-main);">📑 Select PDF Layout Design (4 Styles):</label>
+            <select id="pdf-layout-selector" class="form-input" style="margin-top: 6px; font-weight: 700;" onchange="changePdfLayout(this.value)">
+                <option value="layout1">📸 Layout 1: Studio Editorial (Image 1 Style)</option>
+                <option value="layout2">🏢 Layout 2: Corporate Geometric (Image 2 Style)</option>
+                <option value="layout3">🌊 Layout 3: Modern Curved Wave (Image 3 Style)</option>
+                <option value="layout4" selected>🎨 Layout 4: Layered Dynamic Waves (Image 4 Style)</option>
             </select>
-            <div style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 4px;">Choose the exact color theme for your client PDF quotation exports.</div>
+            <div style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 4px;">Choose how your exported quotation layout is visually structured.</div>
+        </div>
+
+        <!-- PDF THEME SELECTOR -->
+        <div class="porcelain-box">
+            <label style="font-weight: 800; font-size: 0.84rem; color: var(--accent-main);">📄 Select Export PDF Color Theme:</label>
+            <select id="pdf-theme-selector" class="form-input" style="margin-top: 6px; font-weight: 700;" onchange="changePdfTheme(this.value)">
+                <option value="sapphire">🌌 1. Midnight Sapphire Waves (Default)</option>
+                <option value="cryo-ice">💎 2. Cyber Cryo Ice Blue</option>
+                <option value="obsidian">🖤 3. Deep Obsidian & Carbon Black</option>
+                <option value="aurora">🌿 4. Aurora Emerald & Electric Teal</option>
+                <option value="indigo">🔮 5. Royal Indigo & Neon Violet</option>
+                <option value="rose-ruby">🌸 6. Rose Quartz & Neon Ruby</option>
+                <option value="gold-vip">✨ 7. 24K VIP Gold & Deep Velvet</option>
+                <option value="titanium">🪐 8. Titanium Slate & Cool Silver</option>
+                <option value="glacier">❄️ 9. Mint Glacier & Arctic Blue</option>
+                <option value="cosmic">🚀 10. Cosmic Purple & Starlight</option>
+            </select>
         </div>
 
         <!-- APP UI THEME SELECTOR -->
         <div class="porcelain-box">
-            <label style="font-weight: 800; font-size: 0.82rem; color: var(--accent-main);">🎨 Select App UI Screen Theme:</label>
+            <label style="font-weight: 800; font-size: 0.84rem; color: var(--accent-main);">🎨 Select App UI Screen Theme:</label>
             <select id="theme-selector" class="form-input" style="margin-top: 6px; font-weight: 700;" onchange="changeTheme(this.value)">
-                <option value="amber">🍂 Warm Amber & Terracotta (Architectural)</option>
-                <option value="ocean">🌊 Deep Ocean Wave & Sapphire</option>
-                <option value="glassy-blue">💎 Frosted Glassy Blue (Cryo Finish)</option>
-                <option value="rose-silk">🌸 Rose Quartz & Blush Silk (Luxury Pink)</option>
-                <option value="velvet-wine">👑 Royal Velvet Wine & Ruby Pink</option>
-                <option value="sage-mist">🌿 Sage Mist & Raw Linen (Organic Minimal)</option>
-                <option value="aurora">🌌 Midnight Aurora (Neon Emerald Teal)</option>
-                <option value="espresso">☕ Dark Espresso & Bronze (Luxury Night)</option>
-                <option value="sandstone">🏛️ Sandstone & Cream Minimal (Soft Light)</option>
-                <option value="obsidian">✨ Obsidian Midnight & Gold (High Contrast)</option>
+                <option value="sapphire">🌌 1. Midnight Sapphire Waves (Default)</option>
+                <option value="cryo-ice">💎 2. Cyber Cryo Ice Blue</option>
+                <option value="obsidian">🖤 3. Deep Obsidian & Carbon Black</option>
+                <option value="aurora">🌿 4. Aurora Emerald & Electric Teal</option>
+                <option value="indigo">🔮 5. Royal Indigo & Neon Violet</option>
+                <option value="rose-ruby">🌸 6. Rose Quartz & Neon Ruby</option>
+                <option value="gold-vip">✨ 7. 24K VIP Gold & Deep Velvet</option>
+                <option value="titanium">🪐 8. Titanium Slate & Cool Silver</option>
+                <option value="glacier">❄️ 9. Mint Glacier & Arctic Blue</option>
+                <option value="cosmic">🚀 10. Cosmic Purple & Starlight</option>
             </select>
         </div>
 
@@ -1044,7 +1077,7 @@
     </div>
 </div>
 
-<!-- IN-APP QUOTATION PREVIEW MODAL -->
+<!-- IN-APP PREVIEW MODAL WITH 3 ACTIONS -->
 <div id="pdf-preview-modal" class="modal-overlay hidden">
     <div class="modal-header-bar">
         <h3>📄 Quotation Preview</h3>
@@ -1055,14 +1088,16 @@
         <img id="modal-img-preview" class="hidden" alt="Quotation Preview">
     </div>
     <div class="modal-footer-bar">
-        <button class="action-btn btn-download-pdf" onclick="handleDirectShareOrDownload()">📤 Share / Save PDF</button>
-        <button class="action-btn btn-whatsapp" onclick="sendWhatsAppSummary()">💬 WhatsApp</button>
+        <button class="action-btn" style="background: var(--accent-gradient); font-size: 0.78rem;" id="modal-btn-download" onclick="downloadPdfDirectly()">📥 Download</button>
+        <button class="action-btn" style="background: #0284c7; font-size: 0.78rem;" id="modal-btn-share" onclick="handleDirectShareOrDownload()">📤 Share PDF</button>
+        <button class="action-btn" style="background: #15803d; font-size: 0.78rem;" onclick="sendWhatsAppSummary()">💬 WhatsApp</button>
     </div>
 </div>
 
 <!-- HIDDEN OFF-SCREEN SOURCE TO RENDER CANVAS -->
 <div id="pdf-render-source">
-    <div class="pdf-render-box" id="pdf-content-box">
+    <div class="pdf-render-box" id="pdf-content-box" data-pdf-layout="layout4">
+        <!-- HEADER BLOCK -->
         <div class="pdf-header-wave-box">
             <div class="pdf-header-top-flex">
                 <div class="pdf-logo-area">
@@ -1082,6 +1117,7 @@
             </div>
         </div>
 
+        <!-- BODY AREA -->
         <div class="pdf-body-area">
             <div class="pdf-top-title-row">
                 <h2 class="pdf-invoice-big-title">OFFICIAL QUOTATION</h2>
@@ -1162,6 +1198,7 @@
             </div>
         </div>
 
+        <!-- FOOTER BLOCK -->
         <div class="pdf-footer-wave-bar">
             <div class="pdf-footer-col-left" id="pdf-footer-company-bottom">WED+CAL</div>
             <div class="pdf-footer-col-center" id="pdf-footer-address-bottom">📍 Bhilai, Chhattisgarh</div>
@@ -1191,8 +1228,9 @@
     let isCompanyUnlocked = false;
     let upiId = localStorage.getItem('ccp_upi') || "";
     let customLogo = localStorage.getItem('ccp_logo') || null;
-    let currentTheme = localStorage.getItem('ccp_theme') || 'amber';
-    let currentPdfTheme = localStorage.getItem('ccp_pdf_theme') || 'amber';
+    let currentTheme = localStorage.getItem('ccp_theme') || 'sapphire';
+    let currentPdfTheme = localStorage.getItem('ccp_pdf_theme') || 'sapphire';
+    let currentPdfLayout = localStorage.getItem('ccp_pdf_layout') || 'layout4';
     let companyName = localStorage.getItem('ccp_company') || defaultCompany;
     let companyAddress = localStorage.getItem('ccp_address') || defaultAddress;
     let services = JSON.parse(localStorage.getItem('ccp_services')) || JSON.parse(JSON.stringify(defaultServices));
@@ -1208,6 +1246,7 @@
         localStorage.setItem('ccp_upi', upiId);
         localStorage.setItem('ccp_theme', currentTheme);
         localStorage.setItem('ccp_pdf_theme', currentPdfTheme);
+        localStorage.setItem('ccp_pdf_layout', currentPdfLayout);
         localStorage.setItem('ccp_company', companyName);
         localStorage.setItem('ccp_address', companyAddress);
         localStorage.setItem('ccp_services', JSON.stringify(services));
@@ -1245,7 +1284,6 @@
         }
     }
 
-    /* PREPARE CANVAS LAYER */
     async function createQuotationCanvas() {
         updatePdfFields();
         const renderElement = document.getElementById('pdf-content-box');
@@ -1257,7 +1295,6 @@
         });
     }
 
-    /* IN-APP PREVIEW MODAL LOGIC */
     async function openPreviewModal() {
         saveQuotationToHistory(false);
         const modal = document.getElementById('pdf-preview-modal');
@@ -1283,11 +1320,38 @@
         document.getElementById('pdf-preview-modal').classList.add('hidden');
     }
 
-    /* NATIVE ANDROID FILE SHARING & DOWNLOADING */
+    async function downloadPdfDirectly() {
+        const btn = document.getElementById('modal-btn-download');
+        const origText = btn.innerText;
+        btn.innerText = "⏳ Saving...";
+
+        let custName = document.getElementById('cust-name').value.trim() || "Client";
+        let fileName = `Quotation_${custName.replace(/\s+/g, '_')}.pdf`;
+
+        try {
+            const canvas = await createQuotationCanvas();
+            const imgData = canvas.toDataURL('image/jpeg', 0.95);
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+            pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+
+            pdf.save(fileName);
+            btn.innerText = origText;
+        } catch(err) {
+            console.error(err);
+            btn.innerText = origText;
+            alert("PDF Save Failed!");
+        }
+    }
+
     async function handleDirectShareOrDownload() {
         saveQuotationToHistory(false);
-        const dlBtn = document.getElementById('btn-dl-text');
-        dlBtn.innerText = "⏳ Generating...";
+        const shareBtn = document.getElementById('modal-btn-share');
+        const origText = shareBtn ? shareBtn.innerText : "";
+        if (shareBtn) shareBtn.innerText = "⏳ Preparing...";
 
         let custName = document.getElementById('cust-name').value.trim() || "Client";
         let fileName = `Quotation_${custName.replace(/\s+/g, '_')}.pdf`;
@@ -1318,7 +1382,7 @@
                         url: savedFile.uri,
                         dialogTitle: 'Send Quotation'
                     });
-                    dlBtn.innerText = "📥 Share / Save PDF";
+                    if (shareBtn) shareBtn.innerText = origText;
                     return;
                 }
             }
@@ -1335,16 +1399,13 @@
                 pdf.save(fileName);
             }
 
-            dlBtn.innerText = "📥 Share / Save PDF";
+            if (shareBtn) shareBtn.innerText = origText;
         } catch(err) {
-            console.error("PDF generation failed:", err);
-            dlBtn.innerText = "📥 Share / Save PDF";
-            alert("Quotation ready! Opening in preview mode...");
-            openPreviewModal();
+            console.error("PDF share failed:", err);
+            if (shareBtn) shareBtn.innerText = origText;
         }
     }
 
-    /* QUOTATION HISTORY (QH) FUNCTIONS */
     function saveQuotationToHistory(showAlert = false) {
         let name = document.getElementById('cust-name').value.trim();
         let phone = document.getElementById('cust-phone').value.trim();
@@ -1523,9 +1584,10 @@
         }
     }
 
+    /* CHANGE APP UI THEME */
     function changeTheme(themeName) {
         currentTheme = themeName;
-        if (themeName === 'amber') {
+        if (themeName === 'sapphire') {
             document.documentElement.removeAttribute('data-theme');
         } else {
             document.documentElement.setAttribute('data-theme', themeName);
@@ -1534,16 +1596,25 @@
         saveToMemory();
     }
 
-    /* CHANGE DYNAMIC PDF THEME */
+    /* CHANGE PDF THEME */
     function changePdfTheme(pdfThemeName) {
         currentPdfTheme = pdfThemeName;
         const pdfContentBox = document.getElementById('pdf-content-box');
-        if (pdfThemeName === 'amber') {
+        if (pdfThemeName === 'sapphire') {
             pdfContentBox.removeAttribute('data-pdf-theme');
         } else {
             pdfContentBox.setAttribute('data-pdf-theme', pdfThemeName);
         }
         document.getElementById('pdf-theme-selector').value = pdfThemeName;
+        saveToMemory();
+    }
+
+    /* CHANGE PDF LAYOUT (4 STYLES) */
+    function changePdfLayout(layoutName) {
+        currentPdfLayout = layoutName;
+        const pdfContentBox = document.getElementById('pdf-content-box');
+        pdfContentBox.setAttribute('data-pdf-layout', layoutName);
+        document.getElementById('pdf-layout-selector').value = layoutName;
         saveToMemory();
     }
 
@@ -1555,8 +1626,8 @@
                 document.getElementById('company-name-input').disabled = false;
                 document.getElementById('company-address-input').disabled = false;
                 document.getElementById('btn-lock-toggle').innerText = "🔓 Unlocked";
-                document.getElementById('btn-lock-toggle').style.background = "#dcfce7";
-                document.getElementById('btn-lock-toggle').style.color = "#15803d";
+                document.getElementById('btn-lock-toggle').style.background = "rgba(56, 189, 248, 0.2)";
+                document.getElementById('btn-lock-toggle').style.color = "#38bdf8";
                 alert("✓ Details editing unlocked!");
             } else {
                 alert("❌ Wrong Password! Action Denied.");
@@ -1566,8 +1637,8 @@
             document.getElementById('company-name-input').disabled = true;
             document.getElementById('company-address-input').disabled = true;
             document.getElementById('btn-lock-toggle').innerText = "🔒 Locked";
-            document.getElementById('btn-lock-toggle').style.background = "#fef3c7";
-            document.getElementById('btn-lock-toggle').style.color = "#b45309";
+            document.getElementById('btn-lock-toggle').style.background = "rgba(245, 158, 11, 0.2)";
+            document.getElementById('btn-lock-toggle').style.color = "#fbbf24";
         }
     }
 
@@ -1604,8 +1675,9 @@
             if (confirm("Kya aap sabhi details default par reset karna chahte hain?")) {
                 customLogo = null;
                 upiId = "";
-                currentTheme = 'amber';
-                currentPdfTheme = 'amber';
+                currentTheme = 'sapphire';
+                currentPdfTheme = 'sapphire';
+                currentPdfLayout = 'layout4';
                 companyName = defaultCompany;
                 companyAddress = defaultAddress;
                 services = JSON.parse(JSON.stringify(defaultServices));
@@ -1887,6 +1959,7 @@
         applyLogo();
         changeTheme(currentTheme);
         changePdfTheme(currentPdfTheme);
+        changePdfLayout(currentPdfLayout);
         updateCompanyName(companyName);
         updateCompanyAddress(companyAddress);
         renderCalc();
