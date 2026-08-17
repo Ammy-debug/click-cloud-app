@@ -54,7 +54,6 @@
             --btn-preview-bg: #09101d;
         }
 
-        /* 2. THEME: Cyber Cryo Ice Blue */
         [data-theme="cryo-ice"] {
             --app-bg: radial-gradient(circle at 50% 0%, #1e325c 0%, #0f1a30 50%, #070c17 100%);
             --glass-card: rgba(18, 32, 58, 0.75);
@@ -79,7 +78,6 @@
             --btn-preview-bg: #091322;
         }
 
-        /* 3. THEME: Deep Obsidian & Carbon Black */
         [data-theme="obsidian"] {
             --app-bg: radial-gradient(circle at 50% 0%, #1e2430 0%, #0e1118 50%, #050608 100%);
             --glass-card: rgba(18, 22, 30, 0.85);
@@ -104,7 +102,6 @@
             --btn-preview-bg: #080a0e;
         }
 
-        /* 4. THEME: Aurora Emerald & Electric Teal */
         [data-theme="aurora"] {
             --app-bg: radial-gradient(circle at 50% 0%, #0f332c 0%, #071c18 50%, #020a08 100%);
             --glass-card: rgba(10, 32, 28, 0.8);
@@ -129,7 +126,6 @@
             --btn-preview-bg: #030f0d;
         }
 
-        /* 5. THEME: Royal Indigo & Neon Violet */
         [data-theme="indigo"] {
             --app-bg: radial-gradient(circle at 50% 0%, #261b47 0%, #140d28 50%, #080412 100%);
             --glass-card: rgba(26, 18, 50, 0.8);
@@ -154,7 +150,6 @@
             --btn-preview-bg: #0b0616;
         }
 
-        /* 6. THEME: Rose Quartz & Neon Ruby */
         [data-theme="rose-ruby"] {
             --app-bg: radial-gradient(circle at 50% 0%, #361422 0%, #1f0812 50%, #0d0207 100%);
             --glass-card: rgba(38, 14, 24, 0.8);
@@ -179,7 +174,6 @@
             --btn-preview-bg: #0f0308;
         }
 
-        /* 7. THEME: 24K VIP Gold & Deep Velvet */
         [data-theme="gold-vip"] {
             --app-bg: radial-gradient(circle at 50% 0%, #28200c 0%, #141004 50%, #080601 100%);
             --glass-card: rgba(30, 24, 8, 0.85);
@@ -204,7 +198,6 @@
             --btn-preview-bg: #0a0802;
         }
 
-        /* 8. THEME: Titanium Slate & Cool Silver */
         [data-theme="titanium"] {
             --app-bg: radial-gradient(circle at 50% 0%, #232d3d 0%, #121822 50%, #090c12 100%);
             --glass-card: rgba(22, 30, 42, 0.8);
@@ -229,7 +222,6 @@
             --btn-preview-bg: #090f18;
         }
 
-        /* 9. THEME: Mint Glacier & Arctic Blue */
         [data-theme="glacier"] {
             --app-bg: radial-gradient(circle at 50% 0%, #133342 0%, #091c26 50%, #030d12 100%);
             --glass-card: rgba(12, 34, 46, 0.8);
@@ -254,7 +246,6 @@
             --btn-preview-bg: #030e14;
         }
 
-        /* 10. THEME: Cosmic Purple & Starlight */
         [data-theme="cosmic"] {
             --app-bg: radial-gradient(circle at 50% 0%, #301642 0%, #1a0a26 50%, #0b0212 100%);
             --glass-card: rgba(32, 14, 46, 0.8);
@@ -279,7 +270,6 @@
             --btn-preview-bg: #0d0312;
         }
 
-        /* BODY WITH FROST SATIN FINISH */
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--app-bg);
@@ -778,7 +768,7 @@
         .pdf-render-box[data-pdf-theme="cosmic"] { --pdf-header-bg: #3b0764; --pdf-header-text: #ffffff; --pdf-header-sub: #e9d5ff; --pdf-accent: #9333ea; --pdf-accent-dark: #6b21a8; --pdf-card-bg: #faf5ff; --pdf-card-border: #e9d5ff; --pdf-table-row: #fdfaff; }
 
         /* BASE SHARED PDF STRUCTURE */
-        .pdf-body-area { padding: 20px 30px 30px 30px; }
+        .pdf-body-area { padding: 20px 30px 40px 30px; }
         .pdf-wave-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
         .pdf-wave-table th { padding: 10px 14px; font-size: 9.5pt; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
         .pdf-th-gold { background: var(--pdf-accent); color: #ffffff; text-align: left; }
@@ -798,9 +788,23 @@
         .pdf-client-item { display: flex; gap: 6px; }
         .pdf-client-item label { font-weight: bold; color: #111111; min-width: 95px; }
 
-        .pdf-totals-flex { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 15px; }
-        .pdf-terms-left { width: 50%; font-size: 9pt; color: #555555; line-height: 1.5; }
+        .pdf-totals-flex { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 15px; margin-bottom: 20px; }
+        .pdf-terms-left { width: 50%; font-size: 9pt; color: #444444; line-height: 1.45; }
         .pdf-terms-left strong { color: var(--pdf-header-bg); }
+
+        .pdf-terms-full-block {
+            margin-top: 20px; padding: 14px 18px; background: #fafbfc; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 8.5pt; color: #334155; line-height: 1.55;
+        }
+        .pdf-terms-full-block h4 { margin: 0 0 8px 0; font-size: 9.5pt; font-weight: 800; color: #0f172a; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px; }
+        .pdf-terms-content { font-size: 8.2pt; }
+
+        .pdf-declaration-box {
+            margin-top: 15px; padding-top: 10px; border-top: 1px dashed #cbd5e1; font-size: 8pt; color: #1e293b;
+        }
+        .pdf-sig-row {
+            display: flex; justify-content: space-between; align-items: flex-end; margin-top: 25px; font-size: 8.5pt; font-weight: bold; color: #0f172a;
+        }
+        .pdf-sig-col { border-top: 1px solid #475569; width: 42%; text-align: center; padding-top: 4px; }
 
         .pdf-qr-section {
             margin-top: 10px; display: flex; align-items: center; gap: 12px;
@@ -984,7 +988,7 @@
         <div id="qh-history-list"></div>
     </div>
 
-    <!-- ADVANCE TAB (Settings with 4 PDF Layouts & 10 Themes) -->
+    <!-- ADVANCE TAB -->
     <div id="tab-advance" class="tab-content hidden">
         <!-- 4 PDF LAYOUT SELECTOR -->
         <div class="porcelain-box" style="border-left: 4px solid var(--accent-main);">
@@ -996,6 +1000,16 @@
                 <option value="layout4" selected>🎨 Layout 4: Layered Dynamic Waves (Image 4 Style)</option>
             </select>
             <div style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 4px;">Choose how your exported quotation layout is visually structured.</div>
+        </div>
+
+        <!-- EDITABLE TERMS & CONDITIONS -->
+        <div class="porcelain-box" style="border-left: 4px solid #10b981;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <label style="font-weight: 800; font-size: 0.84rem; color: #10b981;">📝 Terms & Conditions (For PDF):</label>
+                <button class="btn-secondary" style="padding: 4px 8px; font-size: 0.7rem;" onclick="resetTermsToDefault()">🔄 Reset Terms</button>
+            </div>
+            <textarea id="terms-textarea" class="form-input" style="margin-top: 8px; height: 120px; resize: vertical; line-height: 1.4; font-size: 0.78rem;" placeholder="Enter custom terms line by line..." oninput="handleTermsInput(this.value)"></textarea>
+            <div style="font-size: 0.72rem; color: var(--text-secondary); margin-top: 4px;">Aap jo bhi likhenge, PDF ke Terms & Conditions me wahi live update hoga.</div>
         </div>
 
         <!-- PDF THEME SELECTOR -->
@@ -1162,6 +1176,7 @@
             </table>
 
             <div class="pdf-totals-flex">
+                <!-- ORIGINAL 50-40-10 PAYMENT SCHEDULE & DYNAMIC UPI QR -->
                 <div class="pdf-terms-left">
                     <strong>Payment & Booking Terms:</strong><br>
                     • 50% Advance Required for Date Lock.<br>
@@ -1202,6 +1217,23 @@
                     </table>
                 </div>
             </div>
+
+            <!-- COMPREHENSIVE TERMS & CONDITIONS + SIGNATURE BLOCK -->
+            <div class="pdf-terms-full-block">
+                <h4>📜 Terms & Conditions</h4>
+                <div id="pdf-terms-box" class="pdf-terms-content"></div>
+
+                <div class="pdf-declaration-box">
+                    <strong>Client Declaration:</strong><br>
+                    <em>"I have read, understood, and accept the terms and conditions outlined above."</em>
+                </div>
+
+                <div class="pdf-sig-row">
+                    <div class="pdf-sig-col">Client Signature</div>
+                    <div style="font-size: 8pt; color: #64748b;">Date: _____ / _____ / 20___</div>
+                    <div class="pdf-sig-col">Authorized Signature</div>
+                </div>
+            </div>
         </div>
 
         <!-- FOOTER BLOCK -->
@@ -1217,6 +1249,16 @@
     const SECURITY_PASSWORD = "CCP123#";
     const defaultCompany = "WED+CAL";
     const defaultAddress = "Priyadarshini Nagar, Risali / Nevai Bhata Road, Bhilai, Chhattisgarh | Ph: +91 7566889884";
+    
+    const defaultTerms = "1. Payment: Booking advance is non-refundable. 80% payment is due on the event date, and the remaining balance must be cleared before final album/video delivery.\n" +
+        "2. Cancellation & Rescheduling: Advance will not be refunded on cancellation. Date changes are subject to crew availability.\n" +
+        "3. Delivery Timeline: Raw data within 7–10 days, edited photos/videos within 30–45 days, and printed albums within 20–30 days after client approval.\n" +
+        "4. Client Cooperation & Delays: The studio is not responsible for delivery delays caused by late payments or delays in photo selection. The client holds full responsibility for adhering to the timeline.\n" +
+        "5. Travel & Stay: Outstation travel, lodging, and meals for the crew must be provided/borne by the client.\n" +
+        "6. Permissions: The client is responsible for venue clearances and drone flying permissions.\n" +
+        "7. Copyright & Portfolio: The studio reserves the right to use selected photos/videos for portfolio and social media promotions.\n" +
+        "8. Liability: In case of unforeseen technical failure or circumstances beyond control, liability is strictly limited to a refund of the affected service fee.";
+
     const defaultServices = [
         { id: 1, name: "Traditional Photography", price: 5000, qty: 0, checked: false, dates: "" },
         { id: 2, name: "Traditional Videography", price: 7000, qty: 0, checked: false, dates: "" },
@@ -1239,6 +1281,7 @@
     let currentPdfLayout = localStorage.getItem('ccp_pdf_layout') || 'layout4';
     let companyName = localStorage.getItem('ccp_company') || defaultCompany;
     let companyAddress = localStorage.getItem('ccp_address') || defaultAddress;
+    let customTerms = localStorage.getItem('ccp_terms') || defaultTerms;
     let services = JSON.parse(localStorage.getItem('ccp_services')) || JSON.parse(JSON.stringify(defaultServices));
     let hiddenFee = parseFloat(localStorage.getItem('ccp_hiddenFee')) || 0;
     let quotationHistory = JSON.parse(localStorage.getItem('ccp_history')) || [];
@@ -1255,9 +1298,55 @@
         localStorage.setItem('ccp_pdf_layout', currentPdfLayout);
         localStorage.setItem('ccp_company', companyName);
         localStorage.setItem('ccp_address', companyAddress);
+        localStorage.setItem('ccp_terms', customTerms);
         localStorage.setItem('ccp_services', JSON.stringify(services));
         localStorage.setItem('ccp_hiddenFee', hiddenFee.toString());
         localStorage.setItem('ccp_history', JSON.stringify(quotationHistory));
+    }
+
+    function handleTermsInput(val) {
+        customTerms = val;
+        saveToMemory();
+        renderTerms();
+    }
+
+    function resetTermsToDefault() {
+        if (confirm("Kya aap Terms & Conditions ko default par reset karna chahte hain?")) {
+            customTerms = defaultTerms;
+            document.getElementById('terms-textarea').value = defaultTerms;
+            saveToMemory();
+            renderTerms();
+            alert("✓ Terms & Conditions reset to default!");
+        }
+    }
+
+    function renderTerms() {
+        const termsBox = document.getElementById('pdf-terms-box');
+        if (termsBox) {
+            const raw = customTerms || defaultTerms;
+            const lines = raw.split('\n').filter(l => l.trim() !== '');
+            const formatted = lines.map(line => {
+                let clean = line.trim();
+                let match = clean.match(/^(\d+\.\s*)(.*)/);
+                if (match) {
+                    let num = match[1];
+                    let rest = match[2];
+                    let colonIdx = rest.indexOf(':');
+                    if (colonIdx !== -1) {
+                        let title = rest.substring(0, colonIdx);
+                        let body = rest.substring(colonIdx + 1);
+                        return `<strong>${num}${title}:</strong>${body}`;
+                    }
+                    return `<strong>${num}</strong> ${rest}`;
+                }
+                return clean;
+            }).join('<br>');
+            termsBox.innerHTML = formatted;
+        }
+        const termsTextarea = document.getElementById('terms-textarea');
+        if (termsTextarea) {
+            termsTextarea.value = customTerms || defaultTerms;
+        }
     }
 
     function handleUpiInput(val) {
@@ -1292,6 +1381,7 @@
 
     async function createQuotationCanvas() {
         updatePdfFields();
+        renderTerms();
         const renderElement = document.getElementById('pdf-content-box');
         return await html2canvas(renderElement, {
             scale: 2,
@@ -1326,7 +1416,7 @@
         document.getElementById('pdf-preview-modal').classList.add('hidden');
     }
 
-    /* DIRECT PDF DOWNLOAD (SAVES SILENTLY WITHOUT OPENING SHARE DIALOG) */
+    /* DIRECT PDF DOWNLOAD (SAVES TO DEVICE WITHOUT OPENING SHARE DIALOG) */
     async function downloadPdfDirectly() {
         const btn = document.getElementById('modal-btn-download');
         const origText = btn.innerText;
@@ -1347,7 +1437,7 @@
 
             const base64Pdf = pdf.output('datauristring').split(',')[1];
 
-            // 1. Native Capacitor Filesystem Save (No Share Sheet Trigger)
+            // 1. Native Capacitor Filesystem Save
             if (window.Capacitor && window.Capacitor.Plugins) {
                 const Plugins = window.Capacitor.Plugins;
                 const Filesystem = Plugins.Filesystem || window.CapacitorCustomFilesystem;
@@ -1372,12 +1462,12 @@
                         alert("✓ PDF Download Complete!\n\nFile: " + fileName + "\nSaved in: Phone Storage > Documents");
                         return;
                     } catch(fsErr) {
-                        console.warn("Filesystem write error, falling back to download blob:", fsErr);
+                        console.warn("Filesystem write error:", fsErr);
                     }
                 }
             }
 
-            // 2. Direct Browser Download Anchor
+            // 2. Direct Browser Anchor Fallback
             const pdfBlob = pdf.output('blob');
             const downloadUrl = URL.createObjectURL(pdfBlob);
             const a = document.createElement('a');
@@ -1393,11 +1483,11 @@
         } catch(err) {
             console.error("PDF download error:", err);
             btn.innerText = origText;
-            alert("PDF download ho gaya hai!");
+            alert("PDF Download trigger ho gaya!");
         }
     }
 
-    /* NATIVE ANDROID FILE SHARING (OPENS SYSTEM SHARE SHEET) */
+    /* NATIVE ANDROID FILE SHARING */
     async function handleDirectShareOrDownload() {
         saveQuotationToHistory(false);
         const shareBtn = document.getElementById('modal-btn-share');
@@ -1419,7 +1509,6 @@
 
             const base64Pdf = pdf.output('datauristring').split(',')[1];
 
-            // 1. Native Capacitor Share Bridge
             if (window.Capacitor && window.Capacitor.Plugins) {
                 const { Filesystem, Share } = window.Capacitor.Plugins;
                 if (Filesystem && Share) {
@@ -1439,7 +1528,6 @@
                 }
             }
 
-            // 2. Web Share API Fallback
             const pdfBlob = pdf.output('blob');
             const pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
             if (navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
@@ -1571,6 +1659,7 @@
                 saveToMemory();
                 renderCalc();
                 updatePdfFields();
+                renderTerms();
                 switchTab('calc');
                 alert("✓ Details Calculator me load ho gayi hain!");
             }
@@ -1733,6 +1822,7 @@
                 currentPdfLayout = 'layout4';
                 companyName = defaultCompany;
                 companyAddress = defaultAddress;
+                customTerms = defaultTerms;
                 services = JSON.parse(JSON.stringify(defaultServices));
                 hiddenFee = 0;
                 quotationHistory = [];
@@ -2005,6 +2095,7 @@
             document.querySelectorAll('.tab-btn')[2].classList.add('active');
             document.getElementById('tab-advance').classList.remove('hidden');
             renderAdvance();
+            renderTerms();
         }
     }
 
@@ -2015,6 +2106,7 @@
         changePdfLayout(currentPdfLayout);
         updateCompanyName(companyName);
         updateCompanyAddress(companyAddress);
+        renderTerms();
         renderCalc();
         renderUpiQrCode();
     }
