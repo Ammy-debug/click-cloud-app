@@ -741,7 +741,7 @@
         .pdf-render-box {
             background: #ffffff;
             width: 794px;
-            min-height: 1123px;
+            min-height: auto;
             box-sizing: border-box;
             position: relative;
             font-family: 'Segoe UI', Arial, sans-serif;
@@ -768,63 +768,63 @@
         .pdf-render-box[data-pdf-theme="cosmic"] { --pdf-header-bg: #3b0764; --pdf-header-text: #ffffff; --pdf-header-sub: #e9d5ff; --pdf-accent: #9333ea; --pdf-accent-dark: #6b21a8; --pdf-card-bg: #faf5ff; --pdf-card-border: #e9d5ff; --pdf-table-row: #fdfaff; }
 
         /* BASE SHARED PDF STRUCTURE */
-        .pdf-body-area { padding: 20px 30px 40px 30px; }
-        .pdf-wave-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-        .pdf-wave-table th { padding: 10px 14px; font-size: 9.5pt; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        .pdf-body-area { padding: 18px 26px 20px 26px; }
+        .pdf-wave-table { width: 100%; border-collapse: collapse; margin-bottom: 14px; }
+        .pdf-wave-table th { padding: 8px 12px; font-size: 9pt; font-weight: bold; text-transform: uppercase; letter-spacing: 0.8px; }
         .pdf-th-gold { background: var(--pdf-accent); color: #ffffff; text-align: left; }
         .pdf-th-dark { background: var(--pdf-header-bg); color: #ffffff; text-align: right; }
-        .pdf-wave-table td { padding: 12px 14px; font-size: 10pt; color: #333333; }
+        .pdf-wave-table td { padding: 9px 12px; font-size: 9.2pt; color: #333333; }
         .pdf-row-even { background: var(--pdf-table-row); }
 
         .pdf-client-card-full {
-            background: var(--pdf-card-bg); border: 1px solid var(--pdf-card-border); border-left: 5px solid var(--pdf-accent);
-            padding: 12px 18px; border-radius: 6px; font-size: 10pt; color: #222222; margin-bottom: 20px;
+            background: var(--pdf-card-bg); border: 1px solid var(--pdf-card-border); border-left: 4px solid var(--pdf-accent);
+            padding: 10px 14px; border-radius: 6px; font-size: 9.2pt; color: #222222; margin-bottom: 14px;
         }
         .pdf-client-card-full h4 {
-            margin: 0 0 8px 0; font-size: 10pt; color: var(--pdf-accent-dark); text-transform: uppercase;
-            letter-spacing: 1.5px; border-bottom: 1px solid rgba(0,0,0,0.06); padding-bottom: 4px;
+            margin: 0 0 6px 0; font-size: 9.5pt; color: var(--pdf-accent-dark); text-transform: uppercase;
+            letter-spacing: 1.2px; border-bottom: 1px solid rgba(0,0,0,0.06); padding-bottom: 3px;
         }
-        .pdf-client-grid-box { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; }
+        .pdf-client-grid-box { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 20px; }
         .pdf-client-item { display: flex; gap: 6px; }
-        .pdf-client-item label { font-weight: bold; color: #111111; min-width: 95px; }
+        .pdf-client-item label { font-weight: bold; color: #111111; min-width: 90px; }
 
-        .pdf-totals-flex { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 15px; margin-bottom: 20px; }
-        .pdf-terms-left { width: 50%; font-size: 9pt; color: #444444; line-height: 1.45; }
+        .pdf-totals-flex { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 10px; margin-bottom: 14px; }
+        .pdf-terms-left { width: 48%; font-size: 8.5pt; color: #444444; line-height: 1.4; }
         .pdf-terms-left strong { color: var(--pdf-header-bg); }
 
         .pdf-terms-full-block {
-            margin-top: 20px; padding: 14px 18px; background: #fafbfc; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 8.5pt; color: #334155; line-height: 1.55;
+            margin-top: 12px; padding: 12px 14px; background: #fafbfc; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 8pt; color: #334155; line-height: 1.45;
         }
-        .pdf-terms-full-block h4 { margin: 0 0 8px 0; font-size: 9.5pt; font-weight: 800; color: #0f172a; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px; }
-        .pdf-terms-content { font-size: 8.2pt; }
+        .pdf-terms-full-block h4 { margin: 0 0 6px 0; font-size: 8.8pt; font-weight: 800; color: #0f172a; text-transform: uppercase; letter-spacing: 0.8px; border-bottom: 1px solid #cbd5e1; padding-bottom: 3px; }
+        .pdf-terms-content { font-size: 7.8pt; }
 
         .pdf-declaration-box {
-            margin-top: 15px; padding-top: 10px; border-top: 1px dashed #cbd5e1; font-size: 8pt; color: #1e293b;
+            margin-top: 10px; padding-top: 8px; border-top: 1px dashed #cbd5e1; font-size: 7.8pt; color: #1e293b;
         }
         .pdf-sig-row {
-            display: flex; justify-content: space-between; align-items: flex-end; margin-top: 25px; font-size: 8.5pt; font-weight: bold; color: #0f172a;
+            display: flex; justify-content: space-between; align-items: flex-end; margin-top: 22px; font-size: 8.2pt; font-weight: bold; color: #0f172a;
         }
-        .pdf-sig-col { border-top: 1px solid #475569; width: 42%; text-align: center; padding-top: 4px; }
+        .pdf-sig-col { border-top: 1px solid #475569; width: 40%; text-align: center; padding-top: 3px; }
 
         .pdf-qr-section {
-            margin-top: 10px; display: flex; align-items: center; gap: 12px;
-            background: var(--pdf-card-bg); border: 1px solid var(--pdf-accent); padding: 8px; border-radius: 6px;
+            margin-top: 8px; display: flex; align-items: center; gap: 10px;
+            background: var(--pdf-card-bg); border: 1px solid var(--pdf-accent); padding: 6px; border-radius: 6px;
         }
-        .pdf-qr-box { width: 65px; height: 65px; background: #fff; border: 1px solid #ccc; padding: 2px; }
+        .pdf-qr-box { width: 55px; height: 55px; background: #fff; border: 1px solid #ccc; padding: 2px; }
 
-        .pdf-right-summary { width: 45%; }
-        .pdf-summary-table { width: 100%; font-size: 10pt; border-collapse: collapse; }
-        .pdf-summary-table td { padding: 6px 10px; }
-        .pdf-gold-total-bar { background: var(--pdf-accent) !important; color: #ffffff !important; font-weight: 800; font-size: 11pt; }
-        .pdf-gold-total-bar td { padding: 8px 10px !important; }
+        .pdf-right-summary { width: 48%; }
+        .pdf-summary-table { width: 100%; font-size: 9.5pt; border-collapse: collapse; }
+        .pdf-summary-table td { padding: 5px 8px; }
+        .pdf-gold-total-bar { background: var(--pdf-accent) !important; color: #ffffff !important; font-weight: 800; font-size: 10.5pt; }
+        .pdf-gold-total-bar td { padding: 7px 8px !important; }
 
         /* SPECIFIC LAYOUT 1: STUDIO EDITORIAL (Image 1 Style) */
         .pdf-render-box[data-pdf-layout="layout1"] .pdf-header-wave-box {
-            background: var(--pdf-header-bg); padding: 34px 30px; border-radius: 0; position: relative;
+            background: var(--pdf-header-bg); padding: 28px 26px; border-radius: 0; position: relative;
         }
         .pdf-render-box[data-pdf-layout="layout1"] .pdf-header-wave-box::after { display: none; }
-        .pdf-render-box[data-pdf-layout="layout1"] .pdf-company-title { font-size: 26pt; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
-        .pdf-render-box[data-pdf-layout="layout1"] .pdf-invoice-big-title { font-size: 22pt; letter-spacing: 3px; font-weight: 900; }
+        .pdf-render-box[data-pdf-layout="layout1"] .pdf-company-title { font-size: 22pt; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
+        .pdf-render-box[data-pdf-layout="layout1"] .pdf-invoice-big-title { font-size: 18pt; letter-spacing: 2px; font-weight: 900; }
         .pdf-render-box[data-pdf-layout="layout1"] .pdf-wave-table th { background: transparent !important; color: #111111 !important; border-bottom: 2px solid #111111; padding-left: 4px; padding-right: 4px; }
         .pdf-render-box[data-pdf-layout="layout1"] .pdf-row-even { background: transparent; }
         .pdf-render-box[data-pdf-layout="layout1"] .pdf-wave-table td { border-bottom: 1px solid #eeeeee; padding-left: 4px; padding-right: 4px; }
@@ -834,35 +834,35 @@
 
         /* SPECIFIC LAYOUT 2: CORPORATE GEOMETRIC (Image 2 Style) */
         .pdf-render-box[data-pdf-layout="layout2"] .pdf-header-wave-box {
-            background: #ffffff; color: #111111; padding: 24px 30px 10px 30px; border-bottom: 3px solid var(--pdf-accent);
+            background: #ffffff; color: #111111; padding: 20px 26px 8px 26px; border-bottom: 3px solid var(--pdf-accent);
         }
         .pdf-render-box[data-pdf-layout="layout2"] .pdf-header-wave-box::after { display: none; }
-        .pdf-render-box[data-pdf-layout="layout2"] .pdf-company-title { color: #111111; font-size: 18pt; }
+        .pdf-render-box[data-pdf-layout="layout2"] .pdf-company-title { color: #111111; font-size: 16pt; }
         .pdf-render-box[data-pdf-layout="layout2"] .pdf-contact-header { color: #555555; }
         .pdf-render-box[data-pdf-layout="layout2"] .pdf-wave-table th { background: var(--pdf-accent) !important; color: #ffffff !important; }
         .pdf-render-box[data-pdf-layout="layout2"] .pdf-wave-table td { border: 1px solid #e5e7eb; }
         .pdf-render-box[data-pdf-layout="layout2"] .pdf-footer-wave-bar {
-            background: var(--pdf-header-bg) !important; border-top: 4px solid var(--pdf-accent);
+            background: var(--pdf-header-bg) !important; border-top: 3px solid var(--pdf-accent);
         }
 
         /* SPECIFIC LAYOUT 3: MODERN CURVED WAVE (Image 3 Style) */
         .pdf-render-box[data-pdf-layout="layout3"] .pdf-header-wave-box {
-            background: var(--pdf-header-bg); border-top: 6px solid var(--pdf-accent); padding: 24px 30px 40px 30px; border-bottom-left-radius: 35px;
+            background: var(--pdf-header-bg); border-top: 5px solid var(--pdf-accent); padding: 20px 26px 32px 26px; border-bottom-left-radius: 28px;
         }
         .pdf-render-box[data-pdf-layout="layout3"] .pdf-header-wave-box::after { display: none; }
-        .pdf-render-box[data-pdf-layout="layout3"] .pdf-wave-table th:first-child { border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
-        .pdf-render-box[data-pdf-layout="layout3"] .pdf-wave-table th:last-child { border-top-right-radius: 8px; border-bottom-right-radius: 8px; }
+        .pdf-render-box[data-pdf-layout="layout3"] .pdf-wave-table th:first-child { border-top-left-radius: 6px; border-bottom-left-radius: 6px; }
+        .pdf-render-box[data-pdf-layout="layout3"] .pdf-wave-table th:last-child { border-top-right-radius: 6px; border-bottom-right-radius: 6px; }
         .pdf-render-box[data-pdf-layout="layout3"] .pdf-footer-wave-bar {
-            border-top-left-radius: 35px; background: var(--pdf-header-bg) !important; border-top: 3px solid var(--pdf-accent);
+            border-top-left-radius: 28px; background: var(--pdf-header-bg) !important; border-top: 3px solid var(--pdf-accent);
         }
 
         /* SPECIFIC LAYOUT 4: LAYERED DYNAMIC WAVES (Image 4) */
         .pdf-render-box[data-pdf-layout="layout4"] .pdf-header-wave-box {
-            background: var(--pdf-header-bg); color: var(--pdf-header-text); padding: 26px 30px 45px 30px; position: relative;
+            background: var(--pdf-header-bg); color: var(--pdf-header-text); padding: 22px 26px 36px 26px; position: relative;
         }
         .pdf-render-box[data-pdf-layout="layout4"] .pdf-header-wave-box::after {
-            content: ""; position: absolute; bottom: -20px; left: 0; right: 0; height: 30px; background: #ffffff;
-            border-top-left-radius: 50% 20px; border-top-right-radius: 50% 20px;
+            content: ""; position: absolute; bottom: -18px; left: 0; right: 0; height: 26px; background: #ffffff;
+            border-top-left-radius: 50% 18px; border-top-right-radius: 50% 18px;
         }
         .pdf-render-box[data-pdf-layout="layout4"] .pdf-footer-wave-bar {
             background: var(--pdf-accent) !important; color: #ffffff !important; border-top: 1px solid var(--pdf-accent-dark);
@@ -870,23 +870,23 @@
 
         /* HEADER COMMON */
         .pdf-header-top-flex { display: flex; justify-content: space-between; align-items: center; }
-        .pdf-logo-area { display: flex; align-items: center; gap: 12px; }
+        .pdf-logo-area { display: flex; align-items: center; gap: 10px; }
         .pdf-logo-icon {
-            width: 44px; height: 44px; background: var(--pdf-accent); border-radius: 8px;
-            display: flex; align-items: center; justify-content: center; font-size: 22px; overflow: hidden;
+            width: 40px; height: 40px; background: var(--pdf-accent); border-radius: 8px;
+            display: flex; align-items: center; justify-content: center; font-size: 20px; overflow: hidden;
         }
         .pdf-logo-icon img { width: 100%; height: 100%; object-fit: contain; }
-        .pdf-company-title { font-size: 18pt; font-weight: 800; letter-spacing: 1px; margin: 0; color: #ffffff; }
-        .pdf-contact-header { text-align: right; max-width: 55%; font-size: 9pt; color: var(--pdf-header-sub); line-height: 1.45; }
-        .pdf-contact-header strong { color: var(--pdf-accent); font-size: 10pt; letter-spacing: 0.5px; text-transform: uppercase; display: block; margin-bottom: 2px; }
+        .pdf-company-title { font-size: 16pt; font-weight: 800; letter-spacing: 1px; margin: 0; color: #ffffff; }
+        .pdf-contact-header { text-align: right; max-width: 55%; font-size: 8.5pt; color: var(--pdf-header-sub); line-height: 1.35; }
+        .pdf-contact-header strong { color: var(--pdf-accent); font-size: 9.2pt; letter-spacing: 0.5px; text-transform: uppercase; display: block; margin-bottom: 2px; }
 
-        .pdf-top-title-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .pdf-invoice-big-title { font-size: 24pt; font-weight: 800; letter-spacing: 2px; color: var(--pdf-header-bg); margin: 0; }
+        .pdf-top-title-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .pdf-invoice-big-title { font-size: 20pt; font-weight: 800; letter-spacing: 1.5px; color: var(--pdf-header-bg); margin: 0; }
 
         .pdf-footer-wave-bar {
-            position: absolute; bottom: 0; left: 0; right: 0; background: var(--pdf-accent) !important;
-            color: #ffffff !important; padding: 14px 30px; display: grid; grid-template-columns: 1fr auto 1fr;
-            align-items: center; box-sizing: border-box; font-size: 9pt; font-weight: bold;
+            position: relative; margin-top: 16px; background: var(--pdf-accent) !important;
+            color: #ffffff !important; padding: 12px 26px; display: grid; grid-template-columns: 1fr auto 1fr;
+            align-items: center; box-sizing: border-box; font-size: 8.5pt; font-weight: bold;
         }
         .pdf-footer-col-left { text-align: left; letter-spacing: 0.5px; }
         .pdf-footer-col-center { text-align: center; }
@@ -1187,9 +1187,9 @@
                     <div class="pdf-qr-section" id="pdf-qr-container" style="display: none;">
                         <div class="pdf-qr-box" id="pdf-qrcode-div"></div>
                         <div>
-                            <strong style="color: var(--pdf-accent-dark); font-size: 8.5pt;">SCAN TO PAY 50% ADVANCE:</strong><br>
-                            <span id="pdf-upi-id-label" style="font-size: 8pt; color: #333; font-weight: bold;"></span><br>
-                            <span style="font-size: 7.5pt; color: #666;">Scan via GPay / PhonePe / Paytm</span>
+                            <strong style="color: var(--pdf-accent-dark); font-size: 8pt;">SCAN TO PAY 50% ADVANCE:</strong><br>
+                            <span id="pdf-upi-id-label" style="font-size: 7.5pt; color: #333; font-weight: bold;"></span><br>
+                            <span style="font-size: 7pt; color: #666;">Scan via GPay / PhonePe / Paytm</span>
                         </div>
                     </div>
                 </div>
@@ -1210,7 +1210,7 @@
                             <td style="text-align: right;" id="pdf-grand-val">₹0</td>
                         </tr>
                         <tr>
-                            <td colspan="2" style="font-size: 8.5pt; color: #333333; text-align: right; padding-top: 6px;">
+                            <td colspan="2" style="font-size: 8pt; color: #333333; text-align: right; padding-top: 4px;">
                                 <strong>50% Advance Booking Lock:</strong> <span id="pdf-advance-val" style="color: var(--pdf-accent-dark); font-weight: bold;">₹0</span>
                             </td>
                         </tr>
@@ -1230,7 +1230,7 @@
 
                 <div class="pdf-sig-row">
                     <div class="pdf-sig-col">Client Signature</div>
-                    <div style="font-size: 8pt; color: #64748b;">Date: _____ / _____ / 20___</div>
+                    <div style="font-size: 7.5pt; color: #64748b;">Date: _____ / _____ / 20___</div>
                     <div class="pdf-sig-col">Authorized Signature</div>
                 </div>
             </div>
@@ -1367,8 +1367,8 @@
 
             new QRCode(qrDiv, {
                 text: upiString,
-                width: 60,
-                height: 60,
+                width: 50,
+                height: 50,
                 correctLevel: QRCode.CorrectLevel.M
             });
 
@@ -1416,7 +1416,37 @@
         document.getElementById('pdf-preview-modal').classList.add('hidden');
     }
 
-    /* DIRECT PDF DOWNLOAD (SAVES TO DEVICE WITHOUT OPENING SHARE DIALOG) */
+    /* MULTI-PAGE SLICING / AUTO-HEIGHT SMART PDF GENERATOR */
+    async function generateSmartPdfDocument() {
+        const canvas = await createQuotationCanvas();
+        const imgData = canvas.toDataURL('image/jpeg', 0.95);
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        
+        const pageWidth = 210;
+        const pageHeight = 297;
+        const imgWidth = pageWidth;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+        let heightLeft = imgHeight;
+        let position = 0;
+
+        // Page 1
+        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        // Auto Add subsequent pages if content is tall (prevents any bottom cutoff)
+        while (heightLeft > 0) {
+            position = heightLeft - imgHeight;
+            pdf.addPage();
+            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+        }
+
+        return pdf;
+    }
+
+    /* DIRECT ANDROID PDF DOWNLOAD (NEVER CUTS OFF) */
     async function downloadPdfDirectly() {
         const btn = document.getElementById('modal-btn-download');
         const origText = btn.innerText;
@@ -1426,15 +1456,7 @@
         let fileName = `Quotation_${custName.replace(/\s+/g, '_')}_${Date.now()}.pdf`;
 
         try {
-            const canvas = await createQuotationCanvas();
-            const imgData = canvas.toDataURL('image/jpeg', 0.95);
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF('p', 'mm', 'a4');
-            
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-            pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
-
+            const pdf = await generateSmartPdfDocument();
             const base64Pdf = pdf.output('datauristring').split(',')[1];
 
             // 1. Native Capacitor Filesystem Save
@@ -1483,11 +1505,11 @@
         } catch(err) {
             console.error("PDF download error:", err);
             btn.innerText = origText;
-            alert("PDF Download trigger ho gaya!");
+            alert("PDF download ho gaya!");
         }
     }
 
-    /* NATIVE ANDROID FILE SHARING */
+    /* NATIVE ANDROID FILE SHARING (NEVER CUTS OFF) */
     async function handleDirectShareOrDownload() {
         saveQuotationToHistory(false);
         const shareBtn = document.getElementById('modal-btn-share');
@@ -1498,15 +1520,7 @@
         let fileName = `Quotation_${custName.replace(/\s+/g, '_')}.pdf`;
 
         try {
-            const canvas = await createQuotationCanvas();
-            const imgData = canvas.toDataURL('image/jpeg', 0.95);
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF('p', 'mm', 'a4');
-            
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-            pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
-
+            const pdf = await generateSmartPdfDocument();
             const base64Pdf = pdf.output('datauristring').split(',')[1];
 
             if (window.Capacitor && window.Capacitor.Plugins) {
