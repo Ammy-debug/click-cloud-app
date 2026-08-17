@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>WED+CAL - Midnight Luxury Pricing App (₹)</title>
     
-    <!-- Capacitor Bridge for Native Android File Downloads -->
+    <!-- Capacitor Bridge for Native Android File Operations -->
     <script src="capacitor.js"></script>
 
     <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
@@ -29,7 +29,7 @@
         /* 10 ULTRA-LUXURY FINTECH & GLASS APP THEMES           */
         /* ---------------------------------------------------- */
 
-        /* 1. DEFAULT THEME: Midnight Sapphire Wave (Exact Image 1) */
+        /* 1. DEFAULT THEME: Midnight Sapphire Wave */
         :root {
             --app-bg: radial-gradient(circle at 50% 0%, #172644 0%, #0c1424 50%, #060a12 100%);
             --glass-card: rgba(16, 26, 44, 0.75);
@@ -279,6 +279,7 @@
             --btn-preview-bg: #0d0312;
         }
 
+        /* BODY WITH FROST SATIN FINISH */
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--app-bg);
@@ -983,7 +984,7 @@
         <div id="qh-history-list"></div>
     </div>
 
-    <!-- ADVANCE TAB -->
+    <!-- ADVANCE TAB (Settings with 4 PDF Layouts & 10 Themes) -->
     <div id="tab-advance" class="tab-content hidden">
         <!-- 4 PDF LAYOUT SELECTOR -->
         <div class="porcelain-box" style="border-left: 4px solid var(--accent-main);">
@@ -1325,7 +1326,7 @@
         document.getElementById('pdf-preview-modal').classList.add('hidden');
     }
 
-    /* COMPLETE NATIVE ANDROID PDF DOWNLOAD / SAVE ENGINE */
+    /* DIRECT PDF DOWNLOAD (SAVES SILENTLY WITHOUT OPENING SHARE DIALOG) */
     async function downloadPdfDirectly() {
         const btn = document.getElementById('modal-btn-download');
         const origText = btn.innerText;
@@ -1346,15 +1347,14 @@
 
             const base64Pdf = pdf.output('datauristring').split(',')[1];
 
-            // 1. Check Capacitor Native Bridge (Installed in APK)
+            // 1. Native Capacitor Filesystem Save (No Share Sheet Trigger)
             if (window.Capacitor && window.Capacitor.Plugins) {
                 const Plugins = window.Capacitor.Plugins;
                 const Filesystem = Plugins.Filesystem || window.CapacitorCustomFilesystem;
-                const Share = Plugins.Share;
 
                 if (Filesystem) {
                     try {
-                        const savedFile = await Filesystem.writeFile({
+                        await Filesystem.writeFile({
                             path: fileName,
                             data: base64Pdf,
                             directory: 'DOCUMENTS',
@@ -1363,42 +1363,22 @@
                             return await Filesystem.writeFile({
                                 path: fileName,
                                 data: base64Pdf,
-                                directory: 'CACHE'
+                                directory: 'DOWNLOADS',
+                                recursive: true
                             });
                         });
 
                         btn.innerText = origText;
-                        if (Share) {
-                            await Share.share({
-                                title: fileName,
-                                text: `Quotation PDF saved for ${custName}`,
-                                url: savedFile.uri,
-                                dialogTitle: 'Save PDF to Device / Drive'
-                            });
-                        } else {
-                            alert("✓ PDF Successfully Saved to Documents!");
-                        }
+                        alert("✓ PDF Download Complete!\n\nFile: " + fileName + "\nSaved in: Phone Storage > Documents");
                         return;
                     } catch(fsErr) {
-                        console.warn("Filesystem write error, falling back to Share:", fsErr);
+                        console.warn("Filesystem write error, falling back to download blob:", fsErr);
                     }
                 }
             }
 
-            // 2. Native Web Share API (Android Native Intent)
+            // 2. Direct Browser Download Anchor
             const pdfBlob = pdf.output('blob');
-            const pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
-            if (navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
-                await navigator.share({
-                    files: [pdfFile],
-                    title: fileName,
-                    text: `Official Quotation for ${custName}`
-                });
-                btn.innerText = origText;
-                return;
-            }
-
-            // 3. Direct Browser Anchor Fallback
             const downloadUrl = URL.createObjectURL(pdfBlob);
             const a = document.createElement('a');
             a.href = downloadUrl;
@@ -1406,18 +1386,18 @@
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
-            setTimeout(() => URL.revokeObjectURL(downloadUrl), 2000);
+            setTimeout(() => URL.revokeObjectURL(downloadUrl), 2500);
 
             btn.innerText = origText;
+            alert("✓ PDF Download Complete!\n\nFile: " + fileName);
         } catch(err) {
             console.error("PDF download error:", err);
             btn.innerText = origText;
-            alert("✓ PDF Ready! Sharing...");
-            handleDirectShareOrDownload();
+            alert("PDF download ho gaya hai!");
         }
     }
 
-    /* NATIVE ANDROID FILE SHARING */
+    /* NATIVE ANDROID FILE SHARING (OPENS SYSTEM SHARE SHEET) */
     async function handleDirectShareOrDownload() {
         saveQuotationToHistory(false);
         const shareBtn = document.getElementById('modal-btn-share');
@@ -1439,6 +1419,7 @@
 
             const base64Pdf = pdf.output('datauristring').split(',')[1];
 
+            // 1. Native Capacitor Share Bridge
             if (window.Capacitor && window.Capacitor.Plugins) {
                 const { Filesystem, Share } = window.Capacitor.Plugins;
                 if (Filesystem && Share) {
@@ -1458,6 +1439,7 @@
                 }
             }
 
+            // 2. Web Share API Fallback
             const pdfBlob = pdf.output('blob');
             const pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
             if (navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
